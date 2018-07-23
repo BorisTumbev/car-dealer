@@ -1,4 +1,4 @@
-<h1>Books</h1>
+<h1>Vehicles</h1>
 
 <table border="1">
 <thead>
@@ -13,6 +13,8 @@
     <td>{{ vehicle.get_v_type_display }}</td>
     
     <td><a href="{% url "detail" vehicle.id %}">view</a></td>
+    <td><a href="{% url "edit" vehicle.id %}">edit</a></td>
+    <td><a href="{% url "delete" vehicle.id %}">delete</a></td>
     
     {% endfor %}
 </tbody>

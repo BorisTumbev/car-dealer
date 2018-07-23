@@ -1,7 +1,6 @@
-<h1>Vehicle Create</h1>
-{{errorMsg}}
+<h1>Vehicle Delete</h1>
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    Are you sure you want to delete "{{ object }}" ?
     <input type="submit" value="Submit" />
 </form>

@@ -6,11 +6,26 @@ from .choices import *
 
 curr_year = datetime.datetime.now().year
 
+class Make(models.Model):
+    objects = models.Manager()
+
+    name = models.CharField(max_length=15)
+    def __str__(self):
+        return self.name
+
+class Model(models.Model):
+    objects = models.Manager()
+
+    name = models.CharField(max_length=15)
+    make = models.ForeignKey(Make,on_delete = models.PROTECT)
+    def __str__(self):
+        return self.name
+        
 class Vehicle(models.Model):
     objects      = models.Manager()
 
-    brand        = models.CharField(max_length=15)
-    model        = models.CharField(max_length=15)
+    make         = models.ForeignKey(Make,on_delete = models.PROTECT,null=True)
+    model        = models.ForeignKey(Model,on_delete = models.PROTECT)
     v_type       = models.CharField(max_length=2,choices=vehicle_types)
     engine_type  = models.CharField(max_length=1,choices=engine_types)
     transmission = models.CharField(max_length=1,choices=transmission_types)
@@ -23,3 +38,6 @@ class Vehicle(models.Model):
     sold         = models.BooleanField(default=False)
     created_at   = models.DateTimeField(auto_now_add=True)
     description  = models.TextField(default='')
+
+    def __str__(self):
+        return self.reg_number
