@@ -1,0 +1,21 @@
+<h1>Books</h1>
+
+<table border="1">
+<thead>
+    <tr>
+    <th>Name</th>
+   
+    </tr>
+</thead>
+<tbody>
+    {% for vehicle in object_list %}
+    <tr>
+    <td>{{ vehicle.get_v_type_display }}</td>
+    
+    <td><a href="{% url "detail" vehicle.id %}">view</a></td>
+    
+    {% endfor %}
+</tbody>
+</table>
+
+{% comment %} <a href="{% url "book_new" %}">New</a> {% endcomment %}
