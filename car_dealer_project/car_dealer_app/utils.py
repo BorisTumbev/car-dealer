@@ -1,4 +1,9 @@
 #from enum import Enum
+import datetime
+
+
+curr_year = datetime.datetime.now().year
+
 
 conditions         = (('N','New'),
                       ('U','Used'))

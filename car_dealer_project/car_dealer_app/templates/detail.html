@@ -1,3 +1,36 @@
 <h1>Vehicle Details</h1>
-<h2>Name: {{object.get_v_type_display}}</h2>
 
+
+<table border="1">
+        <thead>
+            <tr>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Type</th>
+            <th>Reg Number</th>
+            <th>Engine Type</th>
+            <th>Transmission</th>
+            <th>Condition</th>
+            <th>Year</th>
+            <th>Price</th>
+
+            </tr>
+        </thead>
+        <tbody>
+           
+            <tr>
+            <td>{{ object.make }}</td>
+            <td>{{ object.model }}</td>
+            <td>{{ object.get_v_type_display }}</td>
+            <td>{{ object.reg_number }}</td>
+            <td>{{ object.get_engine_type_display }}</td>
+            <td>{{ object.get_transmission_display }}</td>
+            <td>{{ object.get_condition_display }}</td>
+            <td>{{ object.year }}</td>
+            <td>{{ object.price }}</td>
+            <img src="{{object.image.url}}" width='240' >
+                
+                
+          
+        </tbody>
+        </table>

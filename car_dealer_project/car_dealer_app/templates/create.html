@@ -1,6 +1,6 @@
-<h1>Vehicle Create</h1>
+<h1>Create </h1>
 {{errorMsg}}
-<form method="post">
+<form method="post" enctype='multipart/form-data'>
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Submit" />

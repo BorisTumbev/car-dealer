@@ -1,10 +1,9 @@
 from django.db import models
 from django.core.validators import MaxValueValidator
-import datetime
-from .choices import *
+from .utils import *
+from django.contrib.auth.models import User
 
 
-curr_year = datetime.datetime.now().year
 
 class Make(models.Model):
     objects = models.Manager()
@@ -23,6 +22,7 @@ class Model(models.Model):
         
 class Vehicle(models.Model):
     objects      = models.Manager()
+    user         = models.ForeignKey(User,on_delete=models.PROTECT)
 
     make         = models.ForeignKey(Make,on_delete = models.PROTECT,null=True)
     model        = models.ForeignKey(Model,on_delete = models.PROTECT)
@@ -34,7 +34,7 @@ class Vehicle(models.Model):
     year         = models.PositiveIntegerField(validators=[MaxValueValidator(curr_year)],null=True)
     price        = models.PositiveIntegerField(null=True)
 
-    #image        = models.ImageField(upload_to = 'images/')
+    image        = models.ImageField(upload_to = 'images/',default='images/default_image.jpg')
     sold         = models.BooleanField(default=False)
     created_at   = models.DateTimeField(auto_now_add=True)
     description  = models.TextField(default='')
