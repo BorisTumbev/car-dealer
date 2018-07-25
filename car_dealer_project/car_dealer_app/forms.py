@@ -16,13 +16,13 @@ class MyForm(ModelForm):
 
 class VehicleForm(MyForm):
     make = forms.ModelChoiceField(
-       required=False,
+       required=True,
        queryset=Make.objects.all(),
        widget=RelatedFieldWidgetCanAdd(Make, related_url="create_make")
                                 )
     model = forms.ModelChoiceField(
-       required=False,
-       queryset=Make.objects.all(),
+       required=True,
+       queryset=Model.objects.all(),
        widget=RelatedFieldWidgetCanAdd(Make, related_url="create_model")
                                 )
     class Meta:
