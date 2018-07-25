@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from .models import Vehicle, Make, Model
 from django import forms
+from .utils import RelatedFieldWidgetCanAdd
 
 class MyForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -14,8 +15,16 @@ class MyForm(ModelForm):
 
 
 class VehicleForm(MyForm):
-
-
+    make = forms.ModelChoiceField(
+       required=False,
+       queryset=Make.objects.all(),
+       widget=RelatedFieldWidgetCanAdd(Make, related_url="create_make")
+                                )
+    model = forms.ModelChoiceField(
+       required=False,
+       queryset=Make.objects.all(),
+       widget=RelatedFieldWidgetCanAdd(Make, related_url="create_model")
+                                )
     class Meta:
         model  = Vehicle
         exclude = ('sell_status','created_at','user')

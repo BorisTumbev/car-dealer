@@ -110,12 +110,13 @@ def sell_vehicle(request,id):
     obj = get_object_or_404(Vehicle,id=id)
     if request.user.is_superuser:
         obj.sell_status= "S"
-        obj.save()
+        #obj.save()
        
     else:
         obj.sell_status = "P"
-        obj.save()
-
+        #obj.save()
+    obj.save()
+    
     return redirect('vehicle_list')
 
 
