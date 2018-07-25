@@ -14,6 +14,8 @@
                                     <th>Model</th>
                                     <th>Type</th>
                                     <th>Reg Number</th>
+                                    <th>Status</th>
+                                    <th>From user</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -25,6 +27,8 @@
                                         <td>{{ vehicle.model }}</td>
                                         <td>{{ vehicle.get_v_type_display }}</td>
                                         <td>{{ vehicle.reg_number }}</td>
+                                        <td>{{ vehicle.get_sell_status_display }}</td>
+                                        <td>{{ vehicle.user.username }}</td>
                                         
                                         
                                         <td><a href="{% url "detail" vehicle.id %}">view</a></td>

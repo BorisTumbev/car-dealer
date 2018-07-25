@@ -9,18 +9,24 @@ from django.db.models import Q
 
 @login_required
 def create_obj(request,i_form):
-    if not Make.objects.all() and not Model.objects.all():
-        return render(request, './create.html', {'errorMsg':'Create Make and Model first'})
+    
+    # if not Make.objects.all():
+    #     return render(request, './create.html', {'errorMsg':'Create Make and Model first'})
 
     form = i_form(request.POST or None,request.FILES or None,user=request.user)
+
     if form.is_valid():
         form.save()
         return redirect('vehicle_list')
 
     return render(request, './create.html', {'form':form})
 
+
+
+
+
 @login_required
-def vehicle_list(request,all_vehicles=False,all_sold=False):
+def vehicle_list(request,status="A",all_vehicles=False):
 
     query = request.GET.get('q')
     if query:
@@ -32,16 +38,21 @@ def vehicle_list(request,all_vehicles=False,all_sold=False):
                                         
         return render(request,'./list.html',{'object_list':vehicles})
 
-    if all_sold:
-        vehicles = Vehicle.objects.filter(sold=True)
+    if status=="S":
+        vehicles = Vehicle.objects.filter(sell_status="S")
         return render(request,'./list.html',{'object_list':vehicles})
 
+    if status=="P":
+        vehicles = Vehicle.objects.filter(sell_status="P")
+        return render(request,'./list.html',{'object_list':vehicles})
 
     if all_vehicles:
-        vehicles = Vehicle.objects.filter(sold=False)
+        vehicles = Vehicle.objects.filter(Q(sell_status="A")|Q(sell_status="P"))
         return render(request,'./list.html',{'object_list':vehicles})
 
-    vehicles = Vehicle.objects.filter(sold=False,user=request.user)
+
+
+    vehicles = Vehicle.objects.filter(Q(sell_status="A")|Q(sell_status="P"),user=request.user)
 
 
 
@@ -57,10 +68,12 @@ def vehicle_detail(request,id):
     return render(request,'./detail.html',{'object':vehicle})
 
 @login_required
-def vehicle_edit(request,id,i_form,model):
+def edit_obj(request,id,i_form,model):
 
-    obj = get_object_or_404(model,id=id,user=request.user)
-  
+    if model==Make or model==Model:
+        obj = get_object_or_404(model,id=id)
+    else:  
+        obj = get_object_or_404(model,id=id,user=request.user)
 
     form = i_form(request.POST or None,request.FILES or None, instance=obj,user=request.user)
 
@@ -72,19 +85,12 @@ def vehicle_edit(request,id,i_form,model):
 
 
 @superuser_required
-def vehicle_delete(request,id,model):
+def delete_obj(request,id,model):
     obj = get_object_or_404(model,id=id)
     if request.method=='POST':
         obj.delete()
         return redirect('vehicle_list')
     return render(request, './delete.html', {'object':obj})
-
-
-# def serach(request):
-    
-#     if request.method == 'GET':
-
-#         search_query = request.GET.get('search_box', None)
 
 
 @superuser_required
@@ -102,22 +108,31 @@ def create_user(request):
 @login_required
 def sell_vehicle(request,id):
     obj = get_object_or_404(Vehicle,id=id)
-    obj.sold= True
-    obj.save()
+    if request.user.is_superuser:
+        obj.sell_status= "S"
+        obj.save()
+       
+    else:
+        obj.sell_status = "P"
+        obj.save()
+
     return redirect('vehicle_list')
 
-# def calc(request):
 
-#     if request.method == 'POST':
-#         form = SellForm(request.POST)
 
-#         if form.is_valid():
-#             field1 = form.cleaned_data.get('field1')
-            
-#             return render(request,'../templates/answ.html', {'answ': field1})
-#             #return HttpResponseRedirect('/index')
-#     else:
-#         form = SellForm()
+def list_models(request,model):
+    query = request.GET.get('q')
+    if query:
+        object_list = model.objects.filter(name__icontains=query)
+        dic = {'object_list':object_list}                       
+        if model==Model:
+            return render(request,'./list_models.html',dic)
+        else:
+            return render(request,'./list_makes.html',dic)
 
-#     return render(request,'../templates/calc.html', {'form': form})
+    object_list = model.objects.all()
 
+    if model==Model:
+        return render(request,'./list_models.html',{'object_list':object_list})
+    else:
+        return render(request,'./list_makes.html',{'object_list':object_list})

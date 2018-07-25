@@ -12,7 +12,7 @@ transmission_types = (('A','Auto'),
                       ('M','Manual'),
                       ('S','Semi-auto')) 
 
-engine_types       = (('D','Diesl'),
+engine_types       = (('D','Disel'),
                       ('P','Petrol'),
                       ('E','Electric'),
                       ('H','Hybrid'))
@@ -22,7 +22,13 @@ vehicle_types      = (('A','Automobile'),
                      ('B','Bus'),
                      ('T','Truck'))
 
+sell_status        =(('A','Active'),
+                     ('S','Sold'),
+                     ('P','Pending'),
+                     ('D','Declined')
 
+
+)
 
 # class Conditions(Enum):
 #     New  = 'New'

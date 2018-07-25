@@ -63,6 +63,10 @@
                     <li>
                             <a href="{% url "create_user" %}">create user</a>
                     </li>
+
+                    <li>
+                            <a href="{% url "pending_list" %}">pending vehicles</a>
+                    </li>
                     {%endif%}
                     <li>
                             <a href="{% url "my_list" %}">my vehicles</a>
@@ -74,7 +78,12 @@
                     <li>
                             <a href="{% url "sold_list" %}">sold vehicles</a>
                     </li>
-                    
+                    <li>
+                            <a href="{% url "model_list" %}">model list</a>
+                    </li>
+                    <li>
+                            <a href="{% url "make_list" %}">make list</a>
+                    </li>
                      
                 </ul>
              </div>

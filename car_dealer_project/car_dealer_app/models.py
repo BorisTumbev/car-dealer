@@ -16,7 +16,7 @@ class Model(models.Model):
     objects = models.Manager()
 
     name = models.CharField(max_length=15)
-    make = models.ForeignKey(Make,on_delete = models.PROTECT)
+    make = models.ForeignKey(Make,on_delete = models.CASCADE)
     def __str__(self):
         return self.name
         
@@ -24,8 +24,8 @@ class Vehicle(models.Model):
     objects      = models.Manager()
     user         = models.ForeignKey(User,on_delete=models.PROTECT)
 
-    make         = models.ForeignKey(Make,on_delete = models.PROTECT,null=True)
-    model        = models.ForeignKey(Model,on_delete = models.PROTECT)
+    make         = models.ForeignKey(Make,on_delete = models.CASCADE,null=True)
+    model        = models.ForeignKey(Model,on_delete = models.CASCADE)
     v_type       = models.CharField(max_length=2,choices=vehicle_types)
     engine_type  = models.CharField(max_length=1,choices=engine_types)
     transmission = models.CharField(max_length=1,choices=transmission_types)
@@ -35,7 +35,7 @@ class Vehicle(models.Model):
     price        = models.PositiveIntegerField(null=True)
 
     image        = models.ImageField(upload_to = 'images/',default='images/default_image.jpg')
-    sold         = models.BooleanField(default=False)
+    sell_status  = models.CharField(max_length=1,choices=sell_status,default="A")
     created_at   = models.DateTimeField(auto_now_add=True)
     description  = models.TextField(default='')
 
