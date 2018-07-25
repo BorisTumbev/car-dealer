@@ -14,11 +14,12 @@ urlpatterns = [
     path('my_list',views.vehicle_list, name='my_list'),
     path('sold_list',views.vehicle_list,{'all_sold':True}, name='sold_list'),
 
-    path('detail,<id>',views.vehicle_detail, name='detail'),
-    path('edit,<id>',views.vehicle_edit,{'i_form':VehicleForm,'model':Vehicle}, name='edit'),
-    path('delete,<id>',views.vehicle_delete,{'model':Vehicle}, name='delete'),
+    path('detail/<id>',views.vehicle_detail, name='detail'),
+    path('edit/<id>',views.vehicle_edit,{'i_form':VehicleForm,'model':Vehicle}, name='edit'),
+    path('delete/<id>',views.vehicle_delete,{'model':Vehicle}, name='delete'),
+    path('delete_make/<id>',views.vehicle_delete,{'model':Make}, name='delete_make'),
 
     path('create_user',views.create_user, name='create_user'),
-    path('sell_vehicle,<id>',views.sell_vehicle, name='sell_vehicle')
+    path('sell_vehicle/<id>',views.sell_vehicle, name='sell_vehicle')
 
 ]

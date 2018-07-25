@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from .utils import *
 from django.contrib.auth.models import User
 
@@ -31,7 +31,7 @@ class Vehicle(models.Model):
     transmission = models.CharField(max_length=1,choices=transmission_types)
     condition    = models.CharField(max_length=1,choices=conditions)
     reg_number   = models.CharField(max_length=10,default='',unique=True)
-    year         = models.PositiveIntegerField(validators=[MaxValueValidator(curr_year)],null=True)
+    year         = models.PositiveIntegerField(validators=[MinValueValidator(1885),MaxValueValidator(curr_year)],null=True)
     price        = models.PositiveIntegerField(null=True)
 
     image        = models.ImageField(upload_to = 'images/',default='images/default_image.jpg')

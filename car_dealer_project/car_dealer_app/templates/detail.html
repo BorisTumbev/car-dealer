@@ -1,7 +1,13 @@
+{%extends "base.html"%}
 <h1>Vehicle Details</h1>
 
-
-<table border="1">
+{%block content%}
+<div class="row">
+                    
+        <div class="col-lg-6 col-md-6">
+            <h5>Car Details</h5>
+            <div class="table-responsive">
+                <table class="table">
         <thead>
             <tr>
             <th>Make</th>
@@ -13,6 +19,7 @@
             <th>Condition</th>
             <th>Year</th>
             <th>Price</th>
+            <th>Added at</th>
 
             </tr>
         </thead>
@@ -28,9 +35,15 @@
             <td>{{ object.get_condition_display }}</td>
             <td>{{ object.year }}</td>
             <td>{{ object.price }}</td>
+            <td>{{ object.created_at }}</td>
             <img src="{{object.image.url}}" width='240' >
                 
                 
           
         </tbody>
         </table>
+    </div>
+</div>
+</div>
+{%block search%}{%endblock search%}
+    {%endblock content%}

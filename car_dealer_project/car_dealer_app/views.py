@@ -120,3 +120,4 @@ def sell_vehicle(request,id):
 #         form = SellForm()
 
 #     return render(request,'../templates/calc.html', {'form': form})
+
