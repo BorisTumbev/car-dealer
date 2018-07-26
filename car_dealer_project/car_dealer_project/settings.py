@@ -112,7 +112,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'car_dealer_app/media')
 
-# FIXTURE_DIRS = '/fixtures/'
+#FIXTURE_DIRS = '/fixtures/'
 
 LOGIN_REDIRECT_URL = '/vehicle_list'
 
