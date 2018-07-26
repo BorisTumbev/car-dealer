@@ -4,7 +4,6 @@ from .utils import *
 from django.contrib.auth.models import User
 
 
-
 class Make(models.Model):
     objects = models.Manager()
 
