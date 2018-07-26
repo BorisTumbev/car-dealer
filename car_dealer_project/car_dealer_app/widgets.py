@@ -5,7 +5,9 @@ from django.conf import settings
 
 
 class RelatedFieldWidgetCanAdd(widgets.Select):
-
+    """
+    widget for adding new object for foreign key dropdown
+    """
     def __init__(self, related_model, related_url=None, *args, **kw):
 
         super().__init__(*args, **kw)

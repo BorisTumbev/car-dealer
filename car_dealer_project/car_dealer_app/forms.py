@@ -4,6 +4,9 @@ from django import forms
 from .widgets import RelatedFieldWidgetCanAdd
 
 class MyForm(ModelForm):
+    """
+    form for overriding __init__ and save method to get and save user from session
+    """
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
@@ -13,8 +16,11 @@ class MyForm(ModelForm):
         return super().save(*args, **kwargs)
 
 
-
 class VehicleForm(MyForm):
+
+    """
+    form for vehicle model
+    """
     make = forms.ModelChoiceField(
        required=True,
        queryset=Make.objects.all(),
@@ -31,12 +37,18 @@ class VehicleForm(MyForm):
        
 
 class MakeForm(MyForm):
+    """
+    form for Make model
+    """
     class Meta:
         model  = Make
         fields = '__all__'
 
 
 class CarModelForm(MyForm):
+    """
+    form for Car Model model
+    """
     make = forms.ModelChoiceField(
        required=True,
        queryset=Make.objects.all(),
@@ -45,7 +57,3 @@ class CarModelForm(MyForm):
     class Meta:
         model  = Model
         fields = '__all__'
-
-
-class SellForm(ModelForm):
-    sell_for = forms.IntegerField(label="sold for")

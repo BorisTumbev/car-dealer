@@ -1,14 +1,12 @@
 ﻿
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin</title>
 	<!-- BOOTSTRAP STYLES-->
     <link href="../static/css/bootstrap.css" rel="stylesheet" />
     <!-- CUSTOM STYLES-->
-    <link href="../static/css/custom.css" rel="stylesheet" />
-    
+    <link href="../static/css/custom.css" rel="stylesheet" />   
 </head>
+
 <body>     
     <div id="wrapper">
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -24,15 +22,11 @@
                     </a>
                 </div>
               
-                 <span class="logout-spn" >
+                <span class="logout-spn" >
                     {% if user.is_authenticated %}
-                    Hi {{ user.username  }}
-                  <a href="{% url 'logout' %}">/ Logout</a>  
+                        Hi {{ user.username  }}
+                        <a href="{% url 'logout' %}">/ Logout</a>  
                     {% endif %}
-   
-
-
-
                 </span>
             </div>
         </div>
@@ -41,7 +35,7 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
             
-                    <li >
+                    <li>
                         <a href="{% url "create_make" %}">Add Make</a>
                     </li>
 
@@ -53,34 +47,31 @@
                             <a href="{% url "create_vehicle" %}">Add Vehicle</a>
                     </li>
                     {%if user.is_superuser%}   
-                    <li>
+                        <li>
                             <a href="{% url "create_user" %}">Add Employee</a>
-                    </li>
+                        </li>
 
-                    <li>
+                        <li>
                             <a href="{% url "pending_list" %}">Pending Vehicles</a>
-                    </li>
+                        </li>
                     {%endif%}
                     <li>
-                            <a href="{% url "my_list" %}">My Vehicles</a>
-                    </li>
-
-                    <li>
-                            <a href="{% url "vehicle_list" %}">All Vehicles</a>
+                        <a href="{% url "my_list" %}">My Vehicles</a>
                     </li>
                     <li>
-                            <a href="{% url "sold_list" %}">Sold Vehicles/Archive</a>
+                        <a href="{% url "vehicle_list" %}">All Vehicles</a>
                     </li>
                     <li>
-                            <a href="{% url "model_list" %}">Model List</a>
+                        <a href="{% url "sold_list" %}">Sold Vehicles/Archive</a>
                     </li>
                     <li>
-                            <a href="{% url "make_list" %}">Make List</a>
+                        <a href="{% url "model_list" %}">Model List</a>
                     </li>
-                     
+                    <li>
+                        <a href="{% url "make_list" %}">Make List</a>
+                    </li>
                 </ul>
              </div>
-
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
@@ -88,14 +79,26 @@
                 <div class="row">
                     <div class="col-md-12">
                     {%block search%}
-                            <form method='GET' action=''>
-                                <input type="text" name='q' placeholder='Search cars' value='{{request.GET.q}}' >
-                                <input type="submit" value='Search' />
-                            </form>
-                    {%endblock search%}  
-                    	<div id="content">
-        			        {% block content %} {% endblock content %} 
-                            <div class="pagination">
+                        <form method='GET' action=''>
+                            <input type="text" name='q' placeholder='Search' value='{{request.GET.q}}' >
+                            <input type="submit" value='Search' />
+                        </form>
+                    {%endblock search%}
+
+                    {% if messages %}
+                        <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                        </ul>
+                    {% endif %}
+                    	
+                            {% block content %}
+                            <!-- insert child content here  -->
+                            {% endblock content %}
+
+                            {%block pagination%}
+                                <div class="pagination">
                                     <span class="step-links">
                                         {% if object_list.has_previous %}
                                             <a href="?page=1">&laquo; first</a>
@@ -111,14 +114,13 @@
                                             <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
                                         {% endif %}
                                     </span>
+                                </div>
+                            {%endblock pagination%}        
                             </div>
     		            </div>
                     </div>
                 </div>              
-                 <!-- /. ROW  -->
-                  <hr />
-              
-                 <!-- /. ROW  -->           
+                       
              </div>
              <!-- /. PAGE INNER  -->
             </div>

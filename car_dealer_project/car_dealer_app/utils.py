@@ -1,20 +1,26 @@
 
-import datetime
 from django.core.paginator import Paginator
+import datetime
 
 
 def pagination(request,object_list):
+    """
+    function for making pages
+    """
 
-    paginator = Paginator(object_list, 3)
+    paginator = Paginator(object_list, 10)
 
     page = request.GET.get('page')
     limited_obj = paginator.get_page(page)
     return limited_obj
 
 
-
+#current date for "created at" property in Vehicle model
 curr_year = datetime.datetime.now().year
 
+"""
+field choices for the models
+"""
 
 conditions         = (
                 ('N','New'),
@@ -45,5 +51,5 @@ sell_status        = (
                 ('A','Active'),
                 ('S','Sold'),
                 ('P','Pending'),
-                ('D','Declined')
+                ('N','Neutral')
                     )

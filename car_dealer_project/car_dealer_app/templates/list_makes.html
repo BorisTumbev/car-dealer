@@ -1,46 +1,30 @@
 {%extends "base.html" %}
 
-                {%block content%}   
-                <div class="row">
-                    
-                    <div class="col-lg-6 col-md-6">
-                        {% comment %} <h5>Makes</h5> {% endcomment %}
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr class="success">
-                                    
-                                    <th>Makes</th>
-                                   
-                                   
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for obj in object_list %}
-                                       
-                                        
-                                        <tr class="warning">
-                                    
+{%block content%}   
+    <div class="row"> 
+        <div class="col-lg-6 col-md-6">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr class="success">
+                            <th>Makes</th>
+                        </tr>
+                        </thead>
+                            <tbody>
+                                {% for obj in object_list %}
+                                    <tr class="warning">
                                         <td>{{ obj.name }}</td>
-                                        
-                                        
-                                        
-                                        
-                                       
                                         {%if user.is_superuser%}
-                                        <td><a href="{% url "edit_make" obj.id %}">edit</a></td>
-                                        <td><a href="{% url "delete_make" obj.id %}">delete</a></td>
+                                            <td><a href="{% url "edit_make" obj.id %}">edit</a></td>
+                                            <td><a href="{% url "delete_make" obj.id %}">delete</a></td>
                                         {%endif%}
-                                        
-                                        
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            
-            {%endblock content%}
+            </div>
+{%endblock content%}
 
              
         
