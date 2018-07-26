@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 
 def pagination(request,object_list):
 
-    paginator = Paginator(object_list, 2)
+    paginator = Paginator(object_list, 3)
 
     page = request.GET.get('page')
     limited_obj = paginator.get_page(page)
