@@ -12,9 +12,9 @@
                                     
                                     <th>Make</th>
                                     <th>Model</th>
-                                    <th>Type</th>
+                                    <th><a href="{% url "order_type"%}">Type</a></th>
                                     <th>Reg Number</th>
-                                    <th>Price</th>
+                                    <th><a href="{% url "order_price"%}">Price</a></th>
                                     <th>Status</th>
                                     <th>From user</th>
                                     </tr>
@@ -32,6 +32,7 @@
                                         <td>{{ vehicle.get_v_type_display }}</td>
                                         <td>{{ vehicle.reg_number }}</td>
                                         <td>{{ vehicle.price }}</td>
+                                        
                                         <td>{{ vehicle.get_sell_status_display }}</td>
                                         <td>{{ vehicle.user.username }}</td>
                                         

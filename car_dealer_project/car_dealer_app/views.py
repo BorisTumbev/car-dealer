@@ -31,7 +31,8 @@ def vehicle_list(request,status='D',all_vehicles=False):
         vehicles = Vehicle.objects.filter(
                                         Q(reg_number__icontains=query) |
                                         Q(make__name__icontains=query) |
-                                        Q(model__name__icontains=query)
+                                        Q(model__name__icontains=query)|
+                                        Q(v_type__icontains=query)
                                         ).distinct()
                                         
         return render(request,'./list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
@@ -127,3 +128,8 @@ def list_models(request,model):
     else:
         return render(request,'./list_makes.html',{'object_list':pagination(request,object_list)})
 
+def obj_order(request,order):
+
+    vehicles = Vehicle.objects.order_by('-'+order)
+
+    return render(request,'./list.html',{'object_list':pagination(request,vehicles)})

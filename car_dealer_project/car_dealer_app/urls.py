@@ -28,6 +28,8 @@ urlpatterns = [
     path('delete_make/<id>',views.delete_obj,{'model':Make}, name='delete_make'),
     path('delete_model/<id>',views.delete_obj,{'model':Model}, name='delete_model'),
 
+    path('order_price',views.obj_order,{'order':'price'},name='order_price'),
+    path('order_type',views.obj_order,{'order':'v_type'},name='order_type'),
 
     path('create_user',views.create_user, name='create_user'),
 

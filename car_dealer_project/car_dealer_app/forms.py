@@ -37,6 +37,7 @@ class MakeForm(MyForm):
 
 
 class CarModelForm(MyForm):
+    
     class Meta:
         model  = Model
         fields = '__all__'
