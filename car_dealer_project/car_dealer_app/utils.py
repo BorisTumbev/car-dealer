@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 
 
 def pagination(request,object_list):
+
     paginator = Paginator(object_list, 2)
 
     page = request.GET.get('page')

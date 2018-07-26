@@ -11,7 +11,7 @@ urlpatterns = [
     path('create_vehicle',views.create_obj,{'i_form':VehicleForm}, name='create_vehicle'),
 
     path('vehicle_list',views.vehicle_list,{'all_vehicles':True}, name='vehicle_list'),
-    path('my_list',views.vehicle_list, name='my_list'),
+    path('my_list',views.vehicle_list,{'status':'A'}, name='my_list'),
     path('sold_list',views.vehicle_list,{'status':'S'}, name='sold_list'),
     path('pending_list',views.vehicle_list,{'status':'P'}, name='pending_list'),
 
