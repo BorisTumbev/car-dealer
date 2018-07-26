@@ -1,4 +1,4 @@
-#from enum import Enum
+
 import datetime
 from django.core.paginator import Paginator
 
@@ -16,27 +16,34 @@ def pagination(request,object_list):
 curr_year = datetime.datetime.now().year
 
 
-conditions         = (('N','New'),
-                      ('U','Used'))
+conditions         = (
+                ('N','New'),
+                ('U','Used')
+                    )
 
-transmission_types = (('A','Auto'),
-                      ('M','Manual'),
-                      ('S','Semi-auto')) 
+transmission_types = (
+                ('A','Auto'),
+                ('M','Manual'),
+                ('S','Semi-auto')
+                    ) 
 
-engine_types       = (('D','Disel'),
-                      ('P','Petrol'),
-                      ('E','Electric'),
-                      ('H','Hybrid'))
+engine_types       = (
+                ('D','Disel'),
+                ('P','Petrol'),
+                ('E','Electric'),
+                ('H','Hybrid')
+                    )
 
-vehicle_types      = (('A','Automobile'),
-                     ('M','Motorcycle'),
-                     ('B','Bus'),
-                     ('T','Truck'))
+vehicle_types      = (
+                ('A','Automobile'),
+                ('M','Motorcycle'),
+                ('B','Bus'),
+                ('T','Truck')
+                     )
 
-sell_status        =(('A','Active'),
-                     ('S','Sold'),
-                     ('P','Pending'),
-                     ('D','Declined')
-
-
-)
+sell_status        = (
+                ('A','Active'),
+                ('S','Sold'),
+                ('P','Pending'),
+                ('D','Declined')
+                    )

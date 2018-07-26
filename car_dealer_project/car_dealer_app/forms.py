@@ -27,7 +27,7 @@ class VehicleForm(MyForm):
                                 )
     class Meta:
         model  = Vehicle
-        exclude = ('sell_status','created_at','user')
+        exclude = ('sell_status','created_at','user','sold_for')
        
 
 class MakeForm(MyForm):
@@ -37,9 +37,15 @@ class MakeForm(MyForm):
 
 
 class CarModelForm(MyForm):
-    
+    make = forms.ModelChoiceField(
+       required=True,
+       queryset=Make.objects.all(),
+       widget=RelatedFieldWidgetCanAdd(Make, related_url="create_make")
+                                )
     class Meta:
         model  = Model
         fields = '__all__'
 
 
+class SellForm(ModelForm):
+    sell_for = forms.IntegerField(label="sold for")

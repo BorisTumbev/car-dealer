@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import VehicleForm
+from .forms import SellForm
 from .models import Vehicle, Make, Model
 from .decorators import superuser_required
 from .utils import pagination
@@ -111,7 +111,6 @@ def sell_vehicle(request,id,sell=True):
     obj.save()
     
     return redirect('sold_list')
-
 
 @login_required
 def list_models(request,model):
