@@ -30,6 +30,8 @@ urlpatterns = [
 
 
     path('create_user',views.create_user, name='create_user'),
-    path('sell_vehicle/<id>',views.sell_vehicle, name='sell_vehicle')
+
+    path('sell_vehicle/<id>',views.sell_vehicle, name='sell_vehicle'),
+    path('retrieve_vehicle/<id>',views.sell_vehicle,{'sell':False}, name='retrieve_vehicle')
 
 ]

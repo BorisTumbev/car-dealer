@@ -5,14 +5,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .decorators import superuser_required
 from django.db.models import Q
-
+from .utils import pagination
 
 @login_required
 def create_obj(request,i_form):
-    
-    # if not Make.objects.all():
-    #     return render(request, './create.html', {'errorMsg':'Create Make and Model first'})
-
+   
     form = i_form(request.POST or None,request.FILES or None,user=request.user)
 
     if form.is_valid():
@@ -20,8 +17,6 @@ def create_obj(request,i_form):
         return redirect('vehicle_list')
 
     return render(request, './create.html', {'form':form})
-
-
 
 
 
@@ -36,27 +31,27 @@ def vehicle_list(request,status="A",all_vehicles=False):
                                         Q(model__name__icontains=query)
                                         ).distinct()
                                         
-        return render(request,'./list.html',{'object_list':vehicles})
-
-    if status=="S":
-        vehicles = Vehicle.objects.filter(sell_status="S")
-        return render(request,'./list.html',{'object_list':vehicles})
-
-    if status=="P":
-        vehicles = Vehicle.objects.filter(sell_status="P")
-        return render(request,'./list.html',{'object_list':vehicles})
+        return render(request,'./list.html',{'object_list':pagination(request,vehicles)})
 
     if all_vehicles:
         vehicles = Vehicle.objects.filter(Q(sell_status="A")|Q(sell_status="P"))
-        return render(request,'./list.html',{'object_list':vehicles})
+        return render(request,'./list.html',{'object_list':pagination(request,vehicles)})
+
+    if status=="S":
+        vehicles = Vehicle.objects.filter(sell_status="S")
+        return render(request,'./list.html',{'object_list':pagination(request,vehicles)})
+
+    if status=="P":
+        vehicles = Vehicle.objects.filter(sell_status="P")
+        return render(request,'./list.html',{'object_list':pagination(request,vehicles)})
+
+    if status=="A":
+        vehicles = Vehicle.objects.filter(Q(sell_status="A")|Q(sell_status="P"),user=request.user)
+        return render(request,'./list.html',{'object_list':pagination(request,vehicles)})
 
 
-
-    vehicles = Vehicle.objects.filter(Q(sell_status="A")|Q(sell_status="P"),user=request.user)
-
-
-
-    return render(request,'./list.html',{'object_list':vehicles})
+    
+    
 
 
 
@@ -106,32 +101,31 @@ def create_user(request):
 
 
 @login_required
-def sell_vehicle(request,id):
+def sell_vehicle(request,id,sell=True):
     obj = get_object_or_404(Vehicle,id=id)
+
     if request.user.is_superuser:
-        obj.sell_status= "S"
-        #obj.save()
-       
+        if not sell:
+            obj.sell_status="A"
+        else:
+            obj.sell_status= "S"       
     else:
         obj.sell_status = "P"
-        #obj.save()
+    
     obj.save()
     
-    return redirect('vehicle_list')
+    return redirect('sold_list')
 
 
-
+@login_required
 def list_models(request,model):
+
     query = request.GET.get('q')
+
     if query:
         object_list = model.objects.filter(name__icontains=query)
-        dic = {'object_list':object_list}                       
-        if model==Model:
-            return render(request,'./list_models.html',dic)
-        else:
-            return render(request,'./list_makes.html',dic)
-
-    object_list = model.objects.all()
+    else:
+        object_list = model.objects.all()
 
     if model==Model:
         return render(request,'./list_models.html',{'object_list':object_list})

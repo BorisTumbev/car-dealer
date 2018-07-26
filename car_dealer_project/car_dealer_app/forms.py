@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from .models import Vehicle, Make, Model
 from django import forms
-from .utils import RelatedFieldWidgetCanAdd
+from .widgets import RelatedFieldWidgetCanAdd
 
 class MyForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -42,7 +42,3 @@ class CarModelForm(MyForm):
         fields = '__all__'
 
 
-
-# class SellForm(forms.Form):
-#     field1 = forms.IntegerField(label="first field")
-    
