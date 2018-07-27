@@ -8,6 +8,9 @@
 ```
 python manage.py makemigrations
 python manage.py migrate
-python manage.py loaddata test_data.json /to populate DB with test data/
+python manage.py loaddata test_data.json
 python manage.py runserver
 ```
+after loaddata your superuser will be:
+- name: Admin
+- pass: adminadmin
