@@ -117,3 +117,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'car_dealer_app/media')
 LOGIN_REDIRECT_URL = '/vehicle_list'
 
 LOGOUT_REDIRECT_URL = '/'
+
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'test.mycode9999@gmail.com' 
+EMAIL_HOST_PASSWORD = 'testmycode9999' 
+EMAIL_PORT = 587 
+EMAIL_USE_TLS = True 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_SSL=False

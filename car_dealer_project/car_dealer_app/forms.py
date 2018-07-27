@@ -33,7 +33,7 @@ class VehicleForm(MyForm):
                                 )
     class Meta:
         model  = Vehicle
-        exclude = ('sell_status','created_at','user','sold_for')
+        exclude = ('sell_status','created_at','user')
        
 
 class MakeForm(MyForm):

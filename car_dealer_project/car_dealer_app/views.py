@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-
+from django.core.mail import send_mail
 from .models import Vehicle, Make, Model
 from .decorators import superuser_required
 from .utils import pagination
@@ -106,6 +106,7 @@ def create_user(request):
         form = UserCreationForm(request.POST or None)
         if form.is_valid():
             form.save()
+            messages.success(request, 'user created')
             return redirect('vehicle_list')
     else:
         form = UserCreationForm()
@@ -132,9 +133,9 @@ def sell_vehicle(request,id,sell=True):
     else:
         obj.sell_status = "P"
         obj.save()
+        send_mail('Selling request',request.user.username+" wants to sell "+obj.reg_number+" "+obj.make.name+" "+obj.model.name,'test.mycode9999@gmail.com',['test.mycode9999@gmail.com'],fail_silently=False,)
         messages.success(request, 'Request for selling sent')
         return redirect('my_list')
-    
     
     
 

@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 import datetime
 
 
+
 def pagination(request,object_list):
     """
     function for making pages
