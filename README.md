@@ -3,7 +3,7 @@
 
 - To try it out:
   1. clone master branch
-  2. go to /car_dealer_project
+  2. go to car-dealer/car_dealer_project
   3. in console type:
 ```
 python manage.py makemigrations
