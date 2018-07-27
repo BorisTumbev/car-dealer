@@ -11,6 +11,8 @@ python manage.py migrate
 python manage.py loaddata test_data.json
 python manage.py runserver
 ```
+"loaddata" is optional if you want to add test data to the system
+
 after loaddata your superuser will be:
 - name: Admin
 - pass: adminadmin
