@@ -10,20 +10,36 @@
 
         <input type="submit" value="Submit" />
     </form>
+   
 {%endblock content%}
 
 {%block search%}{%endblock search%}
 {%block pagination%}{%endblock pagination%}
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+{% comment %} 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
 <script>
+        FORM_RULES = {
+            '{{ form.year }}': 'required'
+            
+        };
+        FORM_MESSAGES = {
+            '{{ form.year }}': 'This field is required'
+        }; 
   $('#create').validate({
-   rules:{
-       year: "required"
-   },
-   messages:{
-       year:"qklqlq"
-   }
+
+    rules: {
+        year: {
+          required: true,
+          maxlength: 3
+        }
+      },
+      messages: {
+        name: {
+          required: "We need your email address to contact you",
+          maxlength: jQuery.validator.format("At least {0} characters required!")
+        }
+    }
+
   });
-</script>
+</script> {% endcomment %}

@@ -4,9 +4,11 @@ from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.core.mail import send_mail
-from .models import Vehicle, Make, Model
+from .models import RentalVehicle, Make, Model, SellVehicle
 from .decorators import superuser_required
 from .utils import pagination
+from .forms import RentalVehicleForm
+
 
 @login_required
 def create_obj(request,i_form):
@@ -17,15 +19,17 @@ def create_obj(request,i_form):
     form = i_form(request.POST or None,request.FILES or None,user=request.user)
 
     if form.is_valid():
+        
         form.save()
-        return redirect('vehicle_list')
+        return redirect('/')
 
     return render(request, './create.html', {'form':form})
 
 
 
+
 @login_required
-def vehicle_list(request,status='N',all_vehicles=False):
+def sell_veh_list(request,status='N',all_vehicles=False):
     """
     view for listing and sorting vehiclesS
     """
@@ -34,28 +38,28 @@ def vehicle_list(request,status='N',all_vehicles=False):
 
     query = request.GET.get('q')
     if query:
-        vehicles = Vehicle.objects.filter(
+        vehicles = SellVehicle.objects.filter(
                                         Q(reg_number__icontains=query) |
                                         Q(make__name__icontains=query) |
                                         Q(model__name__icontains=query)|
                                         Q(v_type__icontains=query)
                                         ).distinct()
                                         
-        return render(request,'./list_vehicle.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
-
+        return render(request,'./sell_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
+    
     if status=="A":
-        vehicles = Vehicle.objects.filter(Q(sell_status="A")|Q(sell_status="P"),user=request.user)
+        vehicles = SellVehicle.objects.filter(Q(sell_status="A")|Q(sell_status="P"),user=request.user)
 
     if status=="S":
-        vehicles = Vehicle.objects.filter(sell_status="S")
-        
+        vehicles = SellVehicle.objects.filter(sell_status="S")
+            
     if status=="P":
-        vehicles = Vehicle.objects.filter(sell_status="P")
+        vehicles = SellVehicle.objects.filter(sell_status="P")
         
     if all_vehicles:
-        vehicles = Vehicle.objects.filter(Q(sell_status="A")|Q(sell_status="P"))
+        vehicles = SellVehicle.objects.filter(Q(sell_status="A")|Q(sell_status="P"))
 
-    return render(request,'./list_vehicle.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
+    return render(request,'./sell_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
     
 
 @login_required
@@ -63,7 +67,7 @@ def vehicle_detail(request,id):
     """
     view for showing all information for a vehicle
     """
-    vehicle = get_object_or_404(Vehicle,id=id)
+    vehicle = get_object_or_404(SellVehicle,id=id)
 
     return render(request,'./detail.html',{'object':vehicle})
 
@@ -118,7 +122,7 @@ def sell_vehicle(request,id,sell=True):
     """
     view that changes sell_status of a Vehicle object
     """
-    obj = get_object_or_404(Vehicle,id=id)
+    obj = get_object_or_404(SellVehicle,id=id)
 
     if request.user.is_superuser:
         if not sell:
@@ -156,11 +160,11 @@ def list_models(request,model):
     else:
         return render(request,'./list_makes.html',{'object_list':pagination(request,object_list)})
 
-def obj_order(request,order):
-    """
-    view that orders vehicle object by price and type
-    """
+# def obj_order(request,order):
+#     """
+#     view that orders vehicle object by price and type
+#     """
 
-    vehicles = Vehicle.objects.order_by('-'+order)
+#     vehicles = Vehicle.objects.order_by('-'+order)
 
-    return render(request,'./list_vehicle.html',{'object_list':pagination(request,vehicles)})
+#     return render(request,'./list_vehicle.html',{'object_list':pagination(request,vehicles)})

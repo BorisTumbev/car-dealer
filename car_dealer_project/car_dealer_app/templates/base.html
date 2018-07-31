@@ -35,16 +35,19 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
             
-                    <li>
+                    {% comment %} <li>
                         <a href="{% url "create_make" %}">Add Make</a>
                     </li>
 
                     <li>
                             <a href="{% url "create_model" %}">Add Model</a>
                     </li>
-                   
+                    {% endcomment %}
                     <li>
-                            <a href="{% url "create_vehicle" %}">Add Vehicle</a>
+                            <a href="{% url "create_rental" %}">Add Rental Vehicle</a>
+                    </li>
+                    <li>
+                            <a href="{% url "create_sell" %}">Add Sell Vehicle</a>
                     </li>
                     {%if user.is_superuser%}   
                         <li>
@@ -59,8 +62,9 @@
                         <a href="{% url "my_list" %}">My Vehicles</a>
                     </li>
                     <li>
-                        <a href="{% url "vehicle_list" %}">All Vehicles</a>
+                        <a href="{% url "sell_list" %}">All Vehicles</a>
                     </li>
+                    
                     <li>
                         <a href="{% url "sold_list" %}">Sold Vehicles/Archive</a>
                     </li>
