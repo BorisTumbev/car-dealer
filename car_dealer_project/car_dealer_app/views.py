@@ -7,7 +7,7 @@ from django.core.mail import send_mail
 from .models import RentalVehicle, Make, Model, SellVehicle
 from .decorators import superuser_required
 from .utils import pagination
-from .forms import RentalVehicleForm
+from .forms import RentalVehicleForm,SellVehicleForm,CustomUserCreationForm
 
 
 @login_required
@@ -124,13 +124,13 @@ def create_user(request):
     view for creating user
     """
     if request.method == 'POST':
-        form = UserCreationForm(request.POST or None)
+        form = CustomUserCreationForm(request.POST or None,request.FILES or None)
         if form.is_valid():
             form.save()
             messages.success(request, 'user created')
-            return redirect('vehicle_list')
+            return redirect('sell_list')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, './registration/create_user.html', {'form': form})
 
 

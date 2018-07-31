@@ -1,7 +1,14 @@
 from django.forms import ModelForm
-from .models import RentalVehicle, Make, Model, SellVehicle
+from .models import RentalVehicle, Make, Model, SellVehicle,MyUser
 from django import forms
 from .widgets import RelatedFieldWidgetCanAdd
+from django.contrib.auth.forms import UserCreationForm
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = MyUser
+        fields = ('username','email','image','role')
+
 
 class MyForm(ModelForm):
     """

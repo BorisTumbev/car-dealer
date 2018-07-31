@@ -1,9 +1,16 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from .utils import *
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 import datetime
 
+class MyUser(AbstractUser):
+      
+    role  = models.CharField(max_length=15,choices=users_roles)
+    image = models.ImageField(upload_to = 'images/',default='images/default_user_pic.jpg') 
+    
+    def __str__(self):
+        return self.email
 
 class Make(models.Model):
     objects = models.Manager()
@@ -22,7 +29,7 @@ class Model(models.Model):
         
 class Vehicle(models.Model):
     objects      = models.Manager()
-    user         = models.ForeignKey(User,on_delete=models.PROTECT)
+    user         = models.ForeignKey(MyUser,on_delete=models.PROTECT)
 
     make         = models.ForeignKey(Make,on_delete = models.PROTECT,null=True)
     model        = models.ForeignKey(Model,on_delete = models.PROTECT)

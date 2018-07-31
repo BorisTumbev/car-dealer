@@ -114,7 +114,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'car_dealer_app/media')
 
 #FIXTURE_DIRS = '/fixtures/'
 
-LOGIN_REDIRECT_URL = '/vehicle_list'
+LOGIN_REDIRECT_URL = '/sell_list'
 
 LOGOUT_REDIRECT_URL = '/'
 
@@ -127,3 +127,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_SSL=False
+
+AUTH_USER_MODEL = 'car_dealer_app.MyUser'
