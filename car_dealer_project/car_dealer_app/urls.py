@@ -16,6 +16,7 @@ urlpatterns = [
 
     #urls for listing objects
 
+     path('rental_list',views.rental_veh_list, name='rental_list'),
    
     path('sell_list',views.sell_veh_list,{'all_vehicles':True}, name='sell_list'),
     path('my_list',views.sell_veh_list,{'status':'A'}, name='my_list'),
@@ -47,6 +48,9 @@ urlpatterns = [
 
     # path('order_price',views.obj_order,{'order':'price'},name='order_price'),
     # path('order_type',views.obj_order,{'order':'v_type'},name='order_type'),
+    path('rent_veh/<id>',views.rent_veh, name='rent_veh'),
+    path('return_veh/<id>',views.rent_veh,{'rent':False}, name='return_veh'),
+
 
     path('create_user',views.create_user, name='create_user'),
 

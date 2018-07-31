@@ -61,6 +61,23 @@ def sell_veh_list(request,status='N',all_vehicles=False):
 
     return render(request,'./sell_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
     
+def rental_veh_list(request):
+    errorMsg="Empty Records"
+
+
+    query = request.GET.get('q')
+    if query:
+        vehicles = RentalVehicle.objects.filter(
+                                        Q(reg_number__icontains=query) |
+                                        Q(make__name__icontains=query) |
+                                        Q(model__name__icontains=query)|
+                                        Q(v_type__icontains=query)
+                                        ).distinct()
+                                        
+        return render(request,'./rental_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
+    vehicles = RentalVehicle.objects.all()
+    return render(request,'./rental_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
+
 
 @login_required
 def vehicle_detail(request,id):
@@ -168,3 +185,15 @@ def list_models(request,model):
 #     vehicles = Vehicle.objects.order_by('-'+order)
 
 #     return render(request,'./list_vehicle.html',{'object_list':pagination(request,vehicles)})
+
+def rent_veh(request,id,rent=True):
+
+    obj = get_object_or_404(RentalVehicle,id=id)
+    if rent:
+        obj.rental_status = True
+    else:
+        obj.rental_status = False
+        
+    obj.save()
+
+    return redirect('rental_list')

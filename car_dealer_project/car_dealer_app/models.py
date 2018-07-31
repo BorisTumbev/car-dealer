@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from .utils import *
 from django.contrib.auth.models import User
-from datetime import datetime
+import datetime
 
 
 class Make(models.Model):
@@ -45,13 +45,13 @@ class RentalVehicle(Vehicle):
     rental_status         = models.BooleanField(default=False)
     rented_at             = models.DateTimeField(default=None,null=True)
 
-    # def save(self,*args,**kwargs):
-    #     if self.rental_status:
-    #         self.rented_at = datetime.datetime.now()
-    #     else:
-    #         self.rented_at = None
+    def save(self,*args,**kwargs):
+        if self.rental_status:
+            self.rented_at = datetime.datetime.now()
+        else:
+            self.rented_at = None
 
-    #     super().save(*args,**kwargs)
+        super().save(*args,**kwargs)
    
     def __str__(self):
         return self.reg_number
