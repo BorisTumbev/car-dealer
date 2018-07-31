@@ -1,7 +1,13 @@
 
 from django.core.paginator import Paginator
 import datetime
+from django.core.exceptions import ValidationError
 
+
+#current date for "created at" property in Vehicle model
+def curr_year_validator(value):
+    if value < 1855 or value > datetime.datetime.now().year:
+        raise ValidationError(('year {} is in the future!').format(value),params={'value': value},)
 
 
 def pagination(request,object_list):
@@ -16,8 +22,7 @@ def pagination(request,object_list):
     return limited_obj
 
 
-#current date for "created at" property in Vehicle model
-curr_year = datetime.datetime.now().year
+
 
 """
 field choices for the models

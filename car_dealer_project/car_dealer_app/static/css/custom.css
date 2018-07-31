@@ -151,4 +151,9 @@ min-height: 80px;
  
 }
 
+.errorList > li {
+    color:red;
+    font-size: 25px;
+}
+
 

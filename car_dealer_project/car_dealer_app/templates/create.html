@@ -1,14 +1,29 @@
 {%extends "base.html"%}
 
+
 {%block content%}
     <h1>Edit/Create </h1>
 
-    <form method="post" enctype='multipart/form-data'>
+    <form id="create" method="post" enctype='multipart/form-data'>
         {% csrf_token %}
         {{ form.as_p }} 
+
         <input type="submit" value="Submit" />
     </form>
 {%endblock content%}
 
 {%block search%}{%endblock search%}
 {%block pagination%}{%endblock pagination%}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+<script>
+  $('#create').validate({
+   rules:{
+       year: "required"
+   },
+   messages:{
+       year:"qklqlq"
+   }
+  });
+</script>

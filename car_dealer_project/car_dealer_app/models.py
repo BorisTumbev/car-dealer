@@ -30,7 +30,7 @@ class Vehicle(models.Model):
     transmission = models.CharField(max_length=1,choices=transmission_types)
     condition    = models.CharField(max_length=1,choices=conditions)
     reg_number   = models.CharField(max_length=10,default='',unique=True)
-    year         = models.PositiveIntegerField(validators=[MinValueValidator(1885),MaxValueValidator(curr_year)],null=True)
+    year         = models.PositiveIntegerField(validators=[curr_year_validator],null=True)
     price        = models.PositiveIntegerField(null=True)
     image        = models.ImageField(upload_to = 'images/',default='images/default_image.jpg')
     sell_status  = models.CharField(max_length=1,choices=sell_status,default="A")
