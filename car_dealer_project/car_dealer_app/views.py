@@ -67,6 +67,7 @@ def sell_veh_list(request,status='N',all_vehicles=False):
 def rental_veh_list(request):
     errorMsg="Empty Records"
 
+    form = RentalVehicleForm(request.POST or None,request.FILES or None,user=request.user)
 
     query = request.GET.get('q')
     if query:
@@ -79,7 +80,7 @@ def rental_veh_list(request):
                                         
         return render(request,'./rental_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
     vehicles = RentalVehicle.objects.all()
-    return render(request,'./rental_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
+    return render(request,'./rental_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg,'form':form})
 
 
 @login_required

@@ -51,6 +51,7 @@ class RentalVehicle(Vehicle):
     rental_price_per_day  = models.PositiveIntegerField()
     rental_status         = models.BooleanField(default=False)
     rented_at             = models.DateTimeField(default=None,null=True)
+    rented_until          = models.DateField(default=None,null=True)
 
     def save(self,*args,**kwargs):
         if self.rental_status:

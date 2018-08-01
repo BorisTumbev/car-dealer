@@ -42,7 +42,7 @@ class RentalVehicleForm(MyForm):
 
     class Meta:
         model  = RentalVehicle
-        exclude = ('rented_at','created_at','user','rental_status')
+        exclude = ('rented_at','created_at','user','rental_status','rented_until')
 
 class SellVehicleForm(MyForm):
 
