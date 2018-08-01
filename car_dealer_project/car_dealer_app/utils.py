@@ -29,40 +29,40 @@ def pagination(request,object_list):
 field choices for the models
 """
 
-users_roles        =(
+users_roles =(
     ('SRA','Sales_rent_agent'),
     ('SA','Sales_agent'),
     ('RA','Rental_agent')
 )
 
-conditions         = (
-                ('N','New'),
-                ('U','Used')
-                    )
+conditions = (
+    ('N','New'),
+    ('U','Used')
+)
 
 transmission_types = (
-                ('A','Auto'),
-                ('M','Manual'),
-                ('S','Semi-auto')
-                    ) 
+    ('A','Auto'),
+    ('M','Manual'),
+    ('S','Semi-auto')
+) 
 
-engine_types       = (
-                ('D','Disel'),
-                ('P','Petrol'),
-                ('E','Electric'),
-                ('H','Hybrid')
-                    )
+engine_types = (
+    ('D','Disel'),
+    ('P','Petrol'),
+    ('E','Electric'),
+    ('H','Hybrid')
+)
 
-vehicle_types      = (
-                ('A','Automobile'),
-                ('M','Motorcycle'),
-                ('B','Bus'),
-                ('T','Truck')
-                     )
+vehicle_types = (
+    ('A','Automobile'),
+    ('M','Motorcycle'),
+    ('B','Bus'),
+    ('T','Truck')
+)
 
-sell_status        = (
-                ('A','Active'),
-                ('S','Sold'),
-                ('P','Pending'),
-                ('N','Neutral')
-                    )
+sell_status = (
+    ('A','Active'),
+    ('S','Sold'),
+    ('P','Pending'),
+    ('N','Neutral')
+)

@@ -72,11 +72,7 @@ class CarModelForm(MyForm):
     form for Car Model model
     """
     model = None
-    # make = forms.ModelChoiceField(
-    #    required=True,
-    #    queryset=Make.objects.all(),
-    #    widget=RelatedFieldWidgetCanAdd(Make, related_url="create_make")
-                                # )
+
     class Meta:
         model  = Model
         fields = '__all__'

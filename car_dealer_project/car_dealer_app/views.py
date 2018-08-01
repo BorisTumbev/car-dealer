@@ -4,10 +4,12 @@ from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.core.mail import send_mail
-from .models import RentalVehicle, Make, Model, SellVehicle
+from .models import RentalVehicle, Make, Model, SellVehicle , MyUser
 from .decorators import *
 from .utils import pagination
 from .forms import RentalVehicleForm,SellVehicleForm,CustomUserCreationForm
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 
 @login_required
@@ -28,7 +30,7 @@ def create_obj(request,i_form):
 
 
 
-@login_required
+@sales_user_required
 def sell_veh_list(request,status='N',all_vehicles=False):
     """
     view for listing and sorting vehiclesS
@@ -61,6 +63,7 @@ def sell_veh_list(request,status='N',all_vehicles=False):
 
     return render(request,'./sell_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
     
+@rental_user_required
 def rental_veh_list(request):
     errorMsg="Empty Records"
 
@@ -80,13 +83,14 @@ def rental_veh_list(request):
 
 
 @login_required
-def vehicle_detail(request,id):
+def veh_detail(request,id,car_type):
     """
     view for showing all information for a vehicle
     """
-    vehicle = get_object_or_404(SellVehicle,id=id)
+    vehicle = get_object_or_404(car_type,id=id)
 
     return render(request,'./detail.html',{'object':vehicle})
+
 
 @superuser_required
 def edit_obj(request,id,i_form,model):
@@ -134,7 +138,7 @@ def create_user(request):
     return render(request, './registration/create_user.html', {'form': form})
 
 
-@login_required
+@sales_user_required
 def sell_vehicle(request,id,sell=True):
     """
     view that changes sell_status of a Vehicle object
@@ -154,14 +158,14 @@ def sell_vehicle(request,id,sell=True):
     else:
         obj.sell_status = "P"
         obj.save()
-        send_mail('Selling request',("{} wants to sell {} {} {} ").format(request.user.username,obj.reg_number,obj.make.name,obj.model.name),'test.mycode9999@gmail.com',['test.mycode9999@gmail.com'],fail_silently=False,)
+        send_mail('Selling request',("{} wants to sell {} {} {} ").format(request.user.username,obj.reg_number,obj.make.name,obj.model.name),
+                'test.mycode9999@gmail.com',['test.mycode9999@gmail.com'],fail_silently=False,)
         messages.success(request, 'Request for selling sent')
         return redirect('my_list')
     
     
 
-#@login_required
-@seles_user_required
+@login_required
 def list_models(request,model):
     """
     view for listing models and makes
@@ -199,3 +203,14 @@ def rent_veh(request,id,rent=True):
     obj.save()
 
     return redirect('rental_list')
+
+@superuser_required
+def user_list(request):
+
+    object_list = MyUser.objects.all()
+
+    return render(request,'./users_list.html',{'object_list':pagination(request,object_list)})
+
+
+def error_404(request):
+        return render(request, './404.html')

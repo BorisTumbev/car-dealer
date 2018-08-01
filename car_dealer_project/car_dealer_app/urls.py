@@ -1,8 +1,8 @@
 from django.urls import path
 from car_dealer_app import views 
-from .forms import MakeForm, RentalVehicleForm, CarModelForm, SellVehicleForm
-from .models import RentalVehicle, Make, Model, SellVehicle
-
+from .forms import MakeForm, RentalVehicleForm, CarModelForm, SellVehicleForm, CustomUserCreationForm
+from .models import RentalVehicle, Make, Model, SellVehicle , MyUser
+from django.conf.urls import handler404
 
 urlpatterns = [
 
@@ -12,11 +12,13 @@ urlpatterns = [
     path('create_make',views.create_obj,{'i_form':MakeForm}, name='create_make'),
     path('create_model',views.create_obj,{'i_form':CarModelForm}, name='create_model'),
     path('create_rental',views.create_obj,{'i_form':RentalVehicleForm}, name='create_rental'),
-     path('create_sell',views.create_obj,{'i_form':SellVehicleForm}, name='create_sell'),
+    path('create_sell',views.create_obj,{'i_form':SellVehicleForm}, name='create_sell'),
 
     #urls for listing objects
 
-     path('rental_list',views.rental_veh_list, name='rental_list'),
+    path('rental_list',views.rental_veh_list, name='rental_list'),
+
+    path('users_list',views.user_list, name='users_list'),
    
     path('sell_list',views.sell_veh_list,{'all_vehicles':True}, name='sell_list'),
     path('my_list',views.sell_veh_list,{'status':'A'}, name='my_list'),
@@ -33,6 +35,8 @@ urlpatterns = [
     path('edit_sell/<id>',views.edit_obj,{'i_form':SellVehicleForm,'model':SellVehicle}, name='edit_sell'),
     path('edit_make/<id>',views.edit_obj,{'i_form':MakeForm,'model':Make}, name='edit_make'),
     path('edit_model/<id>',views.edit_obj,{'i_form':CarModelForm,'model':Model}, name='edit_model'),
+     path('edit_user/<id>',views.edit_obj,{'i_form':CustomUserCreationForm,'model':MyUser}, name='edit_user'),
+
 
 
     #urls for deleting objects
@@ -41,10 +45,12 @@ urlpatterns = [
     path('delete_sell/<id>',views.delete_obj,{'model':SellVehicle}, name='delete_sell'),
     path('delete_make/<id>',views.delete_obj,{'model':Make}, name='delete_make'),
     path('delete_model/<id>',views.delete_obj,{'model':Model}, name='delete_model'),
+    path('delete_user/<id>',views.delete_obj,{'model':MyUser}, name='delete_user'),
 
 
-    path('detail_rental/<id>',views.vehicle_detail,{'car_type':RentalVehicle}, name='detail_rental'),
-    path('detail_sell/<id>',views.vehicle_detail,{'car_type':SellVehicle}, name='detail_sell'),
+
+    path('detail_rental/<id>',views.veh_detail,{'car_type':RentalVehicle}, name='detail_rental'),
+    path('detail_sell/<id>',views.veh_detail,{'car_type':SellVehicle}, name='detail_sell'),
 
     # path('order_price',views.obj_order,{'order':'price'},name='order_price'),
     # path('order_type',views.obj_order,{'order':'v_type'},name='order_type'),
@@ -58,3 +64,5 @@ urlpatterns = [
     path('retrieve_vehicle/<id>',views.sell_vehicle,{'sell':False}, name='retrieve_vehicle')
 
 ]
+
+handler404 = views.error_404
