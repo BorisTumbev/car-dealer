@@ -56,6 +56,8 @@ urlpatterns = [
     # path('order_type',views.obj_order,{'order':'v_type'},name='order_type'),
     path('rent_veh/<id>',views.rent_veh, name='rent_veh'),
     path('return_veh/<id>',views.rent_veh,{'rent':False}, name='return_veh'),
+    
+    path('rent/<id>',views.rent_obj, name='rent'),
 
 
     path('create_user',views.create_user, name='create_user'),

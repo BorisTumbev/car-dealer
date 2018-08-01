@@ -7,7 +7,7 @@ from django.core.mail import send_mail
 from .models import RentalVehicle, Make, Model, SellVehicle , MyUser
 from .decorators import *
 from .utils import pagination
-from .forms import RentalVehicleForm,SellVehicleForm,CustomUserCreationForm
+from .forms import RentalVehicleForm,SellVehicleForm,CustomUserCreationForm,F
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
@@ -67,7 +67,7 @@ def sell_veh_list(request,status='N',all_vehicles=False):
 def rental_veh_list(request):
     errorMsg="Empty Records"
 
-    form = RentalVehicleForm(request.POST or None,request.FILES or None,user=request.user)
+    
 
     query = request.GET.get('q')
     if query:
@@ -80,7 +80,7 @@ def rental_veh_list(request):
                                         
         return render(request,'./rental_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
     vehicles = RentalVehicle.objects.all()
-    return render(request,'./rental_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg,'form':form})
+    return render(request,'./rental_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
 
 
 @login_required
@@ -105,7 +105,7 @@ def edit_obj(request,id,i_form,model):
 
     if form.is_valid():
         form.save()
-        return redirect('vehicle_list')
+        return redirect('sell_list')
 
     return render(request, './create.html', {'form':form})
 
@@ -200,6 +200,7 @@ def rent_veh(request,id,rent=True):
         obj.rental_status = True
     else:
         obj.rental_status = False
+        obj.rented_until = None
         
     obj.save()
 
@@ -215,3 +216,20 @@ def user_list(request):
 
 def error_404(request):
         return render(request, './404.html')
+
+
+def rent_obj(request,id):
+    
+    """
+    view for editing objects
+    """
+    obj = get_object_or_404(RentalVehicle,id=id)
+
+    form = F(request.POST or None,request.FILES or None, instance=obj,user=request.user)
+
+    if form.is_valid():
+        obj.rental_status = True
+        form.save()
+        return redirect('rental_list')
+
+    return render(request, './create2.html', {'form':form})

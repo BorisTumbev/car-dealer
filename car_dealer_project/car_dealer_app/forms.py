@@ -44,6 +44,19 @@ class RentalVehicleForm(MyForm):
         model  = RentalVehicle
         exclude = ('rented_at','created_at','user','rental_status','rented_until')
 
+class F(MyForm):
+
+    """
+    form for rental vehicle model
+    """
+    make = None
+    model = None
+
+    class Meta:
+        model  = RentalVehicle
+        fields = ['rented_until']
+
+
 class SellVehicleForm(MyForm):
 
     """
