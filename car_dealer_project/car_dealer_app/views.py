@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.core.mail import send_mail
 from .models import RentalVehicle, Make, Model, SellVehicle
-from .decorators import superuser_required
+from .decorators import *
 from .utils import pagination
 from .forms import RentalVehicleForm,SellVehicleForm,CustomUserCreationForm
 
@@ -154,13 +154,14 @@ def sell_vehicle(request,id,sell=True):
     else:
         obj.sell_status = "P"
         obj.save()
-        send_mail('Selling request',request.user.username+" wants to sell "+obj.reg_number+" "+obj.make.name+" "+obj.model.name,'test.mycode9999@gmail.com',['test.mycode9999@gmail.com'],fail_silently=False,)
+        send_mail('Selling request',("{} wants to sell {} {} {} ").format(request.user.username,obj.reg_number,obj.make.name,obj.model.name),'test.mycode9999@gmail.com',['test.mycode9999@gmail.com'],fail_silently=False,)
         messages.success(request, 'Request for selling sent')
         return redirect('my_list')
     
     
 
-@login_required
+#@login_required
+@seles_user_required
 def list_models(request,model):
     """
     view for listing models and makes
@@ -186,6 +187,7 @@ def list_models(request,model):
 
 #     return render(request,'./list_vehicle.html',{'object_list':pagination(request,vehicles)})
 
+@rental_user_required
 def rent_veh(request,id,rent=True):
 
     obj = get_object_or_404(RentalVehicle,id=id)

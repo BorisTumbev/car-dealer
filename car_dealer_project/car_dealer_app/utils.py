@@ -24,6 +24,7 @@ def pagination(request,object_list):
 
 
 
+
 """
 field choices for the models
 """
