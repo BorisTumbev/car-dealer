@@ -1,5 +1,5 @@
 from django.urls import path
-from car_dealer_app import views 
+from car_dealer_app import views, front_office_views 
 from .forms import MakeForm, RentalVehicleForm, CarModelForm, SellVehicleForm, CustomUserCreationForm
 from .models import RentalVehicle, Make, Model, SellVehicle , MyUser
 from django.conf.urls import handler404
@@ -30,6 +30,7 @@ urlpatterns = [
     path('make_list',views.list_models,{'model_type':Make}, name='make_list'),
 
     path('log_list',views.log_list, name='log_list'),
+    path('',front_office_views.f_sell_veh_list, name='f_sell_list'),
 
 
     #urls for editing objects

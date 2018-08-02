@@ -77,10 +77,17 @@
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
                        <li>
-                           <a href="widgets.html"> <i class="menu-icon fa fa-glass"></i>Login </a>
+                            {% if user.is_authenticated %}
+                            Hi {{ user.username }}!
+                            <a href="{% url 'logout' %}"> <i class="menu-icon fa fa-glass"></i>Logout </a>
+                            <a href="{% url 'sell_list' %}"><i class ="menu-icon fa fa-glass"></i>Go to the System</a>
+                            {%else%}
+                           <a href="{% url 'login' %}"> <i class="menu-icon fa fa-glass"></i>Login </a>
+                           {%endif%}
                     	</li>
                 </div>
             </div>
+ 
 
         </header><!-- /header -->
         <!-- Header-->

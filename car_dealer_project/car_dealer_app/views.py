@@ -64,7 +64,7 @@ def sell_veh_list(request,status='N',all_vehicles=False):
     if all_vehicles:
         vehicles = SellVehicle.objects.filter(Q(sell_status="A")|Q(sell_status="P"))
 
-    return render(request,'./sell_veh_list_front.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
+    return render(request,'./sell_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
     
 @rental_user_required
 def rental_veh_list(request,rented=True):
@@ -244,9 +244,9 @@ def rent_veh(request,id,rent=True):
     return render(request, './create.html', {'form':form})
 
 
-def create_log(request,model,action,user,date=datetime.datetime.now()):
+def create_log(request,obj,action,user,date=datetime.datetime.now()):
     
-    log = Log(user=user,action=action,model=model,date=date)
+    log = Log(user=user,action=action,object_type=obj,date=date)
 
     log.save()
     

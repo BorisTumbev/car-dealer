@@ -67,8 +67,8 @@ class SellVehicle(Vehicle):
 class Log(models.Model):
     objects      = models.Manager()
 
-    user   = models.ForeignKey(MyUser,on_delete=models.PROTECT)
-    action = models.CharField(max_length=50)
-    model  = models.CharField(max_length=50)
-    date   = models.DateTimeField()
+    user         = models.ForeignKey(MyUser,on_delete=models.PROTECT)
+    action       = models.CharField(max_length=50)
+    object_type  = models.CharField(max_length=50)
+    date         = models.DateTimeField()
 
