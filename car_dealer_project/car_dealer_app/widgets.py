@@ -2,6 +2,11 @@ from django.shortcuts import reverse
 from django.utils.safestring import mark_safe
 from django.forms import widgets
 from django.conf import settings
+from django import forms
+
+
+class DateTimeInput(forms.DateInput):
+    input_type = 'date'
 
 
 class RelatedFieldWidgetCanAdd(widgets.Select):

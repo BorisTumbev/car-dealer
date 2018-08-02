@@ -1,0 +1,56 @@
+{%extends "base_front_office.html"%}
+
+
+{%block content%}
+        <div class="content mt-3">
+            <div class="animated fadeIn">
+                <div class="col-lg-6">
+                    <div class="card">
+                        
+                        <div class="card-body">
+                            {%if not object_list%}
+                            {{errorMsg}}
+                            {%else%}
+                            <table class="table">
+                              <thead class="thead-dark">
+                                <tr>
+                                  
+                                  <th>Make</th>
+                                  <th>Model</th>
+                                  <th>Type</th>
+                                  <th>Price</th>
+                                  <th>Engine Type</th>
+                                  <th>Transmission</th>
+                                  <th>Condition</th>
+                                  <th>Year</th>
+                                  <th>Description</th>
+                                  <th>image</th>
+                                  
+                                </tr>
+                              </thead>
+                              <tbody>
+                                  {% for vehicle in object_list %}
+                                      <tr>
+                                      <td>{{ vehicle.make }}</td>
+                                      <td>{{ vehicle.model }}</td>
+                                      <td>{{ vehicle.get_v_type_display }}</td>
+                                      <td>{{ vehicle.price }}</td>
+                                      <td>{{ vehicle.get_engine_type_display }}</td>
+                                      <td>{{ vehicle.get_transmission_display }}</td>
+                                      <td>{{ vehicle.get_condition_display }}</td>
+                                      <td>{{ vehicle.year }}</td>
+                                      <td>{{ vehicle.description }}</td>
+                                      <td><img src="{{vehicle.image.url}}" width='140' height="140" ></td>
+                                
+                                      </tr>  
+                                  {% endfor %}
+                                  {%endif%}
+                              </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+{%endblock content%}

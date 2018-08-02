@@ -16,17 +16,20 @@ urlpatterns = [
 
     #urls for listing objects
 
-    path('rental_list',views.rental_veh_list, name='rental_list'),
+    path('rented_list',views.rental_veh_list, name='rented_list'),
+    path('rental_list',views.rental_veh_list,{'rented':False}, name='rental_list'),
 
     path('users_list',views.user_list, name='users_list'),
    
     path('sell_list',views.sell_veh_list,{'all_vehicles':True}, name='sell_list'),
-    path('my_list',views.sell_veh_list,{'status':'A'}, name='my_list'),
+    #path('my_list',views.sell_veh_list,{'status':'A'}, name='my_list'),
     path('sold_list',views.sell_veh_list,{'status':'S'}, name='sold_list'),
     path('pending_list',views.sell_veh_list,{'status':'P'}, name='pending_list'),
 
     path('model_list',views.list_models,{'model_type':Model}, name='model_list'),
     path('make_list',views.list_models,{'model_type':Make}, name='make_list'),
+
+    path('log_list',views.log_list, name='log_list'),
 
 
     #urls for editing objects

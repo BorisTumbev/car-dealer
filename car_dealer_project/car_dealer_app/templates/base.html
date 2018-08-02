@@ -51,7 +51,10 @@
                             <a href="{% url "create_rental" %}">Add Rental Vehicle</a>
                     </li>
                     <li>
-                        <a href="{% url "rental_list" %}">Rental Vehicles</a>
+                        <a href="{% url "rental_list" %}">For Rental Vehicles</a>
+                    </li>
+                    <li>
+                        <a href="{% url "rented_list" %}">Rented Vehicles</a>
                     </li>
                     {%endif%}
                     {%if user.is_superuser%}   
@@ -65,10 +68,13 @@
                     <li>
                         <a href="{% url "users_list" %}">Employees</a>
                     </li>
-                    {%endif%}
                     <li>
-                        <a href="{% url "my_list" %}">My Vehicles</a>
+                        <a href="{% url "log_list" %}">System log</a>
                     </li>
+                    {%endif%}
+                    {% comment %} <li>
+                        <a href="{% url "my_list" %}">My Vehicles</a>
+                    </li> {% endcomment %}
                     {%if user.role == "SRA" or user.is_superuser or user.role == "SA" %}
                     <li>
                         <a href="{% url "create_sell" %}">Add Sell Vehicle</a>

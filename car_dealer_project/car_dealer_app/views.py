@@ -24,7 +24,7 @@ def create_obj(request,i_form):
     if form.is_valid():
         
         form.save()
-        create_log(request,i_form.__name__[:-4],'create',request.user)
+        create_log(request,i_form.__name__[:-4],'created',request.user)
 
         return redirect('/')
 
@@ -52,8 +52,8 @@ def sell_veh_list(request,status='N',all_vehicles=False):
                                         
         return render(request,'./sell_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
     
-    if status=="A":
-        vehicles = SellVehicle.objects.filter(Q(sell_status="A")|Q(sell_status="P"),user=request.user)
+    # if status=="A":
+    #     vehicles = SellVehicle.objects.filter(Q(sell_status="A")|Q(sell_status="P"),user=request.user)
 
     if status=="S":
         vehicles = SellVehicle.objects.filter(sell_status="S")
@@ -64,10 +64,10 @@ def sell_veh_list(request,status='N',all_vehicles=False):
     if all_vehicles:
         vehicles = SellVehicle.objects.filter(Q(sell_status="A")|Q(sell_status="P"))
 
-    return render(request,'./sell_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
+    return render(request,'./sell_veh_list_front.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
     
 @rental_user_required
-def rental_veh_list(request):
+def rental_veh_list(request,rented=True):
     errorMsg="Empty Records"
 
     
@@ -82,7 +82,12 @@ def rental_veh_list(request):
                                         ).distinct()
                                         
         return render(request,'./rental_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
-    vehicles = RentalVehicle.objects.all()
+
+    if rented:
+        vehicles = RentalVehicle.objects.filter(rental_status=True)
+    else:
+        vehicles = RentalVehicle.objects.filter(rental_status=False)
+
     return render(request,'./rental_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
 
 
@@ -108,6 +113,7 @@ def edit_obj(request,id,i_form,model):
 
     if form.is_valid():
         form.save()
+        create_log(request,i_form.__name__[:-4],'edited',request.user)
         return redirect('sell_list')
 
     return render(request, './create.html', {'form':form})
@@ -121,8 +127,8 @@ def delete_obj(request,id,model):
     obj = get_object_or_404(model,id=id)
     if request.method=='POST':
         obj.delete()
-        
-        return redirect('vehicle_list')
+        create_log(request,model.__name__,'deleted',request.user)
+        return redirect('/')
     return render(request, './delete.html', {'object':obj})
 
 
@@ -135,6 +141,7 @@ def create_user(request):
         form = CustomUserCreationForm(request.POST or None,request.FILES or None)
         if form.is_valid():
             form.save()
+            create_log(request,"User",'created user',request.user)
             messages.success(request, 'user created')
             return redirect('sell_list')
     else:
@@ -153,10 +160,11 @@ def sell_vehicle(request,id,sell=True):
         if not sell:
             obj.sell_status="A"
             obj.save()
-            return redirect('vehicle_list')
+            return redirect('sell_list')
         else:
             obj.sell_status= "S"
-            obj.save()  
+            obj.save()
+            create_log(request,'Vehicle','vehicle sold',request.user)  
             messages.success(request, 'Vehicle Sold')     
             return redirect('sold_list')
     else:
@@ -230,7 +238,8 @@ def rent_veh(request,id,rent=True):
         obj.rental_status = True
         obj.rented_at = datetime.datetime.now()
         form.save()
-        return redirect('rental_list')
+        create_log(request,'Vehicle','vehicle rented',request.user)
+        return redirect('rented_list')
 
     return render(request, './create.html', {'form':form})
 
@@ -240,3 +249,11 @@ def create_log(request,model,action,user,date=datetime.datetime.now()):
     log = Log(user=user,action=action,model=model,date=date)
 
     log.save()
+    
+
+
+def log_list(request):
+
+    object_list = Log.objects.all()
+
+    return render(request,'./log_list.html',{'object_list':pagination(request,object_list)})

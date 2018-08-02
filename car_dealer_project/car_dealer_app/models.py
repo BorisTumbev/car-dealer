@@ -65,6 +65,7 @@ class SellVehicle(Vehicle):
         return self.reg_number
 
 class Log(models.Model):
+    objects      = models.Manager()
 
     user   = models.ForeignKey(MyUser,on_delete=models.PROTECT)
     action = models.CharField(max_length=50)

@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from .models import RentalVehicle, Make, Model, SellVehicle,MyUser
 from django import forms
-from .widgets import RelatedFieldWidgetCanAdd
+from .widgets import RelatedFieldWidgetCanAdd, DateTimeInput
 from django.contrib.auth.forms import UserCreationForm
 
 class CustomUserCreationForm(UserCreationForm):
@@ -55,7 +55,9 @@ class RentForm(MyForm):
     class Meta:
         model  = RentalVehicle
         fields = ['rented_until']
-
+        widgets = {
+            'rented_until':DateTimeInput(),
+        }
 
 class SellVehicleForm(MyForm):
 
