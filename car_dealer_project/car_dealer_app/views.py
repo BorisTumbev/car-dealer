@@ -4,12 +4,13 @@ from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.core.mail import send_mail
-from .models import RentalVehicle, Make, Model, SellVehicle , MyUser
+from .models import RentalVehicle, Make, Model, SellVehicle , MyUser,Log
 from .decorators import *
-from .utils import pagination
-from .forms import RentalVehicleForm,SellVehicleForm,CustomUserCreationForm,F
+from .utils import pagination, mail_send
+from .forms import RentalVehicleForm,SellVehicleForm,CustomUserCreationForm,RentForm
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+import datetime
 
 
 @login_required
@@ -23,6 +24,8 @@ def create_obj(request,i_form):
     if form.is_valid():
         
         form.save()
+        create_log(request,i_form.__name__[:-4],'create',request.user)
+
         return redirect('/')
 
     return render(request, './create.html', {'form':form})
@@ -159,26 +162,26 @@ def sell_vehicle(request,id,sell=True):
     else:
         obj.sell_status = "P"
         obj.save()
-        send_mail('Selling request',("{} wants to sell {} {} {} ").format(request.user.username,obj.reg_number,obj.make.name,obj.model.name),
-                'test.mycode9999@gmail.com',['test.mycode9999@gmail.com'],fail_silently=False,)
+        mail_send(("{} wants to sell {} {} {} ").format(request.user.username,obj.reg_number,obj.make.name,obj.model.name))
+       
         messages.success(request, 'Request for selling sent')
         return redirect('my_list')
     
     
 
 @login_required
-def list_models(request,model):
+def list_models(request,model_type):
     """
     view for listing models and makes
     """
     query = request.GET.get('q')
 
     if query:
-        object_list = model.objects.filter(name__icontains=query)
+        object_list = model_type.objects.filter(name__icontains=query)
     else:
-        object_list = model.objects.all()
+        object_list = model_type.objects.all()
 
-    if model==Model:
+    if model_type==Model:
         return render(request,'./list_models.html',{'object_list':pagination(request,object_list)})
     else:
         return render(request,'./list_makes.html',{'object_list':pagination(request,object_list)})
@@ -192,19 +195,7 @@ def list_models(request,model):
 
 #     return render(request,'./list_vehicle.html',{'object_list':pagination(request,vehicles)})
 
-@rental_user_required
-def rent_veh(request,id,rent=True):
 
-    obj = get_object_or_404(RentalVehicle,id=id)
-    if rent:
-        obj.rental_status = True
-    else:
-        obj.rental_status = False
-        obj.rented_until = None
-        
-    obj.save()
-
-    return redirect('rental_list')
 
 @superuser_required
 def user_list(request):
@@ -215,21 +206,37 @@ def user_list(request):
 
 
 def error_404(request):
-        return render(request, './404.html')
+    return render(request, './404.html')
 
 
-def rent_obj(request,id):
+@rental_user_required
+def rent_veh(request,id,rent=True):
     
     """
-    view for editing objects
+    view for renting vehicle
     """
     obj = get_object_or_404(RentalVehicle,id=id)
 
-    form = F(request.POST or None,request.FILES or None, instance=obj,user=request.user)
+    if not rent:
+        obj.rental_status = False
+        obj.rented_until = None
+        obj.rented_at = None
+        obj.save()
+        return redirect('rental_list')
+
+    form = RentForm(request.POST or None,request.FILES or None, instance=obj,user=request.user)
 
     if form.is_valid():
         obj.rental_status = True
+        obj.rented_at = datetime.datetime.now()
         form.save()
         return redirect('rental_list')
 
-    return render(request, './create2.html', {'form':form})
+    return render(request, './create.html', {'form':form})
+
+
+def create_log(request,model,action,user,date=datetime.datetime.now()):
+    
+    log = Log(user=user,action=action,model=model,date=date)
+
+    log.save()

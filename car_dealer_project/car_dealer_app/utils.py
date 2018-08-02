@@ -2,7 +2,7 @@
 from django.core.paginator import Paginator
 import datetime
 from django.core.exceptions import ValidationError
-
+from django.core.mail import send_mail
 
 #current date for "created at" property in Vehicle model
 def curr_year_validator(value):
@@ -21,8 +21,9 @@ def pagination(request,object_list):
     limited_obj = paginator.get_page(page)
     return limited_obj
 
+def mail_send(msg):
 
-
+    send_mail(subject='Selling request',message=msg,from_email='test.mycode9999@gmail.com',recipient_list=['test.mycode9999@gmail.com'],fail_silently=False,)
 
 
 """

@@ -25,8 +25,8 @@ urlpatterns = [
     path('sold_list',views.sell_veh_list,{'status':'S'}, name='sold_list'),
     path('pending_list',views.sell_veh_list,{'status':'P'}, name='pending_list'),
 
-    path('model_list',views.list_models,{'model':Model}, name='model_list'),
-    path('make_list',views.list_models,{'model':Make}, name='make_list'),
+    path('model_list',views.list_models,{'model_type':Model}, name='model_list'),
+    path('make_list',views.list_models,{'model_type':Make}, name='make_list'),
 
 
     #urls for editing objects
@@ -57,7 +57,7 @@ urlpatterns = [
     path('rent_veh/<id>',views.rent_veh, name='rent_veh'),
     path('return_veh/<id>',views.rent_veh,{'rent':False}, name='return_veh'),
     
-    path('rent/<id>',views.rent_obj, name='rent'),
+   # path('rent/<id>',views.rent_obj, name='rent'),
 
 
     path('create_user',views.create_user, name='create_user'),

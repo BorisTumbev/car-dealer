@@ -53,13 +53,6 @@ class RentalVehicle(Vehicle):
     rented_at             = models.DateTimeField(default=None,null=True)
     rented_until          = models.DateTimeField(default=None,null=True)
 
-    def save(self,*args,**kwargs):
-        if self.rental_status:
-            self.rented_at = datetime.datetime.now()
-        else:
-            self.rented_at = None
-
-        super().save(*args,**kwargs)
    
     def __str__(self):
         return self.reg_number
@@ -70,3 +63,11 @@ class SellVehicle(Vehicle):
 
     def __str__(self):
         return self.reg_number
+
+class Log(models.Model):
+
+    user   = models.ForeignKey(MyUser,on_delete=models.PROTECT)
+    action = models.CharField(max_length=50)
+    model  = models.CharField(max_length=50)
+    date   = models.DateTimeField()
+

@@ -1,7 +1,7 @@
 {%extends "base.html" %}
-{% block customHead %}
+{% comment %} {% block customHead %}
 <link href="../static/css/modal.css" rel="stylesheet" /> 
-{% endblock customHead %}  
+{% endblock customHead %}   {% endcomment %}
 {%block content%}    
     <div class="row">
         <div class="col-lg-6 col-md-6">
@@ -20,6 +20,7 @@
                                 {% comment %} <th><a href="{% url "order_price"%}">Price</a></th> {% endcomment %}
                                 <th>Status</th>
                                 <th>Rented at</th>
+                                <th>Rented until</th>
 
                             </tr>
                         </thead>
@@ -64,7 +65,6 @@
                                         </td> {% endcomment %}
                                         <td><a href="{% url "rent_veh" vehicle.id %}">Rent</a></td>
                                     <td><a href="{% url "return_veh" vehicle.id %}">Return vehicle</a></td>
-                                    <td><a href="{% url "rent" vehicle.id %}">gogog</a></td>
                                         
                                 {% endfor %}
                                 {%endif%}
@@ -75,7 +75,7 @@
             </div>
             
 {%endblock content%}
-
+{% comment %} 
 {% block scripts %}
 <script src="../static/js/modal.js"></script> 
-{% endblock scripts %}
+{% endblock scripts %} {% endcomment %}

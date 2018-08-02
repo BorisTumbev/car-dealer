@@ -18,10 +18,18 @@
                         <th>Transmission</th>
                         <th>Condition</th>
                         <th>Year</th>
-                        <th>Price</th>
                         <th>Added at</th>
                         <th>Description</th>
-
+                        {%if object.price%}
+                        <th>Price</th>
+                        <th>Status</th>
+                        {%else%}
+                        <th>Status</th>
+                        <th>Rental price per day</th>
+                        <th>Rented at</th>
+                        <th>Rented until</th>
+                        {%endif%}
+                        
                         </tr>
                     </thead>
                     <tbody>
@@ -35,9 +43,17 @@
                         <td>{{ object.get_transmission_display }}</td>
                         <td>{{ object.get_condition_display }}</td>
                         <td>{{ object.year }}</td>
-                        <td>{{ object.price }}</td>
                         <td>{{ object.created_at }}</td>
                         <td>{{ object.description }}</td>
+                        {%if object.price%}
+                        <td>{{ object.price }}</td>
+                        <td>{{ object.get_sell_status_display }}</td>
+                        {%else%}
+                        <td>{{ object.rental_status }}</td>
+                        <td>{{ object.rental_price_per_day }}</td>
+                        <td>{{ object.rented_at }}</td>
+                        <td>{{ object.rented_until }}</td>
+                       {%endif%}
                         <img src="{{object.image.url}}" width='240' height="240" >
                             
                     </tbody>
