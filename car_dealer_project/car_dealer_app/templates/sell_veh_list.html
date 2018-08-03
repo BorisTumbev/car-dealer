@@ -41,11 +41,30 @@
                                                             <td><a href="{% url "detail_sell" vehicle.id %}">view</a></td>
                                                             {%if user.is_superuser%}
                                                                 <td><a href="{% url "edit_sell" vehicle.id %}">edit</a></td>
-                                                                <td><a href="{% url "delete_sell" vehicle.id %}">delete</a></td>
+                                                                <td>
+                                                                        <a href="#" id="btn_del-{{vehicle.id}}" onclick="del({{vehicle.id}})">delete</a>
+                                                                        <!-- The Modal -->
+                                                                        <div id="myModal_del-{{vehicle.id}}" class="modal">
+                                                                          <!-- Modal content -->
+                                                                          <div class="modal-content">
+                                                                            <span class="close_del-{{vehicle.id}}">&times;</span>
+                                                                            <form action = 'delete_sell/{{vehicle.id}}'method="post" enctype='multipart/form-data'>
+                                                                                {% csrf_token %}
+                                                                                Are you sure you want to delete "{{ vehicle }}" ?
+                                                                                <input type="submit" value="Submit" />
+                                                                            </form>
+                                                                          </div>
+                                                                        </div>
+                                                                    </td>
+                                                                {% comment %} <td><a href="{% url "delete_sell" vehicle.id %}">delete</a></td> {% endcomment %}
+                                                            {%if vehicle.sell_status == 'S'%}
                                                                 <td><a href="{% url "retrieve_vehicle" vehicle.id %}">retrieve</a></td>
+                                                            {%endif%}    
                                                             {%endif%}
+                                                            {%if vehicle.sell_status == 'A' or vehicle.sell_status == 'P' %}
+
                                                             <td><a href="{% url "sell_vehicle" vehicle.id %}">sell</a></td>
-                                                                
+                                                            {%endif%}
                                                         {% endfor %}
                                                         {%endif%}
                                                     </tbody>

@@ -11,6 +11,7 @@ from .forms import RentalVehicleForm,SellVehicleForm,CustomUserCreationForm,Rent
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 import datetime
+from datetime import timedelta
 
 
 @login_required
@@ -26,7 +27,7 @@ def create_obj(request,i_form):
         form.save()
         create_log(request,i_form.__name__[:-4],'created',request.user)
 
-        return redirect('/')
+        return redirect('sell_list')
 
     return render(request, './create.html', {'form':form})
 
@@ -69,8 +70,8 @@ def sell_veh_list(request,status='N',all_vehicles=False):
 @rental_user_required
 def rental_veh_list(request,rented=True):
     errorMsg="Empty Records"
-
     
+    form = RentForm(request.POST or None,request.FILES or None,user=request.user)
 
     query = request.GET.get('q')
     if query:
@@ -88,7 +89,7 @@ def rental_veh_list(request,rented=True):
     else:
         vehicles = RentalVehicle.objects.filter(rental_status=False)
 
-    return render(request,'./rental_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
+    return render(request,'./rental_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg,'form':form})
 
 
 @login_required
@@ -128,7 +129,7 @@ def delete_obj(request,id,model):
     if request.method=='POST':
         obj.delete()
         create_log(request,model.__name__,'deleted',request.user)
-        return redirect('/')
+        return redirect('sell_list')
     return render(request, './delete.html', {'object':obj})
 
 
@@ -241,7 +242,7 @@ def rent_veh(request,id,rent=True):
         create_log(request,'Vehicle','vehicle rented',request.user)
         return redirect('rented_list')
 
-    return render(request, './create.html', {'form':form})
+    #return render(request, './create.html', {'form':form})
 
 
 def create_log(request,obj,action,user,date=datetime.datetime.now()):
@@ -251,9 +252,17 @@ def create_log(request,obj,action,user,date=datetime.datetime.now()):
     log.save()
     
 
-
 def log_list(request):
 
     object_list = Log.objects.all()
 
     return render(request,'./log_list.html',{'object_list':pagination(request,object_list)})
+
+def del_old_logs(request):
+
+    object_list = Log.objects.filter(date__lt=(datetime.datetime.now()-timedelta(weeks=8)))
+
+    if request.method=='POST':
+        object_list.delete() 
+        return redirect('log_list')
+    return render(request, './delete.html', {'object':object_list})

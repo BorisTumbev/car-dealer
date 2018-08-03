@@ -53,6 +53,7 @@ urlpatterns = [
     path('delete_model/<id>',views.delete_obj,{'model':Model}, name='delete_model'),
     path('delete_user/<id>',views.delete_obj,{'model':MyUser}, name='delete_user'),
 
+    path('delete_old_logs',views.del_old_logs, name='delete_old_logs'),
 
 
     path('detail_rental/<id>',views.veh_detail,{'car_type':RentalVehicle}, name='detail_rental'),

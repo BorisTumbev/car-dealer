@@ -15,6 +15,7 @@
     <link href="../static/css/bootstrap_back.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Custom CSS -->
+    <link rel="stylesheet" href="../static/css/modal.css">
     <link href="../static/css/helper.css" rel="stylesheet">
     <link href="../static/css/style_back.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -38,7 +39,7 @@
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- Logo -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="/">
                         <!-- Logo icon -->
                         <b><img src="../media/images/images.png" width='70' height="50" alt="homepage"  /></b>
                         <!--End Logo icon -->
@@ -141,6 +142,7 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="nav-devider"></li>
+                        {%if user.role == "SRA" or user.role == "RA" or user.is_superuser%}
                         <li class="nav-label">Rent</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Rental Vehicles </span></a>
                             <ul aria-expanded="false" class="collapse">
@@ -149,6 +151,8 @@
 				                <li><a href="{% url "rental_list" %}">List available </a></li>
                             </ul>
                         </li>
+                        {%endif%}
+                        {%if user.role == "SRA" or user.is_superuser or user.role == "SA" %}
                         <li class="nav-label">Sell</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Selling Vehicles</span></a>
                             <ul aria-expanded="false" class="collapse">
@@ -158,7 +162,8 @@
 				                <li><a href="{% url "pending_list" %}">List pending</a></li>
                             </ul>
                         </li>
-                        
+                        {%endif%}
+                        {%if user.is_superuser%} 
                         <li class="nav-label">System</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-suitcase"></i><span class="hide-menu"> Employees</span></a>
                             <ul aria-expanded="false" class="collapse">
@@ -168,6 +173,7 @@
                         </li>
 
                                 <li><a href="{% url "log_list" %}"><i class="fa fa-suitcase"></i> System log</a></li>
+                        {%endif%}
                                	<li><a href="{% url "make_list" %}"><i class="fa fa-table"></i> Make list</a></li>
 				                <li><a href="{% url "model_list" %}"><i class="fa fa-table"></i> Model list</a></li>
                            
@@ -239,7 +245,7 @@
     <script src="../static/js/sticky-kit.min.js"></script>
     <!--Custom JavaScript -->
     <script src="../static/js/custom.min.js"></script>
-
+    <script src="../static/js/modal.js"></script>
 </body>
 
 </html>
