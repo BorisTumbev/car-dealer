@@ -251,13 +251,13 @@ def create_log(request,obj,action,user,date=datetime.datetime.now()):
 
     log.save()
     
-
+@superuser_required
 def log_list(request):
 
     object_list = Log.objects.all()
 
     return render(request,'./log_list.html',{'object_list':pagination(request,object_list)})
-
+@superuser_required
 def del_old_logs(request):
 
     object_list = Log.objects.filter(date__lt=(datetime.datetime.now()-timedelta(weeks=8)))
