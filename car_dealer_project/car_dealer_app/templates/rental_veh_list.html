@@ -1,81 +1,87 @@
-{%extends "base.html" %}
-{% comment %} {% block customHead %}
-<link href="../static/css/modal.css" rel="stylesheet" /> 
-{% endblock customHead %}   {% endcomment %}
-{%block content%}    
-    <div class="row">
-        <div class="col-lg-6 col-md-6">
-            <h5>Vehicles</h5>
+{%extends "base_back_office.html" %} {%block content%}
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-title">
+                <h4>Vehicles </h4>
+
+            </div>
+            <div class="card-body">
                 <div class="table-responsive">
+                    {%if not object_list%} {{errorMsg}} {%else%}
                     <table class="table">
-                        <thead>
-                            <tr class="success"> 
-                                <th>Make</th>
-                                <th>Model</th>
-                                <th>Type</th>
-                                {% comment %} <th><a href="{% url "order_type"%}">Type</a></th> {% endcomment %}
-                                <th>Reg Number</th>
-                                <th>From user</th>
-                                <th>Rental Price</th>
-                                {% comment %} <th><a href="{% url "order_price"%}">Price</a></th> {% endcomment %}
-                                <th>Status</th>
-                                <th>Rented at</th>
-                                <th>Rented until</th>
-
-                            </tr>
-                        </thead>
-                            <tbody>
-                                {%if not object_list%}
-                                    {{errorMsg}}
-                                {%else%}
-                                {% for vehicle in object_list %}
-                                    <tr class="warning">
-                                    <td>{{ vehicle.make }}</td>
-                                    <td>{{ vehicle.model }}</td>
-                                    <td>{{ vehicle.get_v_type_display }}</td>
-                                    <td>{{ vehicle.reg_number }}</td>
-                                    <td>{{ vehicle.user.username }}</td>
-                                    <td>{{ vehicle.rental_price_per_day }}</td>
-                                    <td>{{ vehicle.rental_status }}</td>
-                                    <td>{{ vehicle.rented_at }}</td>
-                                    <td>{{ vehicle.rented_until }}</td>
-                                    <td><a href="{% url "detail_rental" vehicle.id %}">view</a></td>
-                                    {%if user.is_superuser%}
-                                        <td><a href="{% url "edit_rental" vehicle.id %}">edit</a></td>
-                                        <td><a href="{% url "delete_rental" vehicle.id %}">delete</a></td>
-                                    {%endif%}
-                                    {% comment %} <td><button id="myBtn">Open Modal</button>
-
-                                        <!-- The Modal -->
-                                        <div id="myModal" class="modal">
-                                        
-                                          <!-- Modal content -->
-                                          <div class="modal-content">
-                                            <span class="close">&times;</span>
-                                            <form id="create" method="post" enctype='multipart/form-data'>
-                                                {% csrf_token %}
-                                                {{ form }} 
-                                        
-                                                <input type="submit" value="Submit" />
-                                            </form>
-                                          </div>
-                                        
-                                        </div>
-                                        
-                                        </td> {% endcomment %}
-                                        <td><a href="{% url "rent_veh" vehicle.id %}">Rent</a></td>
-                                    <td><a href="{% url "return_veh" vehicle.id %}">Return vehicle</a></td>
-                                        
-                                {% endfor %}
-                                {%endif%}
-                            </tbody>
-                        </table>
-                    </div>
+                            <thead>
+                                    <tr> 
+                                        <th>Make</th>
+                                        <th>Model</th>
+                                        <th>Type</th>
+                                        {% comment %} <th><a href="{% url "order_type"%}">Type</a></th> {% endcomment %}
+                                        <th>Reg Number</th>
+                                        <th>From user</th>
+                                        <th>Rental Price</th>
+                                        {% comment %} <th><a href="{% url "order_price"%}">Price</a></th> {% endcomment %}
+                                        <th>Status</th>
+                                        <th>Rented at</th>
+                                        <th>Rented until</th>
+        
+                                    </tr>
+                                </thead>
+                                    <tbody>
+                                        {%if not object_list%}
+                                            {{errorMsg}}
+                                        {%else%}
+                                        {% for vehicle in object_list %}
+                                            <tr class="warning">
+                                            <td>{{ vehicle.make }}</td>
+                                            <td>{{ vehicle.model }}</td>
+                                            <td>{{ vehicle.get_v_type_display }}</td>
+                                            <td>{{ vehicle.reg_number }}</td>
+                                            <td>{{ vehicle.user.username }}</td>
+                                            <td>{{ vehicle.rental_price_per_day }}</td>
+                                            <td>{{ vehicle.rental_status }}</td>
+                                            <td>{{ vehicle.rented_at }}</td>
+                                            <td>{{ vehicle.rented_until }}</td>
+                                            <td><a href="{% url "detail_rental" vehicle.id %}">view</a></td>
+                                            {%if user.is_superuser%}
+                                                <td><a href="{% url "edit_rental" vehicle.id %}">edit</a></td>
+                                                <td><a href="{% url "delete_rental" vehicle.id %}">delete</a></td>
+                                            {%endif%}
+                                            {% comment %} <td><button id="myBtn">Open Modal</button>
+        
+                                                <!-- The Modal -->
+                                                <div id="myModal" class="modal">
+                                                
+                                                  <!-- Modal content -->
+                                                  <div class="modal-content">
+                                                    <span class="close">&times;</span>
+                                                    <form id="create" method="post" enctype='multipart/form-data'>
+                                                        {% csrf_token %}
+                                                        {{ form }} 
+                                                
+                                                        <input type="submit" value="Submit" />
+                                                    </form>
+                                                  </div>
+                                                
+                                                </div>
+                                                
+                                                </td> {% endcomment %}
+                                                <td><a href="{% url "rent_veh" vehicle.id %}">Rent</a></td>
+                                            <td><a href="{% url "return_veh" vehicle.id %}">Return vehicle</a></td>
+                                                
+                                        {% endfor %}
+                                        {%endif%}
+                                    </tbody>
+                    </table>
                 </div>
             </div>
-            
+        </div>
+    </div>
+    <!-- /# column -->
+
+    <!-- /# card -->
+</div>
+<!-- /# column -->
+</div>
+<!-- /# row -->
+{%endif%}
 {%endblock content%}
-{% comment %} 
-{% block scripts %}
-<script src="../static/js/modal.js"></script> 
-{% endblock scripts %} {% endcomment %}

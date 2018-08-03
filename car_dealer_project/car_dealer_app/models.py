@@ -51,7 +51,7 @@ class RentalVehicle(Vehicle):
     rental_price_per_day  = models.PositiveIntegerField()
     rental_status         = models.BooleanField(default=False)
     rented_at             = models.DateTimeField(default=None,null=True)
-    rented_until          = models.DateTimeField(default=None,null=True)
+    rented_until          = models.DateTimeField(default=None,null=True,validators=[curr_day_validator])
 
    
     def __str__(self):

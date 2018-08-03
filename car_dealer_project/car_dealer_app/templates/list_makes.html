@@ -1,10 +1,15 @@
-{%extends "base.html" %}
+{%extends "base_back_office.html" %} {%block content%}
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-title">
+                <h4>Vehicles </h4>
 
-{%block content%}   
-    <div class="row"> 
-        <div class="col-lg-6 col-md-6">
-            <div class="table-responsive">
-                <table class="table">
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    {%if not object_list%} {{errorMsg}} {%else%}
+                    <table class="table">
                     <thead>
                         <tr class="success">
                             <th>Makes</th>
@@ -12,7 +17,7 @@
                         </thead>
                             <tbody>
                                 {% for obj in object_list %}
-                                    <tr class="warning">
+                                    <tr>
                                         <td>{{ obj.name }}</td>
                                         {%if user.is_superuser%}
                                             <td><a href="{% url "edit_make" obj.id %}">edit</a></td>
@@ -24,7 +29,14 @@
                     </div>
                 </div>
             </div>
-{%endblock content%}
-
-             
+        </div>
+        <!-- /# column -->
+    
+        <!-- /# card -->
+    </div>
+    <!-- /# column -->
+    </div>
+    <!-- /# row -->
+    {%endif%}
+    {%endblock content%}
         

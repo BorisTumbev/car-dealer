@@ -1,55 +1,64 @@
-﻿{%extends "base.html" %}
+{%extends "base_back_office.html" %}
 
-{%block content%}    
-    <div class="row">
-        <div class="col-lg-6 col-md-6">
-            <h5>Vehicles</h5>
-                <div class="table-responsive">
-                    {%if not object_list%}
-                        {{errorMsg}}
-                    {%else%}
-                    <table class="table">
-                        <thead>
-                            <tr class="success"> 
-                                <th>Make</th>
-                                <th>Model</th>
-                                <th>Type</th>
-                                {% comment %} <th><a href="{% url "order_type"%}">Type</a></th> {% endcomment %}
-                                <th>Reg Number</th>
-                                <th>Price</th>
-                                {% comment %} <th><a href="{% url "order_price"%}">Price</a></th> {% endcomment %}
-                                <th>Status</th>
-                                <th>From user</th>
-                            </tr>
-                        </thead>
-                            <tbody>
-                                {% for vehicle in object_list %}
-                                    <tr class="warning">
-                                    <td>{{ vehicle.make }}</td>
-                                    <td>{{ vehicle.model }}</td>
-                                    <td>{{ vehicle.get_v_type_display }}</td>
-                                    <td>{{ vehicle.reg_number }}</td>
-                                    <td>{{ vehicle.price }}</td>
-                                    <td>{{ vehicle.get_sell_status_display }}</td>
-                                    <td>{{ vehicle.user.username }}</td>
-                                    
-                                    <td><a href="{% url "detail_sell" vehicle.id %}">view</a></td>
-                                    {%if user.is_superuser%}
-                                        <td><a href="{% url "edit_sell" vehicle.id %}">edit</a></td>
-                                        <td><a href="{% url "delete_sell" vehicle.id %}">delete</a></td>
-                                        <td><a href="{% url "retrieve_vehicle" vehicle.id %}">retrieve</a></td>
-                                    {%endif%}
-                                    <td><a href="{% url "sell_vehicle" vehicle.id %}">sell</a></td>
-                                        
-                                {% endfor %}
-                                {%endif%}
-                            </tbody>
-                        </table>
+{%block content%}
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Vehicles </h4>
+
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                        {%if not object_list%}
+                                        {{errorMsg}}
+                                        {%else%}
+                                    <table class="table">
+                                            <thead>
+                                                    <tr> 
+                                                        <th>Make</th>
+                                                        <th>Model</th>
+                                                        <th>Type</th>
+                                                        {% comment %} <th><a href="{% url "order_type"%}">Type</a></th> {% endcomment %}
+                                                        <th>Reg Number</th>
+                                                        <th>Price</th>
+                                                        {% comment %} <th><a href="{% url "order_price"%}">Price</a></th> {% endcomment %}
+                                                        <th>Status</th>
+                                                        <th>From user</th>
+                                                    </tr>
+                                                </thead>
+                                                    <tbody>
+                                                        {% for vehicle in object_list %}
+                                                            <tr class="warning">
+                                                            <td>{{ vehicle.make }}</td>
+                                                            <td>{{ vehicle.model }}</td>
+                                                            <td>{{ vehicle.get_v_type_display }}</td>
+                                                            <td>{{ vehicle.reg_number }}</td>
+                                                            <td>{{ vehicle.price }}</td>
+                                                            <td>{{ vehicle.get_sell_status_display }}</td>
+                                                            <td>{{ vehicle.user.username }}</td>
+                                                            
+                                                            <td><a href="{% url "detail_sell" vehicle.id %}">view</a></td>
+                                                            {%if user.is_superuser%}
+                                                                <td><a href="{% url "edit_sell" vehicle.id %}">edit</a></td>
+                                                                <td><a href="{% url "delete_sell" vehicle.id %}">delete</a></td>
+                                                                <td><a href="{% url "retrieve_vehicle" vehicle.id %}">retrieve</a></td>
+                                                            {%endif%}
+                                                            <td><a href="{% url "sell_vehicle" vehicle.id %}">sell</a></td>
+                                                                
+                                                        {% endfor %}
+                                                        {%endif%}
+                                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <!-- /# column -->
+                   
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
                 </div>
-            </div>
-            
+                <!-- /# row -->
 {%endblock content%}
-
-             
-        

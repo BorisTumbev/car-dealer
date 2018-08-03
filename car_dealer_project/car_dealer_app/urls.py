@@ -30,7 +30,9 @@ urlpatterns = [
     path('make_list',views.list_models,{'model_type':Make}, name='make_list'),
 
     path('log_list',views.log_list, name='log_list'),
+
     path('',front_office_views.f_sell_veh_list, name='f_sell_list'),
+    path('f_rental_list',front_office_views.f_rent_veh_list, name='f_rental_list'),
 
 
     #urls for editing objects

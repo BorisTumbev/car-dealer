@@ -146,7 +146,7 @@ def create_user(request):
             return redirect('sell_list')
     else:
         form = CustomUserCreationForm()
-    return render(request, './registration/create_user.html', {'form': form})
+    return render(request, './create.html', {'form': form})
 
 
 @sales_user_required
