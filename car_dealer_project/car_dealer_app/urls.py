@@ -1,6 +1,6 @@
 from django.urls import path
 from car_dealer_app import views, front_office_views 
-from .forms import MakeForm, RentalVehicleForm, CarModelForm, SellVehicleForm, CustomUserCreationForm
+from .forms import *
 from .models import RentalVehicle, Make, Model, SellVehicle , MyUser
 from django.conf.urls import handler404
 from django.views.generic.base import TemplateView
@@ -44,7 +44,9 @@ urlpatterns = [
     path('edit_sell/<id>',views.edit_obj,{'i_form':SellVehicleForm,'model':SellVehicle}, name='edit_sell'),
     path('edit_make/<id>',views.edit_obj,{'i_form':MakeForm,'model':Make}, name='edit_make'),
     path('edit_model/<id>',views.edit_obj,{'i_form':CarModelForm,'model':Model}, name='edit_model'),
-    path('edit_user/<id>',views.edit_obj,{'i_form':CustomUserCreationForm,'model':MyUser}, name='edit_user'),
+    path('edit_user/<id>',views.edit_obj,{'i_form':CustomUserChangeForm,'model':MyUser}, name='edit_user'),
+
+  
 
 
 

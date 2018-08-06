@@ -2,17 +2,42 @@ from django.forms import ModelForm
 from .models import RentalVehicle, Make, Model, SellVehicle,MyUser
 from django import forms
 from .widgets import RelatedFieldWidgetCanAdd, DateTimeInput
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 
 class CustomUserCreationForm(UserCreationForm):
+
+    def __init__(self, *args, **kwargs):
+       
+        super().__init__(*args, **kwargs)
+       
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['email'].required = True
+
+        for fieldname in ['username', 'password1', 'password2']:
+            self.fields[fieldname].help_text = None
+
+
     class Meta(UserCreationForm.Meta):
         model = MyUser
         fields = ('first_name','last_name','username','email','image','role')
-        help_texts = {
-            'username': None,
-          
-        }
 
+class CustomUserChangeForm(UserChangeForm):
+
+   
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+       
+        for fieldname in ['username','password']:
+            self.fields[fieldname].help_text = None
+
+    def clean_password(self):
+        return self.clean_password
+
+    class Meta(UserChangeForm.Meta):
+        model = MyUser
+        fields = ('first_name','last_name','username','email','image','role')
+        
 
 class MyForm(ModelForm):
     """

@@ -15,7 +15,8 @@ class MyUser(AbstractUser):
 class Make(models.Model):
     objects = models.Manager()
 
-    name = models.CharField(max_length=15,unique=True)
+    name    = models.CharField(max_length=15,unique=True)
+
     def __str__(self):
         return self.name
 
@@ -24,13 +25,15 @@ class Model(models.Model):
 
     name = models.CharField(max_length=15,unique=True)
     make = models.ForeignKey(Make,on_delete = models.CASCADE)
+
     def __str__(self):
         return self.name
         
 class Vehicle(models.Model):
-    objects      = models.Manager()
-    user         = models.ForeignKey(MyUser,on_delete=models.PROTECT)
 
+    objects      = models.Manager()
+
+    user         = models.ForeignKey(MyUser,on_delete=models.PROTECT)
     make         = models.ForeignKey(Make,on_delete = models.PROTECT,null=True)
     model        = models.ForeignKey(Model,on_delete = models.PROTECT)
     v_type       = models.CharField(max_length=1,choices=vehicle_types)
@@ -48,6 +51,7 @@ class Vehicle(models.Model):
 
 
 class RentalVehicle(Vehicle):
+
     rental_price_per_day  = models.PositiveIntegerField()
     rental_status         = models.BooleanField(default=False)
     rented_at             = models.DateTimeField(default=None,null=True)
@@ -58,6 +62,7 @@ class RentalVehicle(Vehicle):
         return self.reg_number
     
 class SellVehicle(Vehicle):
+    
     price       = models.PositiveIntegerField(null=True)
     sell_status = models.CharField(max_length=1,choices=sell_status,default="A")
 

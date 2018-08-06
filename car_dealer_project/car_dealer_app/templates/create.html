@@ -1,7 +1,23 @@
 {%extends "base_back_office.html" %}
 
 {%block content%}
-    <h1>Edit/Create </h1>
+
+{%if form.name and form.make%}
+<h1>Edit/Create Model </h1>
+{%elif form.name%}
+<h1>Edit/Create Make </h1>
+{%elif form.price%}
+<h1>Edit/Create Sell Vehicle </h1>
+{%elif form.role%}
+<h1>Edit/Create Employee</h1>
+{%else%}
+<h1>Edit/Create Rental Vehicle </h1>
+{%endif%}
+   
+{% comment %} {% if form.year.errors %}
+{# NOTE: must use id_NAME for jquery.validation to overwrite error label #}
+<label class='error' for='id_{{ form.year.name }}' generated="true">{{ field.errors|join:". " }}</label>
+{% endif %}  {% endcomment %}
 
     <form id="create" method="post" enctype='multipart/form-data'>
         {% csrf_token %}
@@ -14,31 +30,23 @@
 
 {%block search%}{%endblock search%}
 {%block pagination%}{%endblock pagination%}
+
 {% comment %} 
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
 <script>
         FORM_RULES = {
-            '{{ form.year }}': 'required'
+            '{{ form.year.name }}': 'required'
             
         };
         FORM_MESSAGES = {
-            '{{ form.year }}': 'This field is required'
+            '{{ form.year.name }}': 'This field is required'
         }; 
-  $('#create').validate({
-
-    rules: {
-        year: {
-          required: true,
-          maxlength: 3
-        }
-      },
-      messages: {
-        name: {
-          required: "We need your email address to contact you",
-          maxlength: jQuery.validator.format("At least {0} characters required!")
-        }
-    }
-
-  });
-</script> {% endcomment %}
+        $(document).ready(function() {
+            $('#create').validate({
+                rules: FORM_RULES,
+                messages: FORM_MESSAGES
+            });
+        });
+</script>  {% endcomment %}

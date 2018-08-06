@@ -35,7 +35,7 @@
                                                             <td>{{ vehicle.get_v_type_display }}</td>
                                                             <td>{{ vehicle.reg_number }}</td>
                                                             <td>{{ vehicle.price }}</td>
-                                                            <td>{{ vehicle.get_sell_status_display }}</td>
+                                                            <td><span class="badge badge-danger">{{ vehicle.get_sell_status_display }}</span></td>
                                                             <td>{{ vehicle.user.username }}</td>
                                                             
                                                             <td><a href="{% url "detail_sell" vehicle.id %}">view</a></td>

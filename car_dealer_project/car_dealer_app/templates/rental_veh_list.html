@@ -22,10 +22,10 @@
                                         <th>From user</th>
                                         <th>Rental Price</th>
                                         {% comment %} <th><a href="{% url "order_price"%}">Price</a></th> {% endcomment %}
-                                        <th>Status</th>
+                                        {%if object_list.0.rental_status%}
                                         <th>Rented at</th>
                                         <th>Rented until</th>
-        
+                                        {%endif%}
                                     </tr>
                                 </thead>
                                     <tbody>
@@ -40,9 +40,10 @@
                                             <td>{{ vehicle.reg_number }}</td>
                                             <td>{{ vehicle.user.username }}</td>
                                             <td>{{ vehicle.rental_price_per_day }}</td>
-                                            <td>{{ vehicle.rental_status }}</td>
+                                            {%if vehicle.rental_status%}
                                             <td>{{ vehicle.rented_at }}</td>
                                             <td>{{ vehicle.rented_until }}</td>
+                                            {%endif%}
                                             <td><a href="{% url "detail_rental" vehicle.id %}">view</a></td>
                                             {%if user.is_superuser%}
                                                 <td><a href="{% url "edit_rental" vehicle.id %}">edit</a></td>
