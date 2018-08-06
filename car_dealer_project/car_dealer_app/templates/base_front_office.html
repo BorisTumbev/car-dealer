@@ -62,13 +62,13 @@
                 <div class="col-sm-7">
                     <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
                     <div class="header-left">
-                       
+                            {%block search%}
                             <form method='GET' action='' class="search-form">
                                 <input class="form-control mr-sm-2" type="text" name='q' placeholder="Search for cars..." value='{{request.GET.q}}' aria-label="Search">
                                 <input type="submit" value='Search' />
                               
                             </form>
- 
+                            {%endblock search%}
                     </div>
                 </div>
 
@@ -78,7 +78,7 @@
                             {% if user.is_authenticated %}
                             Hi {{ user.username }}!
                             <a href="{% url 'logout' %}"> <i class="menu-icon fa fa-glass"></i>Logout </a>
-                            <a href="{% url 'sell_list' %}"><i class ="menu-icon fa fa-glass"></i>Go to the System</a>
+                            <a href="{% url 'home_back' %}"><i class ="menu-icon fa fa-glass"></i>Go to the System</a>
                             {%else%}
                            <a href="{% url 'login' %}"> <i class="menu-icon fa fa-glass"></i>Login </a>
                            {%endif%}
@@ -92,7 +92,7 @@
 
         
         
-        
+        {%block pagination%}
         <div class="pagination">
             <span class="step-links">
                 {% if object_list.has_previous %}
@@ -110,7 +110,8 @@
                 {% endif %}
             </span>
         </div>
-        
+        {%endblock pagination%}
+
         {%block content%}
         {%endblock content%}
 

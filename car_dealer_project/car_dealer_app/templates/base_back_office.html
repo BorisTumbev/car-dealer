@@ -159,7 +159,9 @@
                                 <li><a href="{% url "create_sell" %}">Add</a></li>
                                 <li><a href="{% url "sold_list" %}">List sold</a></li>
                                 <li><a href="{% url "sell_list" %}">List available</a></li>
-				                <li><a href="{% url "pending_list" %}">List pending</a></li>
+                                {%if user.is_superuser%}
+                                <li><a href="{% url "pending_list" %}">List pending</a></li>
+                                {%endif%}
                             </ul>
                         </li>
                         {%endif%}

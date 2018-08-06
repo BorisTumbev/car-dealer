@@ -7,7 +7,11 @@ from django.contrib.auth.forms import UserCreationForm
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = MyUser
-        fields = ('username','email','image','role')
+        fields = ('first_name','last_name','username','email','image','role')
+        help_texts = {
+            'username': None,
+          
+        }
 
 
 class MyForm(ModelForm):

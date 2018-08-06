@@ -114,7 +114,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'car_dealer_app/media')
 
 #FIXTURE_DIRS = '/fixtures/'
 
-LOGIN_REDIRECT_URL = '/sell_list'
+LOGIN_REDIRECT_URL = '/home'
 
 LOGOUT_REDIRECT_URL = '/'
 

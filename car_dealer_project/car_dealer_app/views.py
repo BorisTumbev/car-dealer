@@ -27,7 +27,7 @@ def create_obj(request,i_form):
         form.save()
         create_log(request,i_form.__name__[:-4],'created',request.user)
 
-        return redirect('sell_list')
+        return redirect('home_back')
 
     return render(request, './create.html', {'form':form})
 
@@ -115,7 +115,7 @@ def edit_obj(request,id,i_form,model):
     if form.is_valid():
         form.save()
         create_log(request,i_form.__name__[:-4],'edited',request.user)
-        return redirect('sell_list')
+        return redirect('home_back')
 
     return render(request, './create.html', {'form':form})
 
@@ -129,7 +129,7 @@ def delete_obj(request,id,model):
     if request.method=='POST':
         obj.delete()
         create_log(request,model.__name__,'deleted',request.user)
-        return redirect('sell_list')
+        return redirect('home_back')
     return render(request, './delete.html', {'object':obj})
 
 
@@ -144,7 +144,7 @@ def create_user(request):
             form.save()
             create_log(request,"User",'created user',request.user)
             messages.success(request, 'user created')
-            return redirect('sell_list')
+            return redirect('home_back')
     else:
         form = CustomUserCreationForm()
     return render(request, './create.html', {'form': form})
@@ -174,7 +174,7 @@ def sell_vehicle(request,id,sell=True):
         mail_send(("{} wants to sell {} {} {} ").format(request.user.username,obj.reg_number,obj.make.name,obj.model.name))
        
         messages.success(request, 'Request for selling sent')
-        return redirect('my_list')
+        return redirect('sell_list')
     
     
 
@@ -257,6 +257,7 @@ def log_list(request):
     object_list = Log.objects.all()
 
     return render(request,'./log_list.html',{'object_list':pagination(request,object_list)})
+    
 @superuser_required
 def del_old_logs(request):
 

@@ -3,6 +3,7 @@ from car_dealer_app import views, front_office_views
 from .forms import MakeForm, RentalVehicleForm, CarModelForm, SellVehicleForm, CustomUserCreationForm
 from .models import RentalVehicle, Make, Model, SellVehicle , MyUser
 from django.conf.urls import handler404
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
 
@@ -31,9 +32,11 @@ urlpatterns = [
 
     path('log_list',views.log_list, name='log_list'),
 
-    path('',front_office_views.f_sell_veh_list, name='f_sell_list'),
+    path('f_sell_list',front_office_views.f_sell_veh_list, name='f_sell_list'),
     path('f_rental_list',front_office_views.f_rent_veh_list, name='f_rental_list'),
 
+    path('home', TemplateView.as_view(template_name='home_back_office.html'), name='home_back'),
+    path('', TemplateView.as_view(template_name='home_front_office.html'), name='home_front'),
 
     #urls for editing objects
 
