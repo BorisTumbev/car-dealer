@@ -67,7 +67,39 @@
                     <ul class="navbar-nav my-lg-0">
                         
                         <!-- Search -->
-                       
+                        <li class="nav-item dropdown">
+                            <a  id='btn' class="nav-link dropdown-toggle text-muted  " href="#" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-envelope"></i>
+								<div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+							</a>
+                            <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn" aria-labelledby="2">
+                                <ul>
+                                   
+                                    <li>
+                                        <div id='msg' class="message-center">
+
+                                            <!-- Message -->
+                                            {%for msg in obj_list%}
+                                            
+                                                <div class="user-img"> <img src="{{msg.user.image.url}}" height="20" width="20" alt="user" class="img-circle"> 
+                                                    <span class="profile-status online pull-right"></span> 
+                                                </div>
+                                                <div class="mail-contnet">
+                                                    <h4>{{msg.user.username}}</h4>
+                                                    <!-- <h5>Subject:{{msg.subject}}</h5> -->
+                                                    <span class="mail-desc">{{msg.description}}</span> 
+                                                    <span class="time">{{msg.date_added}}</span>
+                                                </div>
+                                                {%endfor%}
+                                           
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-center" href="javascript:void(0);"> <strong>See all e-Mails</strong> <i class="fa fa-angle-right"></i> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- End Messages -->
                         <!-- Profile -->
                        
                         <li class="nav-item dropdown">
@@ -191,7 +223,7 @@
     <!-- All Jquery -->
     <script src="../static/js/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-  
+   
     <script src="../static/js/bootstrap.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
     <script src="../static/js/jquery.slimscroll.js"></script>
@@ -202,6 +234,26 @@
     <!--Custom JavaScript -->
     <script src="../static/js/custom.min.js"></script>
     <script src="../static/js/modal.js"></script>
+
+    <!-- <script>
+    $.ajax({
+    url: '{% url "list_message" %}',
+    success: function(data) {
+    $('#msg').html(data);
+    }
+    });
+    </script> -->
+
+  <script>
+     $('#btn').click(function() {
+    $.ajax({
+    url: '{% url "list_message" %}',
+    success: function(data) {
+    $('#msg').html(data);
+    }
+    });});
+    </script> 
+
 </body>
 
 </html>

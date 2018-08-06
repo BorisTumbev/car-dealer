@@ -260,7 +260,7 @@ def del_old_logs(request):
 def list_message(request):
     obj_list = Message.objects.all()
 
-    return render(request,'./messages.html',{'obj_list':obj_list})
+    return render(request,'./base_back_office.html',{'obj_list':obj_list})
 
 
 
