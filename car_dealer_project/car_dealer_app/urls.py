@@ -15,6 +15,9 @@ urlpatterns = [
     path('create_rental',views.create_obj,{'i_form':RentalVehicleForm}, name='create_rental'),
     path('create_sell',views.create_obj,{'i_form':SellVehicleForm}, name='create_sell'),
 
+    path('create_message',views.create_obj,{'i_form':MessageForm}, name='create_message'),
+    path('list_message',views.list_message, name='list_message'),
+
     #urls for listing objects
 
     path('rented_list',views.rental_veh_list, name='rented_list'),

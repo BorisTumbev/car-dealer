@@ -25,6 +25,7 @@
                                         {%if object_list.0.rental_status%}
                                         <th>Rented at</th>
                                         <th>Rented until</th>
+                                       
                                         {%endif%}
                                     </tr>
                                 </thead>
@@ -43,6 +44,8 @@
                                             {%if vehicle.rental_status%}
                                             <td>{{ vehicle.rented_at }}</td>
                                             <td>{{ vehicle.rented_until }}</td>
+                                            
+
                                             {%endif%}
                                             <td><a href="{% url "detail_rental" vehicle.id %}">view</a></td>
                                             {%if user.is_superuser%}

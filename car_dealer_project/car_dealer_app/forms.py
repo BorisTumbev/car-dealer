@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import RentalVehicle, Make, Model, SellVehicle,MyUser
+from .models import RentalVehicle, Make, Model, SellVehicle,MyUser,Message
 from django import forms
 from .widgets import RelatedFieldWidgetCanAdd, DateTimeInput
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
@@ -121,3 +121,14 @@ class CarModelForm(MyForm):
         model  = Model
         fields = '__all__'
 
+
+class MessageForm(MyForm):
+
+ 
+    make = None
+    model = None
+
+    class Meta:
+        model  = Message
+        fields = ['description','subject']
+       

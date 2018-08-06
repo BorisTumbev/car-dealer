@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.core.mail import send_mail
-from .models import RentalVehicle, Make, Model, SellVehicle , MyUser,Log
+from .models import RentalVehicle, Make, Model, SellVehicle , MyUser,Log,Message
 from .decorators import *
 from .utils import pagination, mail_send
 from .forms import RentalVehicleForm,SellVehicleForm,CustomUserCreationForm,RentForm,CustomUserChangeForm
@@ -39,6 +39,7 @@ def edit_obj(request,id,i_form,model):
     view for editing objects
     """
     obj = get_object_or_404(model,id=id)
+
     if i_form == CustomUserChangeForm:
         form = i_form(request.POST or None,request.FILES or None, instance=obj)
     else:
@@ -255,6 +256,12 @@ def del_old_logs(request):
         object_list.delete() 
         return redirect('log_list')
     return render(request, './delete.html', {'object':object_list})
+
+def list_message(request):
+    obj_list = Message.objects.all()
+
+    return render(request,'./messages.html',{'obj_list':obj_list})
+
 
 
 def error_404(request):
