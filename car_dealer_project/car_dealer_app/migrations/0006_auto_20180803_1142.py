@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='rentalvehicle',
             name='rented_until',
-            field=models.DateTimeField(default=None, null=True, validators=[car_dealer_app.utils.curr_day_validator]),
+            field=models.DateTimeField(default=None, null=True, validators=[car_dealer_app.validators.curr_day_validator]),
         ),
     ]

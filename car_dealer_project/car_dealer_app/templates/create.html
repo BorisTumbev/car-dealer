@@ -2,17 +2,17 @@
 
 {%block content%}
 
-{%if form.name and form.make%}
-<h1>Edit/Create Model </h1>
-{%elif form.name%}
-<h1>Edit/Create Make </h1>
-{%elif form.price%}
-<h1>Edit/Create Sell Vehicle </h1>
-{%elif form.role%}
-<h1>Edit/Create Employee</h1>
-{%else%}
-<h1>Edit/Create Rental Vehicle </h1>
-{%endif%}
+    {%if form.name and form.make%}
+        <h1>Edit/Create Model </h1>
+    {%elif form.name%}
+        <h1>Edit/Create Make </h1>
+    {%elif form.price%}
+        <h1>Edit/Create Sell Vehicle </h1>
+    {%elif form.role%}
+        <h1>Edit/Create Employee</h1>
+    {%else%}
+        <h1>Edit/Create Rental Vehicle </h1>
+    {%endif%}
    
 {% comment %} {% if form.year.errors %}
 {# NOTE: must use id_NAME for jquery.validation to overwrite error label #}

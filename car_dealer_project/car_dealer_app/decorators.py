@@ -17,7 +17,7 @@ def superuser_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, l
 
 def sales_user_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
     """
-    Decorator for views that checks that the user is rental, redirecting
+    Decorator for views that checks that the user is sales user, staff or superuser, redirecting
     to the log-in page if necessary.
     """
     actual_decorator = user_passes_test(
@@ -31,7 +31,7 @@ def sales_user_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, 
 
 def rental_user_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
     """
-    Decorator for views that checks that the user is superuser, redirecting
+    Decorator for views that checks that the user is rental user, staff or superuser, redirecting
     to the log-in page if necessary.
     """
     actual_decorator = user_passes_test(

@@ -5,8 +5,10 @@ from django.db.models import Q
 
 
 def f_rent_veh_list(request):
+    """
+    list of all available rental vehicles
+    """
     errorMsg="Empty Records"
-
 
     query = request.GET.get('q')
     if query:
@@ -19,16 +21,17 @@ def f_rent_veh_list(request):
                                         
         return render(request,'./veh_list_front.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
 
-
-
     vehicles = RentalVehicle.objects.filter(rental_status=False)
    
     return render(request,'./veh_list_front.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
 
+
 def f_sell_veh_list(request):
+    """
+    list of all available for sale vehicles
+    """
 
     errorMsg="Empty Records"
-
 
     query = request.GET.get('q')
     if query:
@@ -40,8 +43,6 @@ def f_sell_veh_list(request):
                                         ).distinct()
                                         
         return render(request,'./veh_list_front.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
-
-
 
     vehicles = SellVehicle.objects.filter(sell_status='A')
    

@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../media/images/images.png">
-    <title>Ela - Bootstrap Admin Dashboard Template</title>
+    <title>Car Dealer - ADMIN</title>
     <!-- Bootstrap Core CSS -->
     <link href="../static/css/bootstrap_back.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -18,12 +18,9 @@
     <link rel="stylesheet" href="../static/css/modal.css">
     <link href="../static/css/helper.css" rel="stylesheet">
     <link href="../static/css/style_back.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
-    <!--[if lt IE 9]>
-    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+   
+   
+  
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -43,16 +40,14 @@
                         <!-- Logo icon -->
                         <b><img src="../media/images/images.png" width='70' height="50" alt="homepage"  /></b>
                         <!--End Logo icon -->
-                        <!-- Logo text -->
-                       
                     </a>
                 </div>
                 <!-- End Logo -->
                 {%block search%}
-                <form method='GET' action=''>
-                    <input type="text" name='q' placeholder='Search' value='{{request.GET.q}}' >
-                    <input type="submit" value='Search' />
-                </form>
+                    <form method='GET' action=''>
+                        <input type="text" name='q' placeholder='Search' value='{{request.GET.q}}' >
+                        <input type="submit" value='Search' />
+                    </form>
                 {%endblock search%}
                 <div class="navbar-collapse">
                     <!-- toggle and nav items -->
@@ -73,13 +68,10 @@
 							</a>
                             <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn" aria-labelledby="2">
                                 <ul>
-                                   
                                     <li>
                                         <div id='msg' class="message-center">
-
                                             <!-- Message -->
                                             {%for msg in obj_list%}
-                                            
                                                 <div class="user-img"> <img src="{{msg.user.image.url}}" height="20" width="20" alt="user" class="img-circle"> 
                                                     <span class="profile-status online pull-right"></span> 
                                                 </div>
@@ -89,8 +81,7 @@
                                                     <span class="mail-desc">{{msg.description}}</span> 
                                                     <span class="time">{{msg.date_added}}</span>
                                                 </div>
-                                                {%endfor%}
-                                           
+                                            {%endfor%}
                                         </div>
                                     </li>
                                     <li>
@@ -101,15 +92,12 @@
                         </li>
                         <!-- End Messages -->
                         <!-- Profile -->
-                       
                         <li class="nav-item dropdown">
-                              
                             <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src={{user.image.url}} height="30" alt="user" class="profile-pic" /></a>
                             <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                 <ul class="dropdown-user">
                                     <li><a href="/admin"><i class="ti-user"></i>Django Admin Page</a></li>
-                                    
-                                  <li><a href="{% url 'logout' %}"><i class="fa fa-power-off"></i> Logout</a></li>
+                                    <li><a href="{% url 'logout' %}"><i class="fa fa-power-off"></i> Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -126,48 +114,43 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="nav-devider"></li>
+                        
                         {%if user.role == "SRA" or user.role == "RA" or user.is_superuser%}
-                        <li class="nav-label">Rent</li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Rental Vehicles </span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="{% url "create_rental" %}">Add </a></li>
-                                <li><a href="{% url "rented_list" %}">List rented </a></li>
-				                <li><a href="{% url "rental_list" %}">List available </a></li>
-                            </ul>
-                        </li>
+
+                            <li class="nav-label">Rent</li>
+                            <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Rental Vehicles </span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="{% url "create_rental" %}">Add </a></li>
+                                    <li><a href="{% url "rented_list" %}">List rented </a></li>
+                                    <li><a href="{% url "rental_list" %}">List available </a></li>
+                                </ul>
+                            </li>
                         {%endif%}
                         {%if user.role == "SRA" or user.is_superuser or user.role == "SA" %}
-                        <li class="nav-label">Sell</li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Selling Vehicles</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="{% url "create_sell" %}">Add</a></li>
-                                <li><a href="{% url "sold_list" %}">List sold</a></li>
-                                <li><a href="{% url "sell_list" %}">List available</a></li>
-                                {%if user.is_superuser%}
-                                <li><a href="{% url "pending_list" %}">List pending</a></li>
-                                {%endif%}
-                            </ul>
-                        </li>
+
+                            <li class="nav-label">Sell</li>
+                            <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Selling Vehicles</span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="{% url "create_sell" %}">Add</a></li>
+                                    <li><a href="{% url "sold_list" %}">List sold</a></li>
+                                    <li><a href="{% url "sell_list" %}">List available</a></li>
+                                    {%if user.is_superuser%}
+                                        <li><a href="{% url "pending_list" %}">List pending</a></li>
+                                    {%endif%}
+                                </ul>
+                            </li>
                         {%endif%}
                         {%if user.is_superuser%} 
-                        <li class="nav-label">System</li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-suitcase"></i><span class="hide-menu"> Employees</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="{% url "create_user" %}">Add</a></li>
-                                <li><a href="{% url "users_list" %}">List</a></li>
-                            </ul>
-                        </li>
 
-                                <li><a href="{% url "log_list" %}"><i class="fa fa-suitcase"></i> System log</a></li>
-                                {%endif%}
-    
-                               	<li><a href="{% url "make_list" %}"><i class="fa fa-table"></i> Make list</a></li>
-                                <li><a href="{% url "model_list" %}"><i class="fa fa-table"></i> Model list</a></li>
-                                
-                           
-                        </li>
-                        
-                        
+                            <li class="nav-label">System</li>
+                            <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-suitcase"></i><span class="hide-menu"> Employees</span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="{% url "create_user" %}">Add</a></li>
+                                    <li><a href="{% url "users_list" %}">List</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url "log_list" %}"><i class="fa fa-suitcase"></i> System log</a></li>
+                        {%endif%}
                 <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
@@ -180,36 +163,36 @@
             <div class="container-fluid">
                 <!-- Start Page Content -->
 
-{% if messages %}
-    <ul class="messages">
-    {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-    </ul>
-{% endif %}
+                {% if messages %}
+                    <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
 
-{%block content%}
+                {%block content%}
         
-{%endblock content%}
+                {%endblock content%}
 
-{%block pagination%}
-    <div class="pagination">
-        <span class="step-links">
-        {% if object_list.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ object_list.previous_page_number }}">previous</a>
-        {% endif %}
-                                
-        <span class="current">
-        Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
-        </span>
-        {% if object_list.has_next %}
-        <a href="?page={{ object_list.next_page_number }}">next</a>
-        <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-        </span>
-    </div>
-{%endblock pagination%}        
+                {%block pagination%}
+                    <div class="pagination">
+                        <span class="step-links">
+                        {% if object_list.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ object_list.previous_page_number }}">previous</a>
+                        {% endif %}
+                                                
+                        <span class="current">
+                        Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+                        </span>
+                        {% if object_list.has_next %}
+                        <a href="?page={{ object_list.next_page_number }}">next</a>
+                        <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                        </span>
+                    </div>
+                {%endblock pagination%}        
                 <!-- End PAge Content -->
             </div>
             <!-- End Container fluid  -->
@@ -224,7 +207,6 @@
     <script src="../static/js/jquery.min.js"></script>
     <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
     <!-- Bootstrap tether Core JavaScript -->
-    
     <script src="../static/js/bootstrap.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
     <script src="../static/js/jquery.slimscroll.js"></script>
@@ -238,12 +220,13 @@
     <!-- <script src="http://code.jquery.com/jquery-latest.js"></script> -->
     
 
-  <script>
+<script>
     $(document).ready(function(){
         
         $('#btn').click(function() {
             
             $.ajax({
+
                 url: '{% url "list_message" %}',
                
                 success: function(data) {

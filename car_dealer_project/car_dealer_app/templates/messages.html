@@ -1,21 +1,17 @@
 
 <li>
-        <div class="message-center">
-            <!-- Message -->
-            {%for msg in obj_list%}
-           
-                <div class="user-img"> <img src="{{msg.user.image.url}}" height="20" width="20" alt="user" class="img-circle"> 
-                    <span class="profile-status online pull-right"></span> 
-                </div>
-                <div class="mail-contnet">
-                    <h4>{{msg.user.username}}</h4>
-                    <!-- <h5>Subject:{{msg.subject}}</h5> -->
-                    <span class="mail-desc">{{msg.description}}</span> 
+    <div class="message-center">
+        <!-- Message -->
+        {%for msg in obj_list%}
+            <div class="user-img"> <img src="{{msg.user.image.url}}" height="20" width="20" alt="user" class="img-circle"> 
+                <span class="profile-status online pull-right"></span> 
+            </div>
+            <div class="mail-contnet">
+                <h4>{{msg.user.username}}</h4>
+                <span class="mail-desc">{{msg.description}}</span> 
                  
-                    <span class="time">{{msg.date_added}}</span>
-                </div>
-            
-
-            {%endfor%}
-        </div>
-    </li>
+                <span class="time">{{msg.date_added}}</span>
+            </div>
+        {%endfor%}
+    </div>
+</li>

@@ -2,10 +2,12 @@ from django.forms import ModelForm
 from .models import RentalVehicle, Make, Model, SellVehicle,MyUser,Message
 from django import forms
 from .widgets import RelatedFieldWidgetCanAdd, DateTimeInput
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 class CustomUserCreationForm(UserCreationForm):
-
+    """
+    form for user creation
+    """
     def __init__(self, *args, **kwargs):
        
         super().__init__(*args, **kwargs)
@@ -23,7 +25,9 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ('first_name','last_name','username','email','image','role')
 
 class CustomUserChangeForm(UserChangeForm):
-
+    """
+    form for user change
+    """
    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -123,8 +127,9 @@ class CarModelForm(MyForm):
 
 
 class MessageForm(MyForm):
-
- 
+    """
+    form for messages
+    """
     make = None
     model = None
 

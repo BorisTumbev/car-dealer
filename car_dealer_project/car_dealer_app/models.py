@@ -1,8 +1,8 @@
 from django.db import models
-from django.core.validators import MaxValueValidator, MinValueValidator
 from .utils import *
 from django.contrib.auth.models import AbstractUser
 import datetime
+from .validators import *
 
 class MyUser(AbstractUser):
       

@@ -1,15 +1,11 @@
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.core.mail import send_mail
 from .models import RentalVehicle, Make, Model, SellVehicle , MyUser,Log,Message
 from .decorators import *
 from .utils import pagination, mail_send
-from .forms import RentalVehicleForm,SellVehicleForm,CustomUserCreationForm,RentForm,CustomUserChangeForm
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from .forms import *
 import datetime
 from datetime import timedelta
 
@@ -25,9 +21,15 @@ def create_obj(request,i_form):
     if form.is_valid():
         
         form.save()
+
         create_log(request,i_form.__name__[:-4],'created',request.user)
 
-        return redirect('home_back')
+        if i_form == SellVehicleForm:
+            return redirect('sell_list')
+        elif i_form == RentalVehicleForm:
+            return redirect('rental_list')
+        else:
+            return redirect('home_back')
 
     return render(request, './create.html', {'form':form})
 
@@ -186,7 +188,7 @@ def rent_veh(request,id,rent=True):
         create_log(request,'Vehicle','vehicle rented',request.user)
         return redirect('rented_list')
 
-    #return render(request, './create.html', {'form':form})
+    return render(request, './create.html', {'form':form})
 
 
 @superuser_required
@@ -213,25 +215,6 @@ def user_list(request):
 
     return render(request,'./users_list.html',{'object_list':pagination(request,object_list)})
     
-    
-
-@login_required
-def list_models(request,model_type):
-    """
-    view for listing models and makes
-    """
-    query = request.GET.get('q')
-
-    if query:
-        object_list = model_type.objects.filter(name__icontains=query)
-    else:
-        object_list = model_type.objects.all()
-
-    if model_type==Model:
-        return render(request,'./list_models.html',{'object_list':pagination(request,object_list)})
-    else:
-        return render(request,'./list_makes.html',{'object_list':pagination(request,object_list)})
-
 
 def create_log(request,obj,action,user,date=datetime.datetime.now()):
     
@@ -257,6 +240,7 @@ def del_old_logs(request):
         return redirect('log_list')
     return render(request, './delete.html', {'object':object_list})
 
+@login_required
 def list_message(request):
     obj_list = Message.objects.all()
 

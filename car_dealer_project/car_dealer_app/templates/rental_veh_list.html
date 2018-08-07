@@ -1,78 +1,70 @@
 {%extends "base_back_office.html" %} {%block content%}
 
-
 <div class="row">
     <div class="col-lg-6">
         <div class="card">
             <div class="card-title">
                 <h4>Vehicles </h4>
-
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     {%if not object_list%} {{errorMsg}} {%else%}
-                    <table class="table">
+                        <table class="table">
                             <thead>
-                                    <tr> 
-                                        <th>Make</th>
-                                        <th>Model</th>
-                                        <th>Type</th>
-                                        {% comment %} <th><a href="{% url "order_type"%}">Type</a></th> {% endcomment %}
-                                        <th>Reg Number</th>
-                                        <th>From user</th>
-                                        <th>Rental Price</th>
-                                        {% comment %} <th><a href="{% url "order_price"%}">Price</a></th> {% endcomment %}
-                                        {%if object_list.0.rental_status%}
+                                <tr> 
+                                    <th>Make</th>
+                                    <th>Model</th>
+                                    <th>Type</th>
+                                    {% comment %} <th><a href="{% url "order_type"%}">Type</a></th> {% endcomment %}
+                                    <th>Reg Number</th>
+                                    <th>From user</th>
+                                    <th>Rental Price</th>
+                                    {% comment %} <th><a href="{% url "order_price"%}">Price</a></th> {% endcomment %}
+                                    {%if object_list.0.rental_status%}
                                         <th>Rented at</th>
                                         <th>Rented until</th>
                                        
-                                        {%endif%}
-                                    </tr>
-                                </thead>
-                                    <tbody>
-                                        {%if not object_list%}
-                                            {{errorMsg}}
-                                        {%else%}
-                                        {% for vehicle in object_list %}
-                                            <tr class="warning">
-                                            <td>{{ vehicle.make }}</td>
-                                            <td>{{ vehicle.model }}</td>
-                                            <td>{{ vehicle.get_v_type_display }}</td>
-                                            <td>{{ vehicle.reg_number }}</td>
-                                            <td>{{ vehicle.user.username }}</td>
-                                            <td>{{ vehicle.rental_price_per_day }}</td>
-                                            {%if vehicle.rental_status%}
+                                    {%endif%}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {%if not object_list%}
+                                    {{errorMsg}}
+                                {%else%}
+                                    {% for vehicle in object_list %}
+                                        <tr class="warning">
+                                        <td>{{ vehicle.make }}</td>
+                                        <td>{{ vehicle.model }}</td>
+                                        <td>{{ vehicle.get_v_type_display }}</td>
+                                        <td>{{ vehicle.reg_number }}</td>
+                                        <td>{{ vehicle.user.username }}</td>
+                                        <td>{{ vehicle.rental_price_per_day }}</td>
+                                        {%if vehicle.rental_status%}
                                             <td>{{ vehicle.rented_at }}</td>
                                             <td>{{ vehicle.rented_until }}</td>
-                                            
-
-                                            {%endif%}
-                                            <td><a href="{% url "detail_rental" vehicle.id %}">view</a></td>
-                                            {%if user.is_superuser%}
-                                                <td><a href="{% url "edit_rental" vehicle.id %}">edit</a></td>
-
-
-                                                <td>
-                                                        <a href="#" id="btn_del-{{vehicle.id}}" onclick="del({{vehicle.id}})">delete</a>
-                                                        <!-- The Modal -->
-                                                        <div id="myModal_del-{{vehicle.id}}" class="modal">
-                                                          <!-- Modal content -->
-                                                          <div class="modal-content">
-                                                            <span class="close_del-{{vehicle.id}}">&times;</span>
-                                                            <form action = 'delete_rental/{{vehicle.id}}'method="post" enctype='multipart/form-data'>
-                                                                {% csrf_token %}
-                                                                Are you sure you want to delete "{{ vehicle }}" ?
-                                                                <input type="submit" value="Submit" />
-                                                            </form>
-                                                          </div>
-                                                        </div>
-                                                    </td>
-
+                                        {%endif%}
+                                        <td><a href="{% url "detail_rental" vehicle.id %}">view</a></td>
+                                        {%if user.is_superuser%}
+                                            <td><a href="{% url "edit_rental" vehicle.id %}">edit</a></td>
+                                            <td>
+                                                <a href="#" id="btn_del-{{vehicle.id}}" onclick="del({{vehicle.id}})">delete</a>
+                                                <!-- The Modal -->
+                                                <div id="myModal_del-{{vehicle.id}}" class="modal">
+                                                <!-- Modal content -->
+                                                <div class="modal-content">
+                                                <span class="close_del-{{vehicle.id}}">&times;</span>
+                                                <form action = 'delete_rental/{{vehicle.id}}'method="post" enctype='multipart/form-data'>
+                                                    {% csrf_token %}
+                                                        Are you sure you want to delete "{{ vehicle }}" ?
+                                                    <input type="submit" value="Submit" />
+                                                </form>
+                                                </div>
+                                                </div>
+                                            </td>
                                                 {% comment %} <td><a href="{% url "delete_rental" vehicle.id %}">delete</a></td> {% endcomment %}
-                                            {%endif%}
-
-                                            {%if not vehicle.rented_at%}
-                                              <td>
+                                        {%endif%}
+                                        {%if not vehicle.rented_at%}
+                                        <td>
                                             <a href="#" id="btn-{{vehicle.id}}" onclick="rent({{vehicle.id}})">Rent</a>
                                             <!-- The Modal -->
                                             <div id="myModal-{{vehicle.id}}" class="modal">
@@ -94,8 +86,8 @@
                                                 
                                         {% endfor %}
                                         {%endif%}
-                                    </tbody>
-                    </table>
+                            </tbody>
+                        </table>
                 </div>
             </div>
         </div>
@@ -108,6 +100,5 @@
 </div>
 <!-- /# row -->
 {%endif%}
-
 
 {%endblock content%}

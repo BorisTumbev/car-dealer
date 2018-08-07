@@ -70,6 +70,11 @@
 42. responsive
 
 */
+.errorlist {
+  color: #cb2027;
+  font-size: 30px
+}
+
 .card {
   width: 200%;
 }

@@ -5,48 +5,43 @@
             <div class="card-title">
                 <h4>Log </h4>
                 <a href="{% url "delete_old_logs" %}">Delete logs older than 2 months</a>
-              
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     {%if not object_list%} {{errorMsg}} {%else%}
                     <table class="table">
-                            <thead>
-                                    <tr> 
-                                        <th>Name</th>
-                                        <th>Action</th>
-                                        <th>Object</th>
-                                        <th>Date</th>
+                        <thead>
+                            <tr> 
+                                <th>Name</th>
+                                <th>Action</th>
+                                <th>Object</th>
+                                <th>Date</th>
                                        
-                                    </tr>
-                                </thead>
-                                    <tbody>
-                                        {%if not object_list%}
-                                            {{errorMsg}}
-                                        {%else%}
-                                        {% for obj in object_list %}
-                                            <tr class="warning">
-                                            <td>{{ obj.user.username }}</td>
-                                            <td>{{ obj.action }}</td>
-                                            <td>{{ obj.object_type }}</td>
-                                            <td>{{ obj.date }}</td>
-                                            {% comment %} <td><a href="{% url "delete_user" user.id %}">Fire employee</a></td> {% endcomment %}
-                                            
-                                              
-                                        {% endfor %}
-                                        {%endif%}
-                                    </tbody>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%if not object_list%}
+                                {{errorMsg}}
+                            {%else%}
+                                {% for obj in object_list %}
+                                    <tr class="warning">
+                                    <td>{{ obj.user.username }}</td>
+                                    <td>{{ obj.action }}</td>
+                                    <td>{{ obj.object_type }}</td>
+                                    <td>{{ obj.date }}</td>
+                                {% endfor %}
+                            {%endif%}
+                    {%endif%}
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
     <!-- /# column -->
-
     <!-- /# card -->
 </div>
 <!-- /# column -->
 </div>
 <!-- /# row -->
-{%endif%}
 {%endblock content%}
