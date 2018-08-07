@@ -1,6 +1,3 @@
-{%extends "base_back_office.html" %} 
-
-{%block content%}
 
 <li>
         <div class="message-center">
@@ -12,8 +9,9 @@
                 </div>
                 <div class="mail-contnet">
                     <h4>{{msg.user.username}}</h4>
-                    <h5>Subject:{{msg.subject}}</h5>
+                    <!-- <h5>Subject:{{msg.subject}}</h5> -->
                     <span class="mail-desc">{{msg.description}}</span> 
+                 
                     <span class="time">{{msg.date_added}}</span>
                 </div>
             
@@ -21,5 +19,3 @@
             {%endfor%}
         </div>
     </li>
-
-{%endblock content%}

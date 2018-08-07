@@ -130,5 +130,5 @@ class MessageForm(MyForm):
 
     class Meta:
         model  = Message
-        fields = ['description','subject']
+        fields = ['description']
        

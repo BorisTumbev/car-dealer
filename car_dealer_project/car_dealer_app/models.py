@@ -81,7 +81,6 @@ class Log(models.Model):
 class Message(models.Model):
     objects      = models.Manager()
 
-    subject     = models.CharField(max_length=50)
     description = models.TextField()
     date_added  = models.DateTimeField(auto_now_add=True)
     user        = models.ForeignKey(MyUser,on_delete = models.PROTECT)

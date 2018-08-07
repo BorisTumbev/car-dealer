@@ -94,7 +94,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <a class="nav-link text-center" href="javascript:void(0);"> <strong>See all e-Mails</strong> <i class="fa fa-angle-right"></i> </a>
+                                        <a class="nav-link text-center" href="{% url "create_message" %}"> <strong>Send Mesasge</strong> <i class="fa fa-angle-right"></i> </a>
                                     </li>
                                 </ul>
                             </div>
@@ -159,11 +159,11 @@
                         </li>
 
                                 <li><a href="{% url "log_list" %}"><i class="fa fa-suitcase"></i> System log</a></li>
-                                <li><a href="{% url "create_message" %}"><i class="fa fa-suitcase"></i> Messege your Employees</a></li>
-                        {%endif%}
+                                {%endif%}
+    
                                	<li><a href="{% url "make_list" %}"><i class="fa fa-table"></i> Make list</a></li>
                                 <li><a href="{% url "model_list" %}"><i class="fa fa-table"></i> Model list</a></li>
-                                <li><a href="{% url "list_message" %}"><i class="fa fa-table"></i> Messages from Admin</a></li>
+                                
                            
                         </li>
                         
@@ -222,8 +222,9 @@
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <script src="../static/js/jquery.min.js"></script>
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
     <!-- Bootstrap tether Core JavaScript -->
-   
+    
     <script src="../static/js/bootstrap.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
     <script src="../static/js/jquery.slimscroll.js"></script>
@@ -234,25 +235,26 @@
     <!--Custom JavaScript -->
     <script src="../static/js/custom.min.js"></script>
     <script src="../static/js/modal.js"></script>
-
-    <!-- <script>
-    $.ajax({
-    url: '{% url "list_message" %}',
-    success: function(data) {
-    $('#msg').html(data);
-    }
-    });
-    </script> -->
+    <!-- <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+    
 
   <script>
-     $('#btn').click(function() {
-    $.ajax({
-    url: '{% url "list_message" %}',
-    success: function(data) {
-    $('#msg').html(data);
-    }
-    });});
-    </script> 
+    $(document).ready(function(){
+        
+        $('#btn').click(function() {
+            
+            $.ajax({
+                url: '{% url "list_message" %}',
+               
+                success: function(data) {
+        
+                $('#msg').html(data);
+                
+                                        }
+                    })
+                                    })
+                                })
+</script> 
 
 </body>
 
