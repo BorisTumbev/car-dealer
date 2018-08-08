@@ -14,10 +14,6 @@
         <h1>Edit/Create Rental Vehicle </h1>
     {%endif%}
    
-{% comment %} {% if form.year.errors %}
-{# NOTE: must use id_NAME for jquery.validation to overwrite error label #}
-<label class='error' for='id_{{ form.year.name }}' generated="true">{{ field.errors|join:". " }}</label>
-{% endif %}  {% endcomment %}
 
     <form id="create" method="post" enctype='multipart/form-data'>
         {% csrf_token %}
@@ -31,17 +27,26 @@
 {%block search%}{%endblock search%}
 {%block pagination%}{%endblock pagination%}
 
-{% comment %} 
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+{% comment %} <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
 <script>
+        $.validator.addMethod('le', function(value, element, param) {
+            return this.optional(element) || value <= $(param).val();
+        }, 'Invalid value');
+      $.validator.addMethod('ge', function(value, element, param) {
+            return this.optional(element) || value >= $(param).val();
+        }, 'Invalid value');
+
+
+
         FORM_RULES = {
-            '{{ form.year.name }}': 'required'
+            '{{ form.year }}': {le:'2018'}
             
         };
         FORM_MESSAGES = {
-            '{{ form.year.name }}': 'This field is required'
+            '{{ form.year }}':{le: 'Must be less than or equal to field 2'}
         }; 
         $(document).ready(function() {
             $('#create').validate({
@@ -49,4 +54,4 @@
                 messages: FORM_MESSAGES
             });
         });
-</script>  {% endcomment %}
+</script>   {% endcomment %}

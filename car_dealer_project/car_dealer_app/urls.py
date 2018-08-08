@@ -1,8 +1,7 @@
 from django.urls import path
-from car_dealer_app import views, front_office_views 
+from car_dealer_app import views, front_office_views, utils 
 from .forms import *
 from .models import RentalVehicle, SellVehicle , MyUser
-from django.conf.urls import handler404
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
@@ -59,7 +58,7 @@ urlpatterns = [
 
     #template views
 
-    path('home',TemplateView.as_view(template_name='home_back_office.html'),    name='home_back'),
+    path('home',                 views.home,                                    name='home_back'),
     path('',    TemplateView.as_view(template_name='home_front_office.html'),   name='home_front'),
 
     #front office views
@@ -72,6 +71,3 @@ urlpatterns = [
     # path('rent/<id>',views.rent_obj, name='rent'),
 ]
 
-
-#custom 404 error
-handler404 = views.error_404

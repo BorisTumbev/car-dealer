@@ -1,5 +1,10 @@
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
+from django.shortcuts import render
+
+
+def error_404(request,exception):
+    return render(request, './errors/404.html')
 
 
 def pagination(request,object_list):

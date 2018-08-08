@@ -1,5 +1,5 @@
 from django.db import models
-from .utils import *
+from .utils import vehicle_types, engine_types,transmission_types,conditions,sell_status,users_roles
 from django.contrib.auth.models import AbstractUser
 import datetime
 from .validators import *

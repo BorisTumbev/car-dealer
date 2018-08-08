@@ -9,6 +9,10 @@ from .forms import *
 import datetime
 from datetime import timedelta
 
+@login_required
+def home(request):
+    return render(request, './home_back_office.html')
+
 
 @login_required
 def create_obj(request,i_form):
@@ -216,11 +220,6 @@ def user_list(request):
     return render(request,'./users_list.html',{'object_list':pagination(request,object_list)})
     
 
-def create_log(request,obj,action,user,date=datetime.datetime.now()):
-    
-    log = Log(user=user,action=action,object_type=obj,date=date)
-
-    log.save()
     
 @superuser_required
 def log_list(request):
@@ -240,25 +239,16 @@ def del_old_logs(request):
         return redirect('log_list')
     return render(request, './delete.html', {'object':object_list})
 
+
 @login_required
 def list_message(request):
-    obj_list = Message.objects.all()
+    obj_list = Message.objects.order_by('-date_added')
 
     return render(request,'./messages.html',{'obj_list':obj_list})
 
 
+def create_log(request,obj,action,user,date=datetime.datetime.now()):
+    
+    log = Log(user=user,action=action,object_type=obj,date=date)
 
-def error_404(request):
-    return render(request, './errors/404.html')
-
-
-
-
-# def obj_order(request,order):
-#     """
-#     view that orders vehicle object by price and type
-#     """
-
-#     vehicles = Vehicle.objects.order_by('-'+order)
-
-#     return render(request,'./list_vehicle.html',{'object_list':pagination(request,vehicles)})
+    log.save()
