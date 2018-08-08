@@ -256,6 +256,7 @@ def create_log(request,obj,action,user,date=datetime.datetime.now()):
 
     log.save()
 
+@login_required
 def edit_profile(request):
 
     obj = request.user
