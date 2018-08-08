@@ -34,6 +34,7 @@ urlpatterns = [
     path('edit_rental/<id>',views.edit_obj,     {'i_form':RentalVehicleForm,'model':RentalVehicle}, name='edit_rental'),
     path('edit_sell/<id>',  views.edit_obj,     {'i_form':SellVehicleForm,'model':SellVehicle},     name='edit_sell'),
     path('edit_user/<id>',  views.edit_obj,     {'i_form':CustomUserChangeForm,'model':MyUser},     name='edit_user'),
+    path('edit_profile',    views.edit_profile,                                                     name='edit_profile'),
 
 
     #urls for deleting objects

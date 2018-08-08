@@ -45,16 +45,19 @@ def edit_obj(request,id,i_form,model):
     view for editing objects
     """
     obj = get_object_or_404(model,id=id)
-
-    if i_form == CustomUserChangeForm:
-        form = i_form(request.POST or None,request.FILES or None, instance=obj)
-    else:
-        form = i_form(request.POST or None,request.FILES or None, instance=obj,user=request.user)
+    
+    form = i_form(request.POST or None,request.FILES or None, instance=obj,user=request.user)
 
     if form.is_valid():
         form.save()
         create_log(request,i_form.__name__[:-4],'edited',request.user)
-        return redirect('home_back')
+
+        if i_form == SellVehicleForm:
+            return redirect('sell_list')
+        elif i_form == RentalVehicleForm:
+            return redirect('rental_list')
+        else:
+            return redirect('users_list')
 
     return render(request, './create.html', {'form':form})
 
@@ -252,3 +255,16 @@ def create_log(request,obj,action,user,date=datetime.datetime.now()):
     log = Log(user=user,action=action,object_type=obj,date=date)
 
     log.save()
+
+def edit_profile(request):
+
+    obj = request.user
+   
+    form = CustomUserChangeForm(request.POST or None,request.FILES or None, instance=obj,user=request.user)
+
+    if form.is_valid():
+        form.save()
+        create_log(request,'profile','edited',request.user)
+        return redirect('home_back')
+
+    return render(request, './create.html', {'form':form})

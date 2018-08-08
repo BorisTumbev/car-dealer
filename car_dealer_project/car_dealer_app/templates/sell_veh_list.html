@@ -55,7 +55,7 @@
                                         </div>
                                     </td>
                                     {% comment %} <td><a href="{% url "delete_sell" vehicle.id %}">delete</a></td> {% endcomment %}
-                                        {%if vehicle.sell_status == 'S'%}
+                                        {%if vehicle.sell_status == 'S' or vehicle.sell_status == 'P'%}
                                             <td><a href="{% url "retrieve_vehicle" vehicle.id %}">retrieve</a></td>
                                         {%endif%}    
                                 {%endif%}

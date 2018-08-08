@@ -30,10 +30,17 @@ class CustomUserChangeForm(UserChangeForm):
     """
    
     def __init__(self, *args, **kwargs):
+
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
-       
+
         for fieldname in ['username','password']:
             self.fields[fieldname].help_text = None
+            
+        if not user.is_superuser:
+            del self.fields['role']
+            del self.fields['username']
+        
 
     def clean_password(self):
         return self.clean_password
@@ -42,6 +49,7 @@ class CustomUserChangeForm(UserChangeForm):
         model = MyUser
         fields = ('first_name','last_name','username','email','image','role')
         
+
 
 class MyForm(ModelForm):
     """
@@ -61,7 +69,7 @@ class MyForm(ModelForm):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
-
+        
     def save(self, *args, **kwargs):
         self.instance.user = self.user
         return super().save(*args, **kwargs)

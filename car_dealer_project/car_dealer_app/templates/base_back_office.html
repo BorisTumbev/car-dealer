@@ -96,7 +96,10 @@
                             <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src={{user.image.url}} height="30" alt="user" class="profile-pic" /></a>
                             <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                 <ul class="dropdown-user">
+                                    {%if user.is_superuser%}
                                     <li><a href="/admin"><i class="ti-user"></i>Django Admin Page</a></li>
+                                    {%endif%}
+                                    <li><a href="{% url 'edit_profile' %}"> Edit Profile</a></li>
                                     <li><a href="{% url 'logout' %}"><i class="fa fa-power-off"></i> Logout</a></li>
                                 </ul>
                             </div>
