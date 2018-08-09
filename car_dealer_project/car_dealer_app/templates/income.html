@@ -1,0 +1,41 @@
+{%extends "base_back_office.html" %} {%block content%}
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-title">
+                <h4>Income </h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>All time income</th>
+                          
+                    
+                        
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
+                        <tr>
+                            <td>{{ sum_all }}</td>
+
+                        </tr>
+                     
+                            
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /# column -->
+
+<!-- /# card -->
+</div>
+<!-- /# column -->
+</div>
+{%endblock content%}
+{%block pagination%}{%endblock pagination%}
+{%block search%}{%endblock search%}

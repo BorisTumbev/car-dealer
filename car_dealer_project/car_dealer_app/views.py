@@ -269,3 +269,14 @@ def edit_profile(request):
         return redirect('home_back')
 
     return render(request, './create.html', {'form':form})
+
+@superuser_required
+def income(request):
+    object_list = SellVehicle.objects.filter(sell_status='S')
+    sum_all_income = 0
+    for veh in object_list:
+        sum_all_income += veh.price
+  
+
+    return render(request, './income.html', {'sum_all':sum_all_income})
+    

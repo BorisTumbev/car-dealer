@@ -56,6 +56,7 @@ urlpatterns = [
     path('sell_vehicle/<id>',    views.sell_vehicle,                             name='sell_vehicle'),
     path('retrieve_vehicle/<id>',views.sell_vehicle,{'sell':False},              name='retrieve_vehicle'),
 
+    path('all_time_income',      views.income,                                   name='all_time_income'),
 
     #template views
 
