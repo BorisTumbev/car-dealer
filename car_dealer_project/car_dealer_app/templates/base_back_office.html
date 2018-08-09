@@ -238,10 +238,14 @@
         
                 $('#msg').html(data);
                 
-                                        }
-                    })
-                                    })
-                                })
+                                        },
+                error:function() {
+                    alert('error loading msgs')
+                
+                }
+            })
+        })
+    })
 </script> 
 
 </body>

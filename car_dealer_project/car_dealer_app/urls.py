@@ -1,7 +1,7 @@
 from django.urls import path
 from car_dealer_app import views, front_office_views, utils 
 from .forms import *
-from .models import RentalVehicle, SellVehicle , MyUser
+from .models import RentalVehicle, SellVehicle , MyUser, Log
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
@@ -21,12 +21,13 @@ urlpatterns = [
 
     path('rented_list',     views.rental_veh_list,                              name='rented_list'),
     path('rental_list',     views.rental_veh_list,{'rented':False},             name='rental_list'),
-    path('users_list',      views.user_list,                                    name='users_list'),
     path('list_message',    views.list_message,                                 name='list_message'),
     path('sell_list',       views.sell_veh_list,{'all_vehicles':True},          name='sell_list'),
     path('sold_list',       views.sell_veh_list,{'status':'S'},                 name='sold_list'),
     path('pending_list',    views.sell_veh_list,{'status':'P'},                 name='pending_list'),
-    path('log_list',        views.log_list,                                     name='log_list'),
+
+    path('users_list',      views.list_obj,{'model_type':MyUser,'templ_name':'./users_list.html'},name='users_list'),
+    path('log_list',        views.list_obj,{'model_type':Log,'templ_name':'./log_list.html'},     name='log_list'),
 
 
     #urls for editing objects

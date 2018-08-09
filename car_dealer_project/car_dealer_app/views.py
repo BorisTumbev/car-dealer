@@ -209,27 +209,22 @@ def create_user(request):
             form.save()
             create_log(request,"User",'created user',request.user)
             messages.success(request, 'user created')
-            return redirect('home_back')
+            return redirect('users_list')
     else:
         form = CustomUserCreationForm()
     return render(request, './create.html', {'form': form})
 
 
+
 @superuser_required
-def user_list(request):
+def list_obj(request,model_type,templ_name):
 
-    object_list = MyUser.objects.all()
-
-    return render(request,'./users_list.html',{'object_list':pagination(request,object_list)})
+   
+    object_list = model_type.objects.all()
     
+    return render(request,templ_name,{'object_list':pagination(request,object_list)})
 
-    
-@superuser_required
-def log_list(request):
 
-    object_list = Log.objects.all()
-
-    return render(request,'./log_list.html',{'object_list':pagination(request,object_list)})
 
 
 @superuser_required
