@@ -1,16 +1,8 @@
 from django.db import models
-from .utils import vehicle_types, engine_types,transmission_types,conditions,sell_status,users_roles
-from django.contrib.auth.models import AbstractUser
+from .utils import vehicle_types, engine_types,transmission_types,conditions,sell_status
 import datetime
 from .validators import *
-
-class MyUser(AbstractUser):
-      
-    role  = models.CharField(max_length=15,choices=users_roles)
-    image = models.ImageField(upload_to = 'images/',default='images/default_user_pic.jpg') 
-    
-    def __str__(self):
-        return self.email
+from users_app.models import MyUser
 
 class Make(models.Model):
     objects = models.Manager()

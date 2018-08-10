@@ -26,7 +26,7 @@ def create_obj(request,i_form):
         
         form.save()
 
-        create_log(request,i_form.__name__[:-4],'created',request.user)
+        create_log(request,i_form.__name__[:-4],'created',request.user,datetime.datetime.now())
 
         if i_form == SellVehicleForm:
             return redirect('sell_list')
@@ -50,7 +50,7 @@ def edit_obj(request,id,i_form,model):
 
     if form.is_valid():
         form.save()
-        create_log(request,i_form.__name__[:-4],'edited',request.user)
+        create_log(request,i_form.__name__[:-4],'edited',request.user,datetime.datetime.now())
 
         if i_form == SellVehicleForm:
             return redirect('sell_list')
@@ -70,7 +70,7 @@ def delete_obj(request,id,model):
     obj = get_object_or_404(model,id=id)
     if request.method=='POST':
         obj.delete()
-        create_log(request,model.__name__,'deleted',request.user)
+        create_log(request,model.__name__,'deleted',request.user,datetime.datetime.now())
         return redirect('home_back')
     return render(request, './delete.html', {'object':obj})
 
@@ -159,7 +159,7 @@ def sell_vehicle(request,id,sell=True):
         else:
             obj.sell_status= "S"
             obj.save()
-            create_log(request,'Vehicle','vehicle sold',request.user)  
+            create_log(request,'Vehicle','vehicle sold',request.user,datetime.datetime.now())  
             messages.success(request, 'Vehicle Sold')     
             return redirect('sold_list')
     else:
@@ -192,38 +192,20 @@ def rent_veh(request,id,rent=True):
         obj.rental_status = True
         obj.rented_at = datetime.datetime.now()
         form.save()
-        create_log(request,'Vehicle','vehicle rented',request.user)
+        create_log(request,'Vehicle','vehicle rented',request.user,datetime.datetime.now())
         return redirect('rented_list')
 
     return render(request, './create.html', {'form':form})
 
 
-@superuser_required
-def create_user(request):
-    """
-    view for creating user
-    """
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST or None,request.FILES or None)
-        if form.is_valid():
-            form.save()
-            create_log(request,"User",'created user',request.user)
-            messages.success(request, 'user created')
-            return redirect('users_list')
-    else:
-        form = CustomUserCreationForm()
-    return render(request, './create.html', {'form': form})
-
-
 
 @superuser_required
-def list_obj(request,model_type,templ_name):
+def log_list(request):
 
    
-    object_list = model_type.objects.all()
+    object_list = Log.objects.order_by('-date')
     
-    return render(request,templ_name,{'object_list':pagination(request,object_list)})
-
+    return render(request,'./log_list.html',{'object_list':pagination(request,object_list)})
 
 
 
@@ -245,25 +227,12 @@ def list_message(request):
     return render(request,'./messages.html',{'obj_list':obj_list})
 
 
-def create_log(request,obj,action,user,date=datetime.datetime.now()):
+def create_log(request,obj,action,user,date):
     
     log = Log(user=user,action=action,object_type=obj,date=date)
 
     log.save()
 
-@login_required
-def edit_profile(request):
-
-    obj = request.user
-   
-    form = CustomUserChangeForm(request.POST or None,request.FILES or None, instance=obj,user=request.user)
-
-    if form.is_valid():
-        form.save()
-        create_log(request,'profile','edited',request.user)
-        return redirect('home_back')
-
-    return render(request, './create.html', {'form':form})
 
 @superuser_required
 def income(request):

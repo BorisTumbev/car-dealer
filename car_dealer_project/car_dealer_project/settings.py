@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'car_dealer_app',
+    'users_app'
 ]
 
 MIDDLEWARE = [
@@ -128,4 +129,4 @@ EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_SSL=False
 
-AUTH_USER_MODEL = 'car_dealer_app.MyUser'
+AUTH_USER_MODEL = 'users_app.MyUser'

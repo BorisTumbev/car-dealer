@@ -15,7 +15,7 @@ urlpatterns = [
     path('create_sell',     views.create_obj,   {'i_form':SellVehicleForm},     name='create_sell'),
     path('create_message',  views.create_obj,   {'i_form':MessageForm},         name='create_message'),
 
-    path('create_user',     views.create_user,                                  name='create_user'),
+    
 
     #urls for listing objects
 
@@ -26,23 +26,20 @@ urlpatterns = [
     path('sold_list',       views.sell_veh_list,{'status':'S'},                 name='sold_list'),
     path('pending_list',    views.sell_veh_list,{'status':'P'},                 name='pending_list'),
 
-    path('users_list',      views.list_obj,{'model_type':MyUser,'templ_name':'./users_list.html'},name='users_list'),
-    path('log_list',        views.list_obj,{'model_type':Log,'templ_name':'./log_list.html'},     name='log_list'),
+    path('log_list',        views.log_list,     name='log_list'),
 
 
     #urls for editing objects
 
     path('edit_rental/<id>',views.edit_obj,     {'i_form':RentalVehicleForm,'model':RentalVehicle}, name='edit_rental'),
     path('edit_sell/<id>',  views.edit_obj,     {'i_form':SellVehicleForm,'model':SellVehicle},     name='edit_sell'),
-    path('edit_user/<id>',  views.edit_obj,     {'i_form':CustomUserChangeForm,'model':MyUser},     name='edit_user'),
-    path('edit_profile',    views.edit_profile,                                                     name='edit_profile'),
-
+    
 
     #urls for deleting objects
     
     path('delete_rental/<id>',views.delete_obj, {'model':RentalVehicle},        name='delete_rental'),
     path('delete_sell/<id>',  views.delete_obj, {'model':SellVehicle},          name='delete_sell'),
-    path('delete_user/<id>',  views.delete_obj, {'model':MyUser},               name='delete_user'),
+    
     path('delete_old_logs',   views.del_old_logs,                               name='delete_old_logs'),
 
     #urls for object deatails

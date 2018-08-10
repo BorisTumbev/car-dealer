@@ -29,12 +29,6 @@ def mail_send(msg):
 field choices for the models
 """
 
-users_roles =(
-    ('SRA','Sales_rent_agent'),
-    ('SA','Sales_agent'),
-    ('RA','Rental_agent')
-)
-
 conditions = (
     ('N','New'),
     ('U','Used')
