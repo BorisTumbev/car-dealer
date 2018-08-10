@@ -2,7 +2,9 @@ from django.forms import ModelForm
 from .models import RentalVehicle, Make, Model, SellVehicle,Message
 from django import forms
 from .widgets import RelatedFieldWidgetCanAdd, DateTimeInput
-
+from django.forms import widgets
+from .validators import curr_year_validator
+import datetime
 
 class MyForm(ModelForm):
     """
@@ -33,6 +35,7 @@ class RentalVehicleForm(MyForm):
     """
     form for rental vehicle model
     """
+    year = forms.IntegerField(min_value=1855,max_value=datetime.datetime.now().year)
 
     class Meta:
         model  = RentalVehicle
@@ -43,6 +46,8 @@ class RentForm(MyForm):
     """
     form for rental vehicle model
     """
+
+
     make = None
     model = None
 
@@ -58,6 +63,7 @@ class SellVehicleForm(MyForm):
     """
     form for sell vehicle model
     """
+    year = forms.IntegerField(min_value=1855,max_value=datetime.datetime.now().year)
     
     class Meta:
         model  = SellVehicle

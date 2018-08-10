@@ -26,31 +26,3 @@
 
 {%block search%}{%endblock search%}
 {%block pagination%}{%endblock pagination%}
-
-
-{% comment %} <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
-<script>
-        $.validator.addMethod('le', function(value, element, param) {
-            return this.optional(element) || value <= $(param).val();
-        }, 'Invalid value');
-      $.validator.addMethod('ge', function(value, element, param) {
-            return this.optional(element) || value >= $(param).val();
-        }, 'Invalid value');
-
-
-
-        FORM_RULES = {
-            '{{ form.year }}': {le:'2018'}
-            
-        };
-        FORM_MESSAGES = {
-            '{{ form.year }}':{le: 'Must be less than or equal to field 2'}
-        }; 
-        $(document).ready(function() {
-            $('#create').validate({
-                rules: FORM_RULES,
-                messages: FORM_MESSAGES
-            });
-        });
-</script>   {% endcomment %}

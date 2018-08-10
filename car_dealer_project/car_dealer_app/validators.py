@@ -7,7 +7,7 @@ def curr_year_validator(value):
     validator for Year property of a Vehicle
     """
     if value < 1855 or value > datetime.datetime.now().year:
-        raise ValidationError(('year {} is in the future!').format(value),params={'value': value},)
+        raise ValidationError('ensure value is between 1855 and current year!',params={'value': value},)
 
 def curr_day_validator(value):
     """
