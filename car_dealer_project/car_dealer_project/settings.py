@@ -111,7 +111,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'car_dealer_app/media')
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 #FIXTURE_DIRS = '/fixtures/'
 

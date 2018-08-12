@@ -34,7 +34,7 @@ class Vehicle(models.Model):
     condition    = models.CharField(max_length=1,choices=conditions)
     reg_number   = models.CharField(max_length=10,default='',unique=True)
     year         = models.PositiveIntegerField(validators=[curr_year_validator],null=True)
-    image        = models.ImageField(upload_to = 'images/',default='images/default_image.jpg')
+    image        = models.ImageField(upload_to = 'images/car_dealer_app/',default='images/car_dealer_app/default_image.jpg')
     created_at   = models.DateTimeField(auto_now_add=True)
     description  = models.TextField(default='')
 
