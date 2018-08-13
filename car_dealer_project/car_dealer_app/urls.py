@@ -70,4 +70,3 @@ urlpatterns = [
     # path('order_type',views.obj_order,{'order':'v_type'},name='order_type'),
     # path('rent/<id>',views.rent_obj, name='rent'),
 ]
-

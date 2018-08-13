@@ -4,6 +4,8 @@ from django.contrib.auth import views as auth_views
 
 
 
+
+
 urlpatterns = [
 
     path('create_user',     views.create_user,                      name='create_user'),
@@ -15,7 +17,6 @@ urlpatterns = [
 
     path('change_pass',     views.change_password,                  name = 'change_pass'),
 
-
-
-   
+    
 ]
+

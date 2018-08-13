@@ -1,4 +1,7 @@
+{%extends "base_front_office.html"%}
 
+
+{%block content%}
 <h2>Login</h2>
 
 {%if not user.is_superuser and user.is_authenticated%}
@@ -8,8 +11,12 @@ log in as Admin
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit">Login</button>
+  <input type="submit" value="Login" />
 </form>
 
 
-<li><a href="{% url 'password_reset' %}">reset password</a></li>
+<li class='reset' ><a href="{% url 'password_reset' %}">If u were stupid enough to forget ur password - click here</a></li>
+{%endblock content%}
+
+{%block search%}{%endblock search%}
+{%block pagination%}{%endblock pagination%}

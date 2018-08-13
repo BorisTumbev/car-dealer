@@ -64,7 +64,3 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         fields = '__all__'
 
 
-class CustomPasswordResetForm(PasswordResetForm):
-    class Meta:
-        model = MyUser
-        fields = '__all__'
