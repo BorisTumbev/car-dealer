@@ -1,0 +1,15 @@
+{%extends "base_back_office.html" %}
+
+{%block content%}
+
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+
+{%endblock content%}
+
+{%block search%}{%endblock search%}
+{%block pagination%}{%endblock pagination%}

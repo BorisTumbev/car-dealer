@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CustomUserCreationForm,CustomUserChangeForm
+from .forms import CustomUserCreationForm,CustomUserChangeForm, CustomPasswordChangeForm
 from django.contrib import messages
 from .models import MyUser
 from car_dealer_app.utils import pagination
 from django.contrib.auth.decorators import login_required
 from car_dealer_app.decorators import superuser_required
+from django.contrib.auth import update_session_auth_hash
+
 
 @superuser_required
 def create_user(request):
@@ -19,7 +21,7 @@ def create_user(request):
             return redirect('users_list')
     else:
         form = CustomUserCreationForm()
-    return render(request, './create.html', {'form': form})
+    return render(request, './edit_user.html', {'form': form})
 
 
 @superuser_required
@@ -53,7 +55,7 @@ def edit_profile(request,id=0,self_prof=True):
         else:
             return redirect('users_list')
 
-    return render(request, './create.html', {'form':form})
+    return render(request, './edit_user.html', {'form':form})
 
 @superuser_required
 def users_list(request):
@@ -62,3 +64,24 @@ def users_list(request):
     object_list = MyUser.objects.all()
     
     return render(request,'./users_list.html',{'object_list':pagination(request,object_list)})
+
+
+@login_required
+def change_password(request):
+
+    if request.method == 'POST':
+
+        form = CustomPasswordChangeForm(request.user, request.POST)
+
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user) 
+            messages.success(request, 'Your password was successfully updated!')
+
+            return redirect('home_back')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = CustomPasswordChangeForm(request.user)
+
+    return render(request, './change_pass.html', {'form': form})

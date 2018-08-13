@@ -70,6 +70,12 @@
 42. responsive
 
 */
+
+.pass_change {
+
+  font-size:40px
+}
+
 .errorlist {
   color: #cb2027;
   font-size: 30px

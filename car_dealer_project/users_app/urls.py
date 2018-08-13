@@ -11,4 +11,6 @@ urlpatterns = [
 
     path('users_list',      views.users_list,                       name='users_list'),
 
+    path('change_pass',     views.change_password,                  name = 'change_pass'),
+
 ]

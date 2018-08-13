@@ -1,0 +1,22 @@
+{%extends "base_back_office.html" %}
+
+{%block content%}
+
+  
+    <h1>Edit/Create Employee</h1>
+
+   
+
+    <form id="create" method="post" enctype='multipart/form-data'>
+        {% csrf_token %}
+        {{ form.as_p }} 
+
+        <input type="submit" value="Submit" />
+    </form>
+
+    <li class='pass_change'><a href="{% url 'change_pass' %}">change password</a></li>
+   
+{%endblock content%}
+
+{%block search%}{%endblock search%}
+{%block pagination%}{%endblock pagination%}

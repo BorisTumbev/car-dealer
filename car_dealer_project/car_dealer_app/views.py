@@ -70,6 +70,7 @@ def delete_obj(request,id,model):
     obj = get_object_or_404(model,id=id)
     if request.method=='POST':
         obj.delete()
+        messages.success(request, 'object deleted')
         create_log(request,model.__name__,'deleted',request.user,datetime.datetime.now())
         return redirect('home_back')
     return render(request, './delete.html', {'object':obj})
