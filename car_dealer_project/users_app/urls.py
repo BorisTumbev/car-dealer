@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
+
 
 
 urlpatterns = [
@@ -13,4 +15,7 @@ urlpatterns = [
 
     path('change_pass',     views.change_password,                  name = 'change_pass'),
 
+
+
+   
 ]

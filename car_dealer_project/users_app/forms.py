@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm, PasswordResetForm
 from .models import MyUser
 
 
@@ -59,6 +59,12 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         for fieldname in [ 'old_password', 'new_password1']:
             self.fields[fieldname].help_text = None
 
+    class Meta:
+        model = MyUser
+        fields = '__all__'
+
+
+class CustomPasswordResetForm(PasswordResetForm):
     class Meta:
         model = MyUser
         fields = '__all__'
