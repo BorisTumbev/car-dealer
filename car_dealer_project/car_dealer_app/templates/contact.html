@@ -1,0 +1,44 @@
+{%extends "base_front_office.html"%}
+
+{%block content%}
+    
+<div class="card" style="width: 40%;">
+    <div class="card-title">
+        <h4>Get in touch</h4>
+        <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDMOMIy-wVw6u2Hqis6SRbj0JhXe5UsiA&sensor=false">
+        </script>
+        <script type="text/javascript">
+            function initialize() {
+                var mapOptions = {
+                    center: new google.maps.LatLng(43.36667, 25.13333),
+                    zoom: 13,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var map = new google.maps.Map(document.getElementById("map-canvas"),
+                mapOptions);
+                
+                
+            }
+            google.maps.event.addDomListener(window, "load", initialize);
+        </script>
+    <div id="map-canvas" style="height: 300px; width: 600px;"></div> 
+        <div class = 'info'>
+            <p>
+                <span> GSM: </span>
+                <span>langa lunga 23</span>
+            </p>
+            <p>
+                <span> Email: </span>
+                <span> kolichki@cars.bg</span>
+            </p>
+        </div>
+    </div>
+</div>
+
+{%endblock content%}
+
+
+{%block search%}{%endblock search%}
+{%block pagination%}{%endblock pagination%}
+

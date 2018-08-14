@@ -60,6 +60,7 @@ urlpatterns = [
 
     path('home',                 views.home,                                    name='home_back'),
     path('',    TemplateView.as_view(template_name='home_front_office.html'),   name='home_front'),
+    path('contact',    TemplateView.as_view(template_name='contact.html'),   name='contact'),
 
     #front office views
 
