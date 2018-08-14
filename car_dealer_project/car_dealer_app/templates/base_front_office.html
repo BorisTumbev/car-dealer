@@ -1,4 +1,6 @@
 <!doctype html>
+{% load static %}
+
 <html class="no-js" lang="">
 <head>
     <meta charset="utf-8">
@@ -7,11 +9,11 @@
     <title>Car Dealer</title>
  
     
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-    <link rel="icon" type="image/png" sizes="16x16" href="../media/images/images.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../media/images/images.png">
 
 </head>
 <body>
@@ -22,7 +24,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="./"><img src="../media/images/images.png" alt="Logo"></a>
+                <a class="navbar-brand" href="./"><img src="../../media/images/images.png" alt="Logo"></a>
             </div>
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -94,9 +96,11 @@
         {%endblock content%}
      <!-- /#right-panel -->
     <!-- Right Panel -->
-    <script src="../static/js/jquery-2.1.4.min.js"></script>
-    <script src="../static/js/popper.min.js"></script>
-    <script src="../static/js/plugins.js"></script>
-    <script src="../static/js/main.js"></script>
+    <script src="{% static 'js/jquery-2.1.4.min.js'%}"></script>
+    <script src="{% static 'js/popper.min.js'%}"></script>
+    <script src="{% static 'js/plugins.js'%}"></script>
+    <script src="{% static 'js/main.js'%}"></script>
+    
+
 </body>
 </html>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 
 <head>
@@ -9,15 +10,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../media/images/images.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../media/images/images.png">
     <title>Car Dealer - ADMIN</title>
     <!-- Bootstrap Core CSS -->
-    <link href="../static/css/bootstrap_back.min.css" rel="stylesheet">
+    <link href="{% static 'css/bootstrap_back.min.css'%}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../static/css/modal.css">
-    <link href="../static/css/helper.css" rel="stylesheet">
-    <link href="../static/css/style_back.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/modal.css'%}">
+    <link href="{% static 'css/helper.css'%}" rel="stylesheet">
+    <link href="{% static 'css/style_back.css'%}" rel="stylesheet">
    
    
   
@@ -38,7 +39,7 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">
                         <!-- Logo icon -->
-                        <b><img src="../media/images/images.png" width='70' height="50" alt="homepage"  /></b>
+                        <b><img src="../../media/images/images.png" width='70' height="50" alt="homepage"  /></b>
                         <!--End Logo icon -->
                     </a>
                 </div>
@@ -209,19 +210,20 @@
     </div>
     <!-- End Wrapper -->
     <!-- All Jquery -->
-    <script src="../static/js/jquery.min.js"></script>
+    <script src="{% static 'js/jquery.min.js'%}"></script>
     <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="../static/js/jquery.slimscroll.js"></script>
+    <script src="{% static 'js/jquery.slimscroll.js'%}"></script>
     <!--Menu sidebar -->
-    <script src="../static/js/sidebarmenu.js"></script>
+    <script src="{% static 'js/sidebarmenu.js'%}"></script>
     <!--stickey kit -->
-    <script src="../static/js/sticky-kit.min.js"></script>
+    <script src="{% static 'js/sticky-kit.min.js'%}"></script>
     <!--Custom JavaScript -->
-    <script src="../static/js/custom.min.js"></script>
-    <script src="../static/js/modal.js"></script>
+    <script src="{% static 'js/custom.min.js'%}"></script>
+    <script src="{% static 'js/modal.js'%}"></script>
+    
     <!-- <script src="http://code.jquery.com/jquery-latest.js"></script> -->
     
 
