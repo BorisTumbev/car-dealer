@@ -19,7 +19,6 @@ urlpatterns = [
 
     path('change_pass',     views.change_password,                  name = 'change_pass'),
 
-    path('password_reset', auth_views.password_reset, {'password_reset_form':CustomPasswordResetFrom}, name='pass_reset'),
-    
+    path('password_reset', auth_views.PasswordResetView.as_view(form_class=CustomPasswordResetFrom), name='pass_reset'),
 ]
 

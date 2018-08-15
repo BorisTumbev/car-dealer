@@ -2,6 +2,11 @@
 
 
 {%block content%}
+
+{%if user.is_authenticated%}
+<li><p>you are already logged in, logout first</p></li>
+<li><a href="{% url 'logout' %}"><i class="fa fa-power-off"></i> Logout</a></li>
+{%else%}
 <h2>Login</h2>
 
 {%if not user.is_superuser and user.is_authenticated%}
@@ -16,6 +21,9 @@ log in as Admin
 
 
 <li class='reset' ><a href="{% url 'pass_reset' %}">If u were stupid enough to forget ur password - click here</a></li>
+
+{%endif%}
+
 {%endblock content%}
 
 {%block search%}{%endblock search%}
