@@ -11,7 +11,10 @@
 * Tags: html, themplate, Sufee-Admin
 --------------------------------------------------------- */
 
-
+.errorlist {
+  color: #cb2027;
+  font-size: 30px
+}
 
 .reset {
   font-size: 40px

@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm, PasswordResetForm
 from .models import MyUser
-
+from django.core.exceptions import ValidationError
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -18,6 +18,12 @@ class CustomUserCreationForm(UserCreationForm):
         for fieldname in ['username', 'password1', 'password2']:
             self.fields[fieldname].help_text = None
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if MyUser.objects.filter(email__iexact=email).exists():
+            raise ValidationError("There is user registered with the specified email address!")
+
+        return email
 
     class Meta(UserCreationForm.Meta):
         model = MyUser
@@ -64,3 +70,11 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         fields = '__all__'
 
 
+class CustomPasswordResetFrom(PasswordResetForm):
+    
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if not MyUser.objects.filter(email__iexact=email).exists():
+            raise ValidationError("There is no user registered with the specified email address!")
+
+        return email

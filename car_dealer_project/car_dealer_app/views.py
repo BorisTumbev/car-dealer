@@ -220,7 +220,8 @@ def del_old_logs(request,msg=False):
 
     if request.method=='POST':
         object_list.delete() 
-        return redirect('log_list')
+        messages.success(request, 'Logs deleted') 
+        return redirect('home_back')
     return render(request, './delete.html', {'object':object_list})
 
 
