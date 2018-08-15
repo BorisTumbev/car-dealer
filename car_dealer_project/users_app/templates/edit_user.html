@@ -13,8 +13,10 @@
 
         <input type="submit" value="Submit" />
     </form>
-
+    {%if  self_prof %}
     <li class='pass_change'><a href="{% url 'change_pass' %}">change password</a></li>
+    {%endif%}
+
    
 {%endblock content%}
 

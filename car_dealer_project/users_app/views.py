@@ -55,7 +55,7 @@ def edit_profile(request,id=0,self_prof=True):
         else:
             return redirect('users_list')
 
-    return render(request, './edit_user.html', {'form':form})
+    return render(request, './edit_user.html', {'form':form,'self_prof':self_prof})
 
 @superuser_required
 def users_list(request):
