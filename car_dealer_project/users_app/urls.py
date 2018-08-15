@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 import django.contrib.auth.urls
 from django.contrib.auth import views as auth_views
-from .forms import CustomPasswordResetFrom
+from .forms import CustomPasswordResetForm
 
 
 
@@ -19,6 +19,6 @@ urlpatterns = [
 
     path('change_pass',     views.change_password,                  name = 'change_pass'),
 
-    path('password_reset', auth_views.PasswordResetView.as_view(form_class=CustomPasswordResetFrom), name='pass_reset'),
+    path('password_reset', auth_views.PasswordResetView.as_view(form_class=CustomPasswordResetForm), name='pass_reset'),
 ]
 

@@ -70,7 +70,7 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         fields = '__all__'
 
 
-class CustomPasswordResetFrom(PasswordResetForm):
+class CustomPasswordResetForm(PasswordResetForm):
     
     def clean_email(self):
         email = self.cleaned_data['email']
