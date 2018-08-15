@@ -88,6 +88,11 @@
                                     <li>
                                         <a class="nav-link text-center" href="{% url "create_message" %}"> <strong>Send Mesasge</strong> <i class="fa fa-angle-right"></i> </a>
                                     </li> 
+                                    {%if user.is_superuser%}
+                                        <li>
+                                            <a class="nav-link text-center" href="{% url "delete_old_msgs" %}"> <strong>Delete Mesasges older than 2 mnths</strong> <i class="fa fa-angle-left"></i> </a>
+                                        </li> 
+                                    {%endif%}
                                 </ul>
                             </div>
                         </li>

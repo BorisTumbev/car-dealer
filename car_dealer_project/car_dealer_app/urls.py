@@ -42,6 +42,8 @@ urlpatterns = [
     
     path('delete_old_logs',   views.del_old_logs,                               name='delete_old_logs'),
 
+    path('delete_old_msgs',   views.del_old_logs,{'msg':True},                  name='delete_old_msgs'),
+
     #urls for object deatails
 
     path('detail_rental/<id>',views.veh_detail, {'car_type':RentalVehicle},     name='detail_rental'),

@@ -211,9 +211,12 @@ def log_list(request):
 
 
 @superuser_required
-def del_old_logs(request):
+def del_old_logs(request,msg=False):
 
-    object_list = Log.objects.filter(date__lt=(datetime.datetime.now()-timedelta(weeks=8)))
+    if msg:
+        object_list = Message.objects.filter(date_added__lt=(datetime.datetime.now()-timedelta(weeks=8)))
+    else:
+        object_list = Log.objects.filter(date__lt=(datetime.datetime.now()-timedelta(weeks=8)))
 
     if request.method=='POST':
         object_list.delete() 
