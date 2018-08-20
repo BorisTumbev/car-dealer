@@ -8,6 +8,9 @@ from .utils import pagination, mail_send
 from .forms import *
 import datetime
 from datetime import timedelta
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
+
+
 
 @login_required
 def home(request):
@@ -124,7 +127,7 @@ def rental_veh_list(request,rented=True):
     errorMsg="Empty Records"
     
     form = RentForm(request.POST or None,request.FILES or None,user=request.user)
-
+   
     query = request.GET.get('q')
     if query:
         vehicles = RentalVehicle.objects.filter(
@@ -142,6 +145,22 @@ def rental_veh_list(request,rented=True):
         vehicles = RentalVehicle.objects.filter(rental_status=False)
 
     return render(request,'./rental_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg,'form':form})
+
+@csrf_exempt
+def search_obj(request,model_type,template):
+    errorMsg="Empty Records"
+    if request.method == "POST":
+        search_text = request.POST['search_text']
+ 
+    
+    vehicles = model_type.objects.filter(
+                                        Q(reg_number__icontains=search_text) |
+                                        Q(make__name__icontains=search_text) |
+                                        Q(model__name__icontains=search_text)|
+                                        Q(v_type__icontains=search_text)
+                                        ).distinct()
+                                        
+    return render(request,template,{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
 
 
 

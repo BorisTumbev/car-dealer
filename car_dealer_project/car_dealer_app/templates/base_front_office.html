@@ -55,7 +55,9 @@
                             <form method='GET' action='' class="search-form">
                                 <input class="form-control mr-sm-2" type="text" name='q' placeholder="Search for cars..." value='{{request.GET.q}}' aria-label="Search">
                                  <input type="submit" value='Search' />
-                            </form>
+                            </form> 
+
+
                         {%endblock search%}
                     </div>
                 </div>
@@ -100,6 +102,7 @@
     <script src="{% static 'js/popper.min.js'%}"></script>
     <script src="{% static 'js/plugins.js'%}"></script>
     <script src="{% static 'js/main.js'%}"></script>
+    <script src="{% static 'js/search.js'%}"></script>
     
 
 </body>

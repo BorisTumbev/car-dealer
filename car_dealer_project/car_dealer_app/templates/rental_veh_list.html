@@ -1,4 +1,15 @@
-{%extends "base_back_office.html" %} {%block content%}
+{%extends "base_back_office.html" %}
+{%block search%}
+                    {% comment %} <form method='GET' action=''>
+                        <input type="text" name='q' placeholder='Search' value='{{request.GET.q}}' >
+                        <input type="submit" value='Search' />
+                    </form> {% endcomment %}
+                    {% csrf_token %}
+                    <input type="text" id="search_rent" name="search" placeholder='Search...'/>
+                    
+{%endblock search%}
+
+{%block content%}
 
 <div class="row">
     <div class="col-lg-6">
@@ -7,7 +18,7 @@
                 <h4>Vehicles </h4>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="table-responsive" id="search-results-rent">
                     {%if not object_list%} {{errorMsg}} {%else%}
                         <table class="table">
                             <thead>

@@ -14,7 +14,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('car_dealer_app.urls')),
     path('', include('users_app.urls')),
-    path('', include('django.contrib.auth.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 #urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

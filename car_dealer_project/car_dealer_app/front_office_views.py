@@ -42,7 +42,7 @@ def f_sell_veh_list(request):
                                         Q(v_type__icontains=query))
                                         ).distinct()
                                         
-        return render(request,'./veh_list_front.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
+        return render(request,'./search_f_sell.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
 
     vehicles = SellVehicle.objects.filter(sell_status='A')
    
