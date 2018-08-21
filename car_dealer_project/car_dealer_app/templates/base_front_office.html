@@ -1,7 +1,7 @@
 <!doctype html>
 {% load static %}
 
-<html class="no-js" lang="">
+<html>
 <head>
     <meta charset="utf-8">
 
@@ -98,7 +98,9 @@
         {%endblock content%}
      <!-- /#right-panel -->
     <!-- Right Panel -->
-    <script src="{% static 'js/jquery-2.1.4.min.js'%}"></script>
+    
+    {% comment %} <script src="{% static 'js/jquery-2.1.4.min.js'%}"></script> {% endcomment %}
+    <script src="{% static 'js/jquery.min.js'%}"></script>
     <script src="{% static 'js/popper.min.js'%}"></script>
     <script src="{% static 'js/plugins.js'%}"></script>
     <script src="{% static 'js/main.js'%}"></script>

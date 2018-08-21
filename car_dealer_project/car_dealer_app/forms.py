@@ -6,6 +6,8 @@ from django.forms import widgets
 from .validators import curr_year_validator
 import datetime
 
+
+
 class MyForm(ModelForm):
     """
     form for overriding __init__ and save method to get and save user from session
@@ -36,11 +38,11 @@ class RentalVehicleForm(MyForm):
     form for rental vehicle model
     """
     year = forms.IntegerField(min_value=1855,max_value=datetime.datetime.now().year)
-
+    
     class Meta:
         model  = RentalVehicle
         exclude = ('rented_at','created_at','user','rental_status','rented_until')
-
+    
 class RentForm(MyForm):
 
     """

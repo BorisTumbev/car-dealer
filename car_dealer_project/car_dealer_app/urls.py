@@ -69,8 +69,10 @@ urlpatterns = [
     path('f_rental_list',front_office_views.f_rent_veh_list,                    name='f_rental_list'),
     path('f_sell_list',  front_office_views.f_sell_veh_list,                    name='f_sell_list'),
 
-    path('search_rent',  views.search_obj,{'model_type':RentalVehicle,'template':'./search_rent.html'},           name='search_rent'),
-    path('search_sell',  views.search_obj,{'model_type':SellVehicle,'template':'./search_sell.html'},           name='search_sell'),
+    path('search_rent',  utils.search_obj,{'model_type':RentalVehicle,'template':'./search_rent.html'},           name='search_rent'),
+    path('search_sell',  utils.search_obj,{'model_type':SellVehicle,'template':'./search_sell.html'},           name='search_sell'),
+    path('search_rent_f',  utils.search_obj,{'model_type':RentalVehicle,'template':'./search_front.html'},           name='search_rent_f'),
+    path('search_sell_f',  utils.search_obj,{'model_type':SellVehicle,'template':'./search_front.html'},           name='search_sell_f'),
     
     # path('order_price',views.obj_order,{'order':'price'},name='order_price'),
     # path('order_type',views.obj_order,{'order':'v_type'},name='order_type'),

@@ -37,7 +37,7 @@ class Vehicle(models.Model):
     image        = models.ImageField(upload_to = 'images/car_dealer_app/',default='images/car_dealer_app/default_image.jpg')
     created_at   = models.DateTimeField(auto_now_add=True)
     description  = models.TextField(default='')
-
+    
     class Meta:
         abstract = True
 

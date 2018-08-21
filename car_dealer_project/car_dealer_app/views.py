@@ -97,20 +97,6 @@ def sell_veh_list(request,status='N',all_vehicles=False):
 
     errorMsg="Empty Records"
 
-    query = request.GET.get('q')
-    if query:
-        vehicles = SellVehicle.objects.filter(
-                                        Q(reg_number__icontains=query) |
-                                        Q(make__name__icontains=query) |
-                                        Q(model__name__icontains=query)|
-                                        Q(v_type__icontains=query)
-                                        ).distinct()
-                                        
-        return render(request,'./sell_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
-    
-    # if status=="A":
-    #     vehicles = SellVehicle.objects.filter(Q(sell_status="A")|Q(sell_status="P"),user=request.user)
-
     if status=="S":
         vehicles = SellVehicle.objects.filter(sell_status="S")
             
@@ -128,39 +114,12 @@ def rental_veh_list(request,rented=True):
     
     form = RentForm(request.POST or None,request.FILES or None,user=request.user)
    
-    query = request.GET.get('q')
-    if query:
-        vehicles = RentalVehicle.objects.filter(
-                                        Q(reg_number__icontains=query) |
-                                        Q(make__name__icontains=query) |
-                                        Q(model__name__icontains=query)|
-                                        Q(v_type__icontains=query)
-                                        ).distinct()
-                                        
-        return render(request,'./rental_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
-
     if rented:
         vehicles = RentalVehicle.objects.filter(rental_status=True)
     else:
         vehicles = RentalVehicle.objects.filter(rental_status=False)
 
     return render(request,'./rental_veh_list.html',{'object_list':pagination(request,vehicles),"errorMsg":errorMsg,'form':form})
-
-@csrf_exempt
-def search_obj(request,model_type,template):
-    errorMsg="Empty Records"
-    if request.method == "POST":
-        search_text = request.POST['search_text']
- 
-    
-    vehicles = model_type.objects.filter(
-                                        Q(reg_number__icontains=search_text) |
-                                        Q(make__name__icontains=search_text) |
-                                        Q(model__name__icontains=search_text)|
-                                        Q(v_type__icontains=search_text)
-                                        ).distinct()
-                                        
-    return render(request,template,{'object_list':pagination(request,vehicles),"errorMsg":errorMsg})
 
 
 

@@ -5,7 +5,7 @@
                         <input type="submit" value='Search' />
                     </form> {% endcomment %}
                     {% csrf_token %}
-                    <input type="text" id="search_rent" name="search" placeholder='Search...'/>
+                    <input onkeyup="search('/search_rent')" type="text" id="search" name="search" placeholder='Search...'/>
                     
 {%endblock search%}
 
@@ -18,7 +18,7 @@
                 <h4>Vehicles </h4>
             </div>
             <div class="card-body">
-                <div class="table-responsive" id="search-results-rent">
+                <div class="table-responsive" id="search-results">
                     {%if not object_list%} {{errorMsg}} {%else%}
                         <table class="table">
                             <thead>
